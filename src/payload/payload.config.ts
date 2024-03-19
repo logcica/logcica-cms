@@ -30,6 +30,12 @@ import Organisations from './collections/Organisations'
 import Activities from './collections/Activities'
 import Partnerships from './collections/Partnerships'
 import Places from './collections/Places'
+import Profiles from './collections/Profiles'
+import {
+  HTMLConverterFeature,
+  LexicalPluginToLexicalFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -66,12 +72,25 @@ export default buildConfig({
       },
     }),
   },
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Organisations, Partnerships, Activities, Places, Categories, Classifications, Media, Users],
+  collections: [
+    Organisations,
+    Partnerships,
+    Activities,
+    Places,
+    Profiles,
+    Categories,
+    Classifications,
+    Media,
+    Users,
+    Pages,
+    Posts,
+    Projects
+  ],
   /*
   globals: [Settings, Header, Footer],
   */

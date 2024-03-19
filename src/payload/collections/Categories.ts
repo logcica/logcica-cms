@@ -12,10 +12,17 @@ const Categories: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      admin: {
+        position: 'sidebar',
+        disableBulkEdit: true
+      }
     },
     {
       name: 'name',
       type: 'text',
+      admin: {
+        disableBulkEdit: true
+      }
     },
     {
       name: 'subject',
