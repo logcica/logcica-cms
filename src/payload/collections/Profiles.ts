@@ -2,6 +2,10 @@ import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/ri
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 
+type MyImage = {
+  url: string
+}
+
 const Profiles: CollectionConfig = {
   slug: 'profiles',
   admin: {
@@ -33,30 +37,6 @@ const Profiles: CollectionConfig = {
       },
     },
     /*
-    {
-      name: 'image',
-      type: 'text',
-      hooks: {
-        beforeValidate: [
-          ({ value, operation }) => {
-            console.log('before validate')
-            console.log(value)
-            if (value) {
-              return { url: value }
-            }
-            return
-          },
-        ],
-        afterRead: [
-          ({ value }) => {
-            console.log('after read')
-            console.log(value)
-            // Format date for display
-            return value?.url
-          },
-        ],
-      },
-    },
     {
       name: 'description', // required
       type: 'group', // required
