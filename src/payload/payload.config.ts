@@ -36,6 +36,7 @@ import {
   LexicalPluginToLexicalFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import Contacts from './collections/Contacts'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -83,6 +84,7 @@ export default buildConfig({
     Activities,
     Places,
     Profiles,
+    Contacts,
     Categories,
     Classifications,
     Media,

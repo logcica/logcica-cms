@@ -29,6 +29,29 @@ const Places: CollectionConfig = {
       hasMany: true,
     },
     {
+      name: 'addressText',
+      type: 'text',
+      admin: {
+        hidden: true, // hides the field from the admin panel
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            // ensures data is not stored in DB
+            delete siblingData['addressText']
+          }
+        ],
+        afterRead: [
+          ({ data }) => {  
+            const address = data.address
+            if(address)
+              return [address.street, address.locality, address.municipality].filter(n => n).join(', ')
+            return ''
+          }
+        ],
+      },
+    },
+    {
       name: 'address', // required
       type: 'group', // required
       interfaceName: 'Address', // optional
