@@ -5,7 +5,7 @@ const Organisations: CollectionConfig = {
   slug: 'organisations',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ["name", "mainImage", "place"]
+    defaultColumns: ["name", "place"]
   },
   access: {
     read: () => true,
