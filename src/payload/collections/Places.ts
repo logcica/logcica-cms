@@ -12,6 +12,9 @@ const Places: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      admin: {
+        position: 'sidebar'
+      }
     },
     {
       name: 'name',
@@ -52,6 +55,26 @@ const Places: CollectionConfig = {
       },
     },
     {
+      label: ({ data }) => data?.title || 'Untitled',
+      type: 'collapsible', // required
+      admin: {
+        position: 'sidebar'
+      },
+      fields: [
+        // required
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'someTextField',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+    {
       name: 'address', // required
       type: 'group', // required
       interfaceName: 'Address', // optional
@@ -61,16 +84,21 @@ const Places: CollectionConfig = {
           type: 'text',
         },
         {
-          name: 'locality',
-          type: 'text',
-        },
-        {
-          name: 'postalCode',
-          type: 'text',
-        },
-        {
-          name: 'country',
-          type: 'text',
+          type: 'row',
+          fields: [
+            {
+              name: 'locality',
+              type: 'text',
+            },
+            {
+              name: 'postalCode',
+              type: 'text',
+            },
+            {
+              name: 'country',
+              type: 'text',
+            }
+          ]
         }
       ],
     },
@@ -79,6 +107,9 @@ const Places: CollectionConfig = {
       type: 'relationship',
       relationTo: 'categories',
       hasMany: true,
+      admin: {
+        position: 'sidebar'
+      }
     },
   ],
 }

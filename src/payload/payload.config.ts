@@ -37,6 +37,8 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import Contacts from './collections/Contacts'
+import Products from './collections/Products'
+import { relationshipsAsObjectID } from './plugins/relationshipObjectIds'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -87,6 +89,7 @@ export default buildConfig({
     Contacts,
     Categories,
     Classifications,
+    Products,
     Media,
     Users,
     Pages,
@@ -127,6 +130,7 @@ export default buildConfig({
       uploadsCollection: 'media',
     }),
     */
+    relationshipsAsObjectID(),
     payloadCloud(),
     cloudStorage({
       collections: {
