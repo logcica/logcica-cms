@@ -1,8 +1,6 @@
-import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload/types'
-import CustomLinkCell from '../fields/CustomLinkCell'
-import { ownerPartyField, producerPartyField } from './CustomFields'
-import categoriesField from './CategoriesFields'
+import { ownerPartyField, producerPartyField } from '../fields/CustomFields'
+import categoriesField from '../fields/CategoriesFields'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -19,7 +17,26 @@ const Products: CollectionConfig = {
     },
     ownerPartyField,
     producerPartyField, 
-    categoriesField
+    categoriesField,
+    {
+      name: 'allergenList',
+      type: 'array',
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'containmentLevelKey',
+              type: 'text',
+            },
+            {
+              name: 'allergenKey',
+              type: 'text',
+            }
+          ]
+        }
+      ]
+    }
   ],
 }
 

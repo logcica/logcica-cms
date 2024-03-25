@@ -39,6 +39,8 @@ import {
 import Contacts from './collections/Contacts'
 import Products from './collections/Products'
 import { relationshipsAsObjectID } from './plugins/relationshipObjectIds'
+import CodeLists from './collections/CodeLists'
+import Codes from './collections/Codes'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -90,6 +92,8 @@ export default buildConfig({
     Categories,
     Classifications,
     Products,
+    Codes,
+    CodeLists,
     Media,
     Users,
     Pages,
