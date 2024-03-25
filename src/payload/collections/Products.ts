@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { ownerPartyField, producerPartyField } from '../fields/CustomFields'
 import categoriesField from '../fields/CategoriesFields'
+import { useEffect, useState } from 'react'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -21,18 +22,37 @@ const Products: CollectionConfig = {
     {
       name: 'allergenList',
       type: 'array',
+      admin: {
+        components: {
+          RowLabel: ({ data, index, path }) => {
+            const [label, setLabel] = useState(`Allergène ${String(index).padStart(2, '0')}`)
+      
+            useEffect(() => {
+              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.allergen}`
+              console.log(url)
+              fetch(url).then(async (res) => {
+                setLabel((await res.json()).name)
+              })
+            }, [data.name])
+      
+            return label
+          },
+        },
+      },
       fields: [
         {
           type: 'row',
           fields: [
             {
-              name: 'containmentLevelKey',
-              type: 'text',
+              name: 'containmentLevel',
+              type: 'relationship',
+              relationTo: 'codes',
             },
             {
-              name: 'allergenKey',
-              type: 'text',
-            }
+              name: 'allergen',
+              type: 'relationship',
+              relationTo: 'codes',
+            },
           ]
         }
       ]
