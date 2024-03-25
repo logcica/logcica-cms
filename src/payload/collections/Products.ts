@@ -2,6 +2,7 @@ import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/ri
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { ownerPartyField, producerPartyField } from './CustomFields'
+import categoriesField from './CategoriesFields'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -17,7 +18,8 @@ const Products: CollectionConfig = {
       type: 'text',
     },
     ownerPartyField,
-    producerPartyField
+    producerPartyField, 
+    categoriesField
   ],
 }
 
