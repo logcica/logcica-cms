@@ -22,11 +22,19 @@ export interface Config {
     organisations: Organisation;
     partnerships: Partnership;
     activities: Activity;
+    counters: Counter;
     places: Place;
     profiles: Profile;
     contacts: Contact;
     categories: Category;
     classifications: Classification;
+    products: Product;
+    sessions: Session;
+    week_availabilities: WeekAvailability;
+    season_availabilities: SeasonAvailability;
+    availabilities: Availability;
+    codes: Code;
+    code_lists: CodeList;
     media: Media;
     users: User;
     pages: Page;
@@ -65,6 +73,9 @@ export interface Place {
    */
   center?: [number, number] | null;
   within?: (string | Place)[] | null;
+  addressText?: string | null;
+  title: string;
+  someTextField: string;
   address?: Address;
   categories?: (string | Category)[] | null;
   updatedAt: string;
@@ -141,6 +152,58 @@ export interface Activity {
 export interface Party {
   organisation?: (string | null) | Organisation;
   partnership?: (string | null) | Partnership;
+  activity?: (string | null) | Activity;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "counters".
+ */
+export interface Counter {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  place?: (string | null) | Place;
+  availabilities?: (string | Availability)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "availabilities".
+ */
+export interface Availability {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  season?: (string | null) | SeasonAvailability;
+  week?: (string | null) | WeekAvailability;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "season_availabilities".
+ */
+export interface SeasonAvailability {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  year?: {
+    months?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12')[] | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "week_availabilities".
+ */
+export interface WeekAvailability {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -161,6 +224,7 @@ export interface Profile {
  */
 export interface Contact {
   id: string;
+  type?: ('person' | 'organisation') | null;
   givenName?: string | null;
   familyName?: string | null;
   name?: string | null;
@@ -168,7 +232,62 @@ export interface Contact {
   slug?: string | null;
   editSlug?: boolean | null;
   holder?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  name?: string | null;
+  owner?: Party;
+  producer?: Party;
   categories?: (string | Category)[] | null;
+  allergenList?:
+    | {
+        containmentLevel?: (string | null) | Code;
+        allergen?: (string | null) | Code;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "codes".
+ */
+export interface Code {
+  id: string;
+  name?: string | null;
+  code?: string | null;
+  key?: string | null;
+  list?: (string | null) | CodeList;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "code_lists".
+ */
+export interface CodeList {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  place?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }

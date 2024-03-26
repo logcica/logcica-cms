@@ -41,6 +41,11 @@ import Products from './collections/Products'
 import { relationshipsAsObjectID } from './plugins/relationshipObjectIds'
 import CodeLists from './collections/CodeLists'
 import Codes from './collections/Codes'
+import Sessions from './collections/Sessions'
+import Counters from './collections/Counters'
+import Availabilities from './collections/Availabilities'
+import WeekAvailabilities from './collections/WeekAvailabilities'
+import SeasonAvailabilities from './collections/SeasonAvailabilities'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -86,12 +91,17 @@ export default buildConfig({
     Organisations,
     Partnerships,
     Activities,
+    Counters,
     Places,
     Profiles,
     Contacts,
     Categories,
     Classifications,
     Products,
+    Sessions,
+    WeekAvailabilities,
+    SeasonAvailabilities,
+    Availabilities,
     Codes,
     CodeLists,
     Media,
