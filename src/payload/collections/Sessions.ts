@@ -1,16 +1,19 @@
 import type { CollectionConfig } from 'payload/types'
 import managerPartyField from '../fields/managerPartyField'
+import categoriesField from '../fields/CategoriesFields'
+import { SlugField } from '@nouance/payload-better-fields-plugin'
+import ObjectID from 'bson-objectid'
+import { createBreadcrumbsField, createParentField } from "@payloadcms/plugin-nested-docs/fields";
+import { slugField } from '../fields/slug'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ["name", "place"]
+    useAsTitle: 'name'
   },
   access: {
     read: () => true,
   },
-  
   fields: [
     {
       name: 'key',
@@ -21,12 +24,69 @@ const Sessions: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'parent',
+      type: 'relationship',
+      relationTo: 'sessions',
+      hasMany: false,
+    },
+    {
+      name: 'timeRange',
+      type: 'group',
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'from',
+              type: 'date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayAndTime'
+                }
+              }
+            },
+            {
+              name: 'to',
+              type: 'date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayAndTime'
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       name: 'place',
       type: 'relationship',
       relationTo: 'places',
       hasMany: false,
     },
-    managerPartyField
+    managerPartyField,
+    {
+      name: 'subject',
+      type: 'group',
+      fields: [
+        {
+          name: 'counter',
+          type: 'relationship',
+          relationTo: 'counters',
+          hasMany: false
+        }
+      ]
+    },
+    {
+      name: 'profiles',
+      type: 'relationship',
+      relationTo: 'profiles',
+      hasMany: true,
+      admin: {
+        position: 'sidebar'
+      }
+    },
+    categoriesField,
   ],
 }
 

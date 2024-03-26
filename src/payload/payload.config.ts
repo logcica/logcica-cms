@@ -131,10 +131,12 @@ export default buildConfig({
     },
   ],
   plugins: [
+    /*
     nestedDocs({
       collections: ['sessions'],
+      generateLabel: (_, doc: any) => doc.title,
+      generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
-    /*
     redirects({
       collections: ['pages', 'posts'],
     }),
