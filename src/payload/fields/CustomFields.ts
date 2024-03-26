@@ -1,6 +1,6 @@
 import { Field, RelationshipField } from 'payload/types'
 
-const partyCommonFields : Field[] = [
+export const partyCommonFields : Field[] = [
 
   {
     type: 'row',
@@ -26,19 +26,5 @@ const partyCommonFields : Field[] = [
     ],
   },
 ]
-
-export const producerPartyField: Field = {
-  name: 'producer',
-  type: 'group', // required
-  interfaceName: 'Party', // optional
-  fields: partyCommonFields
-}
-
-export const ownerPartyField: Field = {
-  name: 'owner',
-  type: 'group', // required
-  interfaceName: 'Party', // optional
-  fields: partyCommonFields
-}
 
 

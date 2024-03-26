@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import CustomImageCell from '../fields/CustomImageCell'
+import managerPartyField from '../fields/managerPartyField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -25,7 +25,8 @@ const Sessions: CollectionConfig = {
       type: 'relationship',
       relationTo: 'places',
       hasMany: false,
-    }
+    },
+    managerPartyField
   ],
 }
 

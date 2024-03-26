@@ -189,7 +189,7 @@ export interface SeasonAvailability {
   key?: string | null;
   name?: string | null;
   year?: {
-    months?: ('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12')[] | null;
+    months?: ('Jan' | 'Feb' | 'Mar' | 'Apr' | 'May' | 'Jun' | 'Jul' | 'Aug' | 'Sep' | 'Oct' | 'Nov' | 'Dec')[] | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -202,6 +202,7 @@ export interface WeekAvailability {
   id: string;
   key?: string | null;
   name?: string | null;
+  days?: ('Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su')[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -288,6 +289,16 @@ export interface Session {
   key?: string | null;
   name?: string | null;
   place?: (string | null) | Place;
+  manager?: Party;
+  parent?: (string | null) | Session;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Session;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }

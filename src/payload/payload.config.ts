@@ -131,12 +131,12 @@ export default buildConfig({
     },
   ],
   plugins: [
+    nestedDocs({
+      collections: ['sessions'],
+    }),
     /*
     redirects({
       collections: ['pages', 'posts'],
-    }),
-    nestedDocs({
-      collections: ['categories'],
     }),
     seo({
       collections: ['pages', 'posts', 'projects'],

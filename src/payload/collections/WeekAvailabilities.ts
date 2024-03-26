@@ -18,6 +18,44 @@ const WeekAvailabilities: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+    },
+    {
+      name: 'days',
+      type: 'select',
+      hasMany: true,
+      admin: {
+        isClearable: true,
+      },
+      options: [
+        {
+          label: 'Lu',
+          value: 'Mo',
+        },
+        {
+          label: 'Ma',
+          value: 'Tu',
+        },
+        {
+          label: 'Me',
+          value: 'We',
+        },
+        {
+          label: 'Je',
+          value: 'Th',
+        },
+        {
+          label: 'Ve',
+          value: 'Fr',
+        },
+        {
+          label: 'Sa',
+          value: 'Sa',
+        },
+        {
+          label: 'Di',
+          value: 'Su',
+        },
+      ],
     }
   ],
 }

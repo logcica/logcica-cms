@@ -1,7 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
-import { ownerPartyField, producerPartyField } from '../fields/CustomFields'
 import categoriesField from '../fields/CategoriesFields'
 import { useEffect, useState } from 'react'
+import ownerPartyField from '../fields/ownerPartyField'
+import producerPartyField from '../fields/producerPartyField'
 
 const Products: CollectionConfig = {
   slug: 'products',
