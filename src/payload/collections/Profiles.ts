@@ -10,6 +10,7 @@ const Profiles: CollectionConfig = {
   slug: 'profiles',
   admin: {
     useAsTitle: 'name',
+    group: 'Structure'
   },
   access: {
     read: () => true,

@@ -23,6 +23,7 @@ export const Posts: CollectionConfig = {
         `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/posts/${doc?.slug}`,
       )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
     },
+    group: 'Admin'
   },
   hooks: {
     beforeChange: [populatePublishedAt],

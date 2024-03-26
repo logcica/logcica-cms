@@ -9,7 +9,8 @@ import { slugField } from '../fields/slug'
 const Sessions: CollectionConfig = {
   slug: 'sessions',
   admin: {
-    useAsTitle: 'name'
+    useAsTitle: 'name',
+    group: 'Gestion'
   },
   access: {
     read: () => true,

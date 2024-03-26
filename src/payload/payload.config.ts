@@ -67,6 +67,7 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below and the import `BeforeDashboard` statement on line 15.
       beforeDashboard: [BeforeDashboard],
     },
+    dateFormat: 'dd MMM yyyy hh:mm',
     webpack: config => ({
       ...config,
       resolve: {
@@ -94,14 +95,14 @@ export default buildConfig({
     Counters,
     Places,
     Profiles,
-    Contacts,
-    Categories,
-    Classifications,
     Products,
     Sessions,
+    Contacts,
+    Availabilities,
     WeekAvailabilities,
     SeasonAvailabilities,
-    Availabilities,
+    Categories,
+    Classifications,
     Codes,
     CodeLists,
     Media,

@@ -3,9 +3,20 @@ import CustomImageCell from '../fields/CustomImageCell'
 
 const Availabilities: CollectionConfig = {
   slug: 'availabilities',
+  labels: {
+    singular: {
+      en: 'Availability',
+      fr: 'Disponibilité',
+    },
+    plural: {
+      en: 'Availabilities',
+      fr: 'Disponibilités',
+    },
+  },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ["name", "place"]
+    defaultColumns: ["name", "place"],
+    group: 'Gestion'
   },
   access: {
     read: () => true,

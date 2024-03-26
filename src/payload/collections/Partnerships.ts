@@ -14,6 +14,7 @@ const Partnerships: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
+    group: 'Structure'
   },
   access: {
     read: () => true,

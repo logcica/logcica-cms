@@ -3,8 +3,19 @@ import CustomImageCell from '../fields/CustomImageCell'
 
 const WeekAvailabilities: CollectionConfig = {
   slug: 'week_availabilities',
+  labels: {
+    singular: {
+      en: 'Weekly availability',
+      fr: 'Disponibilité hebdo.',
+    },
+    plural: {
+      en: 'Weekly availabilities',
+      fr: 'Disponibilités hebdo.',
+    },
+  },
   admin: {
-    useAsTitle: 'name'
+    useAsTitle: 'name',
+    group: 'Gestion'
   },
   access: {
     read: () => true,

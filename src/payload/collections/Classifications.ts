@@ -4,6 +4,7 @@ const Classifications: CollectionConfig = {
   slug: 'classifications',
   admin: {
     useAsTitle: 'name',
+    group: 'Configuration'
   },
   access: {
     read: () => true,

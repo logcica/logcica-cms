@@ -22,6 +22,7 @@ export const Pages: CollectionConfig = {
         `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/${doc.slug !== 'home' ? doc.slug : ''}`,
       )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
     },
+    group: 'Admin'
   },
   hooks: {
     beforeChange: [populatePublishedAt],

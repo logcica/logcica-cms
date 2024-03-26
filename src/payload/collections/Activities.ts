@@ -2,8 +2,19 @@ import type { CollectionConfig } from 'payload/types'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
+  labels: {
+    singular: {
+      en: 'Activity',
+      fr: 'Activité',
+    },
+    plural: {
+      en: 'Activities',
+      fr: 'Activités',
+    },
+  },
   admin: {
     useAsTitle: 'name',
+    group: 'Structure'
   },
   access: {
     read: () => true,

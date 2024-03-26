@@ -3,9 +3,20 @@ import CustomImageCell from '../fields/CustomImageCell'
 
 const Counters: CollectionConfig = {
   slug: 'counters',
+  labels: {
+    singular: {
+      en: 'Counter',
+      fr: 'Comptoir',
+    },
+    plural: {
+      en: 'Counters',
+      fr: 'Comptoirs',
+    },
+  },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ["name", "place"]
+    defaultColumns: ["name", "place"],
+    group: 'Structure'
   },
   access: {
     read: () => true,

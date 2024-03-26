@@ -4,6 +4,9 @@ import type { CollectionConfig } from 'payload/types'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  admin: {
+    group: 'Gestion'
+  },
   upload: {
     staticDir: path.resolve(__dirname, '../../../media'),
   },

@@ -4,7 +4,18 @@ import CustomImageCell from '../fields/CustomImageCell'
 const SeasonAvailabilities: CollectionConfig = {
   slug: 'season_availabilities',
   admin: {
-    useAsTitle: 'name'
+    useAsTitle: 'name',
+    group: 'Gestion'
+  },
+  labels: {
+    singular: {
+      en: 'Seasonal availability',
+      fr: 'Disponibilité saisonnière',
+    },
+    plural: {
+      en: 'Seasonal availabilities',
+      fr: 'Disponibilités saisonnières',
+    },
   },
   access: {
     read: () => true,

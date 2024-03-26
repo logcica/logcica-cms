@@ -2,11 +2,22 @@ import type { CollectionConfig } from 'payload/types'
 
 const Places: CollectionConfig = {
   slug: 'places',
+  labels: {
+    singular: {
+      en: 'Place',
+      fr: 'Emplacement',
+    },
+    plural: {
+      en: 'Places',
+      fr: 'Emplacements',
+    },
+  },
   admin: {
     useAsTitle: 'name',
+    group: 'Structure'
   },
   access: {
-    read: () => true,
+    read: () => true
   },
   fields: [
     {

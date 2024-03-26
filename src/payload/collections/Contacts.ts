@@ -7,6 +7,7 @@ const Contacts: CollectionConfig = {
   slug: 'contacts',
   admin: {
     useAsTitle: 'name',
+    group: 'Gestion'
   },
   access: {
     read: () => true,

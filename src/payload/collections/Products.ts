@@ -6,8 +6,19 @@ import producerPartyField from '../fields/producerPartyField'
 
 const Products: CollectionConfig = {
   slug: 'products',
+  labels: {
+    singular: {
+      en: 'Product',
+      fr: 'Produit',
+    },
+    plural: {
+      en: 'Products',
+      fr: 'Produits',
+    },
+  },
   admin: {
     useAsTitle: 'name',
+    group: 'Gestion'
   },
   access: {
     read: () => true,
