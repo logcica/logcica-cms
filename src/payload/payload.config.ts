@@ -131,6 +131,25 @@ export default buildConfig({
       handler: seed,
     },
   ],
+  i18n: {
+    fallbackLng: 'en', // default
+    debug: false, // default
+    resources: {
+      en: {
+        custom: {
+          // key1: 'Translation with {{variable}}',
+        },
+        general: {
+          noLabel: "",
+        },
+      },
+      fr: {
+        general: {
+          noLabel: "",
+        },
+      },
+    },
+  },
   plugins: [
     /*
     nestedDocs({
