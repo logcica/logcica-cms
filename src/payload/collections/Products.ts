@@ -5,6 +5,22 @@ import ownerPartyField from '../fields/ownerPartyField'
 import producerPartyField from '../fields/producerPartyField'
 import quantityField from '../fields/quantityField'
 
+import { createHeadlessEditor } from '@lexical/headless' // <= make sure this package is installed
+import {
+  getEnabledNodes,
+  sanitizeEditorConfig,
+  defaultEditorConfig
+} from '@payloadcms/richtext-lexical'
+
+import {
+  lexicalEditor, BoldTextFeature,
+} from '@payloadcms/richtext-lexical'
+
+import { $convertToMarkdownString, $convertFromMarkdownString } from '@lexical/markdown'
+
+const yourEditorConfig = defaultEditorConfig; // <= your editor config here
+yourEditorConfig.features.push(BoldTextFeature())
+
 const Products: CollectionConfig = {
   slug: 'products',
   labels: {
@@ -29,6 +45,63 @@ const Products: CollectionConfig = {
       name: 'name',
       type: 'text',
     },
+    {
+      type: 'group',
+      name: 'ingredientStatement',
+      fields: [
+        {
+          name: 'short',
+          type: 'richText',
+          editor: lexicalEditor({
+            features: [BoldTextFeature()]
+          }),
+          hooks: {
+            beforeChange: [
+              async ({value}) => {
+    
+                if(!value)
+                  return undefined
+    
+                const yourSanitizedEditorConfig = sanitizeEditorConfig(yourEditorConfig)
+    
+                const headlessEditor = createHeadlessEditor({
+                  nodes: getEnabledNodes({
+                    editorConfig: sanitizeEditorConfig(defaultEditorConfig),
+                  }),
+                })
+    
+                headlessEditor.setEditorState(headlessEditor.parseEditorState(value)) // This should commit the editor state immediately
+    
+                let markdown: string
+                headlessEditor.getEditorState().read(() => {
+                  markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
+                })
+    
+                return { markdown: markdown}
+              }
+            ],
+            afterRead: [
+                async ({value}) => {
+    
+                  if(!value || !value.markdown)
+                    return undefined
+    
+                  const yourSanitizedEditorConfig = sanitizeEditorConfig(yourEditorConfig)
+    
+                  const headlessEditor = createHeadlessEditor({
+                    nodes: getEnabledNodes({
+                      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
+                    }),
+                  })
+                  
+                  headlessEditor.update(() => { $convertFromMarkdownString(value?.markdown, yourSanitizedEditorConfig.features.markdownTransformers) }, { discrete: true })
+                  return headlessEditor.getEditorState().toJSON()
+                }
+            ]
+          }
+        },
+      ]
+    },
     ownerPartyField,
     producerPartyField,
     {
@@ -48,13 +121,14 @@ const Products: CollectionConfig = {
         mimeType: { contains: 'image' },
       },
     },
+    quantityField({name: 'netWeight'}),
     {
         name: 'dimensions',
         type: 'group',
         fields: [
           {
             type: 'collapsible',
-            label: (data) => [data.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(" x "),
+            label: (data) => [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(" x "),
             fields: [
               quantityField({name: 'length'}),
               quantityField({name: 'width'}),
