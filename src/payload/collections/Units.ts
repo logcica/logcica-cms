@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload/types'
 
-const Codes: CollectionConfig = {
-  slug: 'codes',
+const Units: CollectionConfig = {
+  slug: 'units',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'id',
     group: 'Configuration'
   },
   access: {
@@ -19,20 +19,14 @@ const Codes: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'code',
+      name: 'symbol',
       type: 'text',
     },
     {
       name: 'key',
       type: 'text',
-    },
-    {
-      name: 'list',
-      type: 'relationship',
-      relationTo: 'code_lists',
-      hasMany: false,
-    },
+    }
   ],
 }
 
-export default Codes
+export default Units

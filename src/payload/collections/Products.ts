@@ -3,6 +3,7 @@ import categoriesField from '../fields/CategoriesFields'
 import { useEffect, useState } from 'react'
 import ownerPartyField from '../fields/ownerPartyField'
 import producerPartyField from '../fields/producerPartyField'
+import quantityField from '../fields/quantityField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -18,7 +19,7 @@ const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Gestion'
+    group: 'Gestion',
   },
   access: {
     read: () => true,
@@ -29,7 +30,40 @@ const Products: CollectionConfig = {
       type: 'text',
     },
     ownerPartyField,
-    producerPartyField, 
+    producerPartyField,
+    {
+      name: 'mainImage', // required
+      type: 'upload', // required
+      relationTo: 'media', // required
+      filterOptions: {
+        mimeType: { contains: 'image' },
+      },
+    },
+    {
+      name: 'images', // required
+      type: 'relationship', // required
+      hasMany: true,
+      relationTo: 'media', // required
+      filterOptions: {
+        mimeType: { contains: 'image' },
+      },
+    },
+    {
+        name: 'dimensions',
+        type: 'group',
+        fields: [
+          {
+            type: 'collapsible',
+            label: (data) => [data.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(" x "),
+            fields: [
+              quantityField({name: 'length'}),
+              quantityField({name: 'width'}),
+              quantityField({name: 'height'}),
+              quantityField({name: 'volume'}),
+            ]
+          }
+        ]
+    },
     categoriesField,
     {
       name: 'allergenList',
@@ -38,15 +72,15 @@ const Products: CollectionConfig = {
         components: {
           RowLabel: ({ data, index, path }) => {
             const [label, setLabel] = useState(`Allergène ${String(index).padStart(2, '0')}`)
-      
+
             useEffect(() => {
               const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.allergen}`
               console.log(url)
-              fetch(url).then(async (res) => {
+              fetch(url).then(async res => {
                 setLabel((await res.json()).name)
               })
             }, [data.name])
-      
+
             return label
           },
         },
@@ -59,16 +93,84 @@ const Products: CollectionConfig = {
               name: 'containmentLevel',
               type: 'relationship',
               relationTo: 'codes',
+              filterOptions: () => {
+                return {
+                  list: { equals: '64e61fda2b00ce4a7ee277ff' },
+                }
+              },
             },
             {
               name: 'allergen',
               type: 'relationship',
               relationTo: 'codes',
+              filterOptions: () => {
+                return {
+                  list: { equals: '64e61fda2b00ce4a7ee277fe' },
+                }
+              },
             },
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
+    {
+      name: 'nutrientList',
+      type: 'array',
+      admin: {
+        components: {
+          RowLabel: ({ data, index, path }) => {
+            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`)
+
+            useEffect(() => {
+              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`
+              console.log(url)
+              fetch(url).then(async res => {
+                setLabel((await res.json()).name)
+              })
+            }, [data.name])
+
+            return label
+          },
+        },
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'nutrient',
+              type: 'relationship',
+              relationTo: 'codes',
+              filterOptions: () => {
+                return {
+                  list: { equals: '6526666e9d5853a8e8048efe' },
+                }
+              },
+            },
+            {
+              name: 'quantity',
+              type: 'group',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'value',
+                      type: 'number'
+                    },
+                    {
+                      name: 'unit',
+                      type: 'relationship',
+                      relationTo: 'units',
+                    }
+                  ]
+                }
+              ]
+            },
+          ],
+        },
+      ],
+    },
   ],
 }
 

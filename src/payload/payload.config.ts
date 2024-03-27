@@ -46,6 +46,7 @@ import Counters from './collections/Counters'
 import Availabilities from './collections/Availabilities'
 import WeekAvailabilities from './collections/WeekAvailabilities'
 import SeasonAvailabilities from './collections/SeasonAvailabilities'
+import Units from './collections/Units'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -105,6 +106,7 @@ export default buildConfig({
     Classifications,
     Codes,
     CodeLists,
+    Units,
     Media,
     Users,
     Pages,
@@ -166,9 +168,9 @@ export default buildConfig({
       uploadsCollection: 'media',
     }),
     */
-    relationshipsAsObjectID(),
+    //relationshipsAsObjectID(),
     payloadCloud(),
-    cloudStorage({
+    /*cloudStorage({
       collections: {
         // Enable cloud storage for Media collection
         media: {
@@ -186,6 +188,6 @@ export default buildConfig({
           }),
         },
       },
-    }),
+    }),*/
   ],
 })
