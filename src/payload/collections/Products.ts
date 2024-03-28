@@ -147,6 +147,7 @@ const Products: CollectionConfig = {
           RowLabel: ({ data, index, path }) => {
             const [label, setLabel] = useState(`Allergène ${String(index).padStart(2, '0')}`)
 
+            console.log(data)
             useEffect(() => {
               const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.allergen}`
               console.log(url)

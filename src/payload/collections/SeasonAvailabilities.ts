@@ -62,11 +62,11 @@ const SeasonAvailabilities: CollectionConfig = {
               value: 'May',
             },
             {
-              label: 'Jun',
+              label: 'Juin',
               value: 'Jun',
             },
             {
-              label: 'Jui',
+              label: 'Juil',
               value: 'Jul',
             },
             {
