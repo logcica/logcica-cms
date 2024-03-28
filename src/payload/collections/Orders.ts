@@ -1,9 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesFields'
-import { useEffect, useState } from 'react'
-import ownerPartyField from '../fields/ownerPartyField'
-import producerPartyField from '../fields/producerPartyField'
-import quantityField from '../fields/quantityField'
 import sellerPartyField from '../fields/sellerParty'
 import customerPartyField from '../fields/customerParty'
 import brokerPartyField from '../fields/broker'
@@ -22,7 +18,7 @@ const Orders: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'number',
-    group: 'Gestion',
+    group: 'Transactions',
   },
   access: {
     read: () => true,
