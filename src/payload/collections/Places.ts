@@ -65,6 +65,7 @@ const Places: CollectionConfig = {
         ],
       },
     },
+    /*
     {
       label: ({ data }) => data?.title || 'Untitled',
       type: 'collapsible', // required
@@ -85,6 +86,7 @@ const Places: CollectionConfig = {
         },
       ],
     },
+    */
     {
       name: 'address', // required
       type: 'group', // required
