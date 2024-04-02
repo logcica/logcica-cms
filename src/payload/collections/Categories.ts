@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
+import { anyone } from '../access/anyone'
 
 const Categories: CollectionConfig = {
   slug: 'categories',
@@ -18,6 +19,7 @@ const Categories: CollectionConfig = {
   },
   access: {
     read: () => true,
+    update: anyone
   },
   fields: [
     {

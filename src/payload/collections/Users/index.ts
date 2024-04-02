@@ -71,7 +71,7 @@ const Users: CollectionConfig = {
     create: anyone,
     update: adminsAndUser,
     delete: admins,
-    admin: ({ req: { user } }) => checkRole(['admin'], user),
+    admin: ({ req: { user } }) => checkRole(['admin', 'contributor'], user),
   },
   hooks: {
     afterChange: [loginAfterCreate],
@@ -150,6 +150,10 @@ const Users: CollectionConfig = {
         {
           label: 'user',
           value: 'user',
+        },
+        {
+          label: 'contributor',
+          value: 'contributor',
         },
       ],
       hooks: {

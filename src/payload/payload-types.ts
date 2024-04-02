@@ -25,16 +25,18 @@ export interface Config {
     counters: Counter;
     places: Place;
     profiles: Profile;
-    contacts: Contact;
-    categories: Category;
-    classifications: Classification;
+    orders: Order;
     products: Product;
     sessions: Session;
+    contacts: Contact;
+    availabilities: Availability;
     week_availabilities: WeekAvailability;
     season_availabilities: SeasonAvailability;
-    availabilities: Availability;
+    categories: Category;
+    classifications: Classification;
     codes: Code;
     code_lists: CodeList;
+    units: Unit;
     media: Media;
     users: User;
     pages: Page;
@@ -74,8 +76,6 @@ export interface Place {
   center?: [number, number] | null;
   within?: (string | Place)[] | null;
   addressText?: string | null;
-  title: string;
-  someTextField: string;
   address?: Address;
   categories?: (string | Category)[] | null;
   updatedAt: string;
@@ -152,7 +152,6 @@ export interface Activity {
 export interface Party {
   organisation?: (string | null) | Organisation;
   partnership?: (string | null) | Partnership;
-  activity?: (string | null) | Activity;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -162,6 +161,7 @@ export interface Counter {
   id: string;
   key?: string | null;
   name?: string | null;
+  marketplace?: (string | null) | Counter;
   place?: (string | null) | Place;
   availabilities?: (string | Availability)[] | null;
   updatedAt: string;
@@ -221,18 +221,49 @@ export interface Profile {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
+ * via the `definition` "orders".
  */
-export interface Contact {
+export interface Order {
   id: string;
-  type?: ('person' | 'organisation') | null;
-  givenName?: string | null;
-  familyName?: string | null;
+  number?: string | null;
+  seller?: Party;
+  customer?: Party;
+  broker?: Party;
+  categories?: (string | Category)[] | null;
+  counter?: (string | null) | Counter;
+  session?: (string | null) | Session;
+  lines?:
+    | {
+        product?: (string | null) | Product;
+        quantity?: {
+          value?: number | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: string;
+  key?: string | null;
   name?: string | null;
-  mainPhoneNumber?: string | null;
-  slug?: string | null;
-  editSlug?: boolean | null;
-  holder?: Party;
+  parent?: (string | null) | Session;
+  timeRange?: {
+    from?: string | null;
+    to?: string | null;
+  };
+  place?: (string | null) | Place;
+  manager?: Party;
+  subject?: {
+    counter?: (string | null) | Counter;
+  };
+  profiles?: (string | Profile)[] | null;
+  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -243,8 +274,49 @@ export interface Contact {
 export interface Product {
   id: string;
   name?: string | null;
+  ingredientStatement?: {
+    short?: {
+      root: {
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        type: string;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   owner?: Party;
   producer?: Party;
+  mainImage?: string | Media | null;
+  images?: (string | Media)[] | null;
+  netWeight?: {
+    value?: number | null;
+    unit?: (string | null) | Unit;
+  };
+  dimensions?: {
+    length?: {
+      value?: number | null;
+      unit?: (string | null) | Unit;
+    };
+    width?: {
+      value?: number | null;
+      unit?: (string | null) | Unit;
+    };
+    height?: {
+      value?: number | null;
+      unit?: (string | null) | Unit;
+    };
+    volume?: {
+      value?: number | null;
+      unit?: (string | null) | Unit;
+    };
+  };
   categories?: (string | Category)[] | null;
   allergenList?:
     | {
@@ -253,6 +325,44 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  nutrientList?:
+    | {
+        nutrient?: (string | null) | Code;
+        quantity?: {
+          value?: number | null;
+          unit?: (string | null) | Unit;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units".
+ */
+export interface Unit {
+  id: string;
+  name?: string | null;
+  symbol?: string | null;
+  key?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -282,46 +392,20 @@ export interface CodeList {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sessions".
+ * via the `definition` "contacts".
  */
-export interface Session {
+export interface Contact {
   id: string;
-  key?: string | null;
+  type?: ('person' | 'organisation') | null;
+  givenName?: string | null;
+  familyName?: string | null;
   name?: string | null;
-  place?: (string | null) | Place;
-  manager?: Party;
-  parent?: (string | null) | Session;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Session;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  mainPhoneNumber?: string | null;
+  slug?: string | null;
+  editSlug?: boolean | null;
+  holder?: Party;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  caption?:
-    | {
-        [k: string]: unknown;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -330,7 +414,19 @@ export interface Media {
 export interface User {
   id: string;
   name?: string | null;
-  roles?: ('admin' | 'user')[] | null;
+  tenancyRoles?:
+    | {
+        type: 'admin' | 'manager' | 'maintainer' | 'contributor';
+        tenancy?: {
+          area?: (string | null) | Place;
+          organisation?: (string | null) | Organisation;
+          partnership?: (string | null) | Partnership;
+          activity?: (string | null) | Activity;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  roles?: ('admin' | 'user' | 'contributor')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

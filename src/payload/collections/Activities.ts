@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
+import { canRead } from './canRead'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -17,7 +18,7 @@ const Activities: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: () => true,
+    read: canRead({tenancyInAnyProperty: ['manager']}),
   },
   fields: [
     {

@@ -17,6 +17,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { $convertToMarkdownString, $convertFromMarkdownString } from '@lexical/markdown'
+import { canRead } from './canRead';
 
 const yourEditorConfig = defaultEditorConfig; // <= your editor config here
 yourEditorConfig.features.push(BoldTextFeature())
@@ -38,7 +39,7 @@ const Products: CollectionConfig = {
     group: 'Gestion',
   },
   access: {
-    read: () => true,
+    read: canRead({tenancyInAnyProperty: ['owner','producer']}),
   },
   fields: [
     {

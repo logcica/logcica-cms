@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import CustomImageCell from '../fields/CustomImageCell'
+import { canRead } from './canRead';
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -19,7 +19,7 @@ const Counters: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: () => true,
+    read: canRead({tenancyInAnyProperty: ['manager']}),
   },
   
   fields: [
@@ -47,8 +47,27 @@ const Counters: CollectionConfig = {
       type: 'relationship',
       relationTo: 'availabilities',
       hasMany: true,
+    },
+    {
+      name: 'manager', // required
+      type: 'group', // required
+      interfaceName: 'Party', // optional
+      fields: [
+        {
+          name: 'organisation',
+          type: 'relationship',
+          relationTo: 'organisations',
+          hasMany: false,
+        },
+        {
+          name: 'partnership',
+          type: 'relationship',
+          relationTo: 'partnerships',
+          hasMany: false,
+        }
+      ],
     }
   ],
 }
 
-export default Counters
+export default Counters;

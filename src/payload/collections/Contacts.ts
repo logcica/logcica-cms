@@ -1,7 +1,6 @@
-import { ComboField, SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
-import { BeforeValidateHook } from 'payload/dist/collections/config/types';
+import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
 import type { CollectionConfig } from 'payload/types'
-import { Contact } from '../payload-types';
+import { canRead } from './canRead';
 
 const Contacts: CollectionConfig = {
   slug: 'contacts',
@@ -10,7 +9,7 @@ const Contacts: CollectionConfig = {
     group: 'Gestion'
   },
   access: {
-    read: () => true,
+    read: canRead({tenancyInAnyProperty: ['holder']}),
   },
   hooks: {
     beforeValidate: [
@@ -52,7 +51,7 @@ const Contacts: CollectionConfig = {
           if(value == 'person')
             delete siblingData.name;
           
-          if(value == 'person'){
+          if(value == 'organisation'){
             delete siblingData.givenName;
             delete siblingData.familyName;
           }

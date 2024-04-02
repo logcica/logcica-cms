@@ -1,5 +1,6 @@
-import type { CollectionConfig } from 'payload/types'
+import type { Access, CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
+import { canRead } from './canRead';
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -9,9 +10,8 @@ const Organisations: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: () => true,
+    read: canRead({}),
   },
-  
   fields: [
     {
       name: 'key',
