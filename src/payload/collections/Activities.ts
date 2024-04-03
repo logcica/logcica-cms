@@ -47,7 +47,13 @@ const Activities: CollectionConfig = {
           hasMany: false,
         }
       ],
-    }
+    },
+    {
+      name: 'place',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
+    },
   ],
 }
 

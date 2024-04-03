@@ -10,7 +10,7 @@ const Organisations: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: canManage({}),
+    read: canManage({placeInProperty: 'place'}),
   },
   fields: [
     {

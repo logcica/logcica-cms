@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
+import { canManage } from './canRead'
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -17,7 +18,7 @@ const Partnerships: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: () => true,
+    read: canManage({placeInProperty: 'area'}),
   },
   fields: [
     {
@@ -28,7 +29,12 @@ const Partnerships: CollectionConfig = {
       name: 'name',
       type: 'text',
     },
-    
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
+    },
   ],
 }
 

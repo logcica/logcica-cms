@@ -30,46 +30,56 @@ export const canManage =
     if (typeof firstCheck == 'boolean') return firstCheck
 
     const roles = user.tenancyRoles
+    let ors = []
 
     const areaManaged = roles
     .filter(r => ['contributor', 'maintainer'].includes(r.type) && r.tenancy?.area?.id)
     .map(r => r.tenancy.area.id)
 
+    const placeInPropertyPrefix = placeInProperty == '' ? '' : placeInProperty + '.' 
+
     const directAreaOrs = areaManaged.map(a => {
       const f = {}
-      f[placeInProperty + '.id'] = {
+      f[placeInPropertyPrefix + 'id'] = {
         equals: a,
       }
       return f
     })
 
+    ors = ors.concat(directAreaOrs)
+
     const areaOrs = areaManaged.map(a => {
       const f = {}
-      f[placeInProperty + '.within.id'] = {
+      f[placeInPropertyPrefix + 'within.id'] = {
         equals: a,
       }
       return f
     })
+
+    ors = ors.concat(areaOrs)
 
     const organisationsManaged = roles
       .filter(r => r.type == 'manager' && r.tenancy?.organisation?.id)
       .map(r => r.tenancy.organisation.id)
 
-    const tenancyOrs = tenancyInAnyProperty.map(p => {
-      const f = {}
-      f[p + '.' + 'organisation'] = {
-        in: organisationsManaged,
-      }
-      return f
-    })
+    if(organisationsManaged.length > 0){
+      const tenancyOrs = tenancyInAnyProperty.map(p => {
+        const f = {}
+        f[p + '.' + 'organisation'] = {
+          in: organisationsManaged,
+        }
+        return f
+      })
+  
+      tenancyOrs.push({
+        id: {
+          in: organisationsManaged, // TODO might be a bit touchy, could give unwanted access
+        },
+      })
 
-    tenancyOrs.push({
-      id: {
-        in: organisationsManaged, // TODO might be a bit touchy, could give unwanted access
-      },
-    })
+      ors = ors.concat(tenancyOrs)
+    }
 
-    const ors = directAreaOrs.concat(areaOrs.concat(tenancyOrs))
     console.log(ors)
 
     return {

@@ -9,7 +9,7 @@ const Contacts: CollectionConfig = {
     group: 'Gestion'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['holder']}),
+    read: canManage({placeInProperty: 'area', tenancyInAnyProperty: ['holder']}),
   },
   hooks: {
     beforeValidate: [
@@ -123,6 +123,12 @@ const Contacts: CollectionConfig = {
           hasMany: false,
         }
       ],
+    },
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
     },
     //categoriesField
   ],

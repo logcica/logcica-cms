@@ -39,7 +39,7 @@ const Products: CollectionConfig = {
     group: 'Gestion',
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['owner','producer']}),
+    read: canManage({placeInProperty: 'area', tenancyInAnyProperty: ['owner','producer']}),
   },
   fields: [
     {
@@ -246,6 +246,12 @@ const Products: CollectionConfig = {
           ],
         },
       ],
+    },
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
     },
   ],
 }
