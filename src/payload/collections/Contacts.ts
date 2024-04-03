@@ -1,6 +1,6 @@
 import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
 import type { CollectionConfig } from 'payload/types'
-import { canRead } from './canRead';
+import { canManage } from './canRead';
 
 const Contacts: CollectionConfig = {
   slug: 'contacts',
@@ -9,7 +9,7 @@ const Contacts: CollectionConfig = {
     group: 'Gestion'
   },
   access: {
-    read: canRead({tenancyInAnyProperty: ['holder']}),
+    read: canManage({tenancyInAnyProperty: ['holder']}),
   },
   hooks: {
     beforeValidate: [

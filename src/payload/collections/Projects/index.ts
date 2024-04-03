@@ -22,7 +22,8 @@ export const Projects: CollectionConfig = {
         `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/projects/${doc?.slug}`,
       )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
     },
-    group: 'Admin'
+    group: 'Admin',
+    hidden: true
   },
   hooks: {
     beforeChange: [populatePublishedAt],

@@ -1,10 +1,12 @@
 import type { CollectionConfig } from 'payload/types'
+import { cannotConfigure } from './canRead'
 
 const Units: CollectionConfig = {
   slug: 'units',
   admin: {
     useAsTitle: 'id',
-    group: 'Configuration'
+    group: 'Configuration',
+    hidden: cannotConfigure
   },
   access: {
     read: () => true,

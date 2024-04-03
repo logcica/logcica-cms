@@ -61,6 +61,16 @@ const roleTypeOptions = [
 
 const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: {
+      en: 'User',
+      fr: 'Utilisateur',
+    },
+    plural: {
+      en: 'Users',
+      fr: 'Utilisateurs',
+    },
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email'],

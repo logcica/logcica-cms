@@ -3,7 +3,7 @@ import categoriesField from '../fields/CategoriesFields'
 import sellerPartyField from '../fields/sellerParty'
 import customerPartyField from '../fields/customerParty'
 import brokerPartyField from '../fields/broker'
-import { canRead } from './canRead';
+import { canManage } from './canRead';
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -22,7 +22,7 @@ const Orders: CollectionConfig = {
     group: 'Transactions',
   },
   access: {
-    read: canRead({tenancyInAnyProperty: ['seller','customer','broker']}),
+    read: canManage({tenancyInAnyProperty: ['seller','customer','broker']}),
   },
   fields: [
     {

@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload/types'
-import { hideConfiguration } from './canRead'
+import { cannotConfigure } from './canRead'
 
 const Classifications: CollectionConfig = {
   slug: 'classifications',
   admin: {
     useAsTitle: 'name',
     group: 'Configuration',
-    hidden: hideConfiguration
+    hidden: cannotConfigure
   },
   access: {
     read: () => true,

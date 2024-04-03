@@ -9,14 +9,14 @@ const hasRolesAndIsAdmin = user => {
   if (roleTypes.includes('admin')) return true
 }
 
-export const hideConfiguration = (args: {user: User}) : boolean => {
+export const cannotConfigure = (args: {user: User}) : boolean => {
   const isAdmin = hasRolesAndIsAdmin(args?.user)
   console.log(isAdmin)
   if (typeof isAdmin == 'boolean') return !isAdmin
   return true
 }
 
-export const canRead =
+export const canManage =
   ({ tenancyInAnyProperty = [] }: { tenancyInAnyProperty?: string[] }): Access =>
   args => {
     const user = args?.req?.user

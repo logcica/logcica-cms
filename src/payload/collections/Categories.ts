@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { anyone } from '../access/anyone'
+import { cannotConfigure } from './canRead'
 
 const Categories: CollectionConfig = {
   slug: 'categories',
@@ -15,7 +16,8 @@ const Categories: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Configuration'
+    group: 'Configuration',
+    hidden: cannotConfigure
   },
   access: {
     read: () => true,
