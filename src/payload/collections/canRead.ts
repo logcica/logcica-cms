@@ -9,15 +9,20 @@ const hasRolesAndIsAdmin = user => {
   if (roleTypes.includes('admin')) return true
 }
 
-export const cannotConfigure = (args: {user: User}) : boolean => {
+export const cannotConfigure = (args: { user: User }): boolean => {
   const isAdmin = hasRolesAndIsAdmin(args?.user)
-  console.log(isAdmin)
   if (typeof isAdmin == 'boolean') return !isAdmin
   return true
 }
 
 export const canManage =
-  ({ tenancyInAnyProperty = [] }: { tenancyInAnyProperty?: string[] }): Access =>
+  ({
+    tenancyInAnyProperty = [],
+    placeInProperty = 'place',
+  }: {
+    tenancyInAnyProperty?: string[]
+    placeInProperty?: string
+  }): Access =>
   args => {
     const user = args?.req?.user
     const firstCheck = hasRolesAndIsAdmin(user)
@@ -26,11 +31,31 @@ export const canManage =
 
     const roles = user.tenancyRoles
 
+    const areaManaged = roles
+    .filter(r => ['contributor', 'maintainer'].includes(r.type) && r.tenancy?.area?.id)
+    .map(r => r.tenancy.area.id)
+
+    const directAreaOrs = areaManaged.map(a => {
+      const f = {}
+      f[placeInProperty + '.id'] = {
+        equals: a,
+      }
+      return f
+    })
+
+    const areaOrs = areaManaged.map(a => {
+      const f = {}
+      f[placeInProperty + '.within.id'] = {
+        equals: a,
+      }
+      return f
+    })
+
     const organisationsManaged = roles
       .filter(r => r.type == 'manager' && r.tenancy?.organisation?.id)
       .map(r => r.tenancy.organisation.id)
 
-    const ors = tenancyInAnyProperty.map(p => {
+    const tenancyOrs = tenancyInAnyProperty.map(p => {
       const f = {}
       f[p + '.' + 'organisation'] = {
         in: organisationsManaged,
@@ -38,23 +63,16 @@ export const canManage =
       return f
     })
 
-    ors.push({
+    tenancyOrs.push({
       id: {
         in: organisationsManaged, // TODO might be a bit touchy, could give unwanted access
       },
     })
 
-    console.log(JSON.stringify(ors))
+    const ors = directAreaOrs.concat(areaOrs.concat(tenancyOrs))
+    console.log(ors)
 
-    // If there is a user, return a query constraint
-    // that only allows users to perform actions against
-    // documents where the owner is equal to their user ID
-
-    if (user) {
-      return {
-        or: ors,
-      }
+    return {
+      or: ors
     }
-
-    return false
   }

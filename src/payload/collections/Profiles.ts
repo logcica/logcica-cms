@@ -14,7 +14,7 @@ const Profiles: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['subject']}),
+    read: canManage({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 
   },
   fields: [
     {
@@ -56,7 +56,13 @@ const Profiles: CollectionConfig = {
           hasMany: false,
         }
       ],
-    }
+    },
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
+    },
     /*
     {
       name: 'description', // required
