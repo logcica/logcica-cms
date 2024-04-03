@@ -7,6 +7,7 @@ import { checkRole } from './checkRole'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { loginAfterCreate } from './hooks/loginAfterCreate'
 import { useState, useEffect } from 'react'
+import { cannotConfigure } from '../canRead'
 
 const tenancyFields: Field[] = [
   {
@@ -75,6 +76,7 @@ const Users: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email'],
     group: 'Admin',
+    hidden: cannotConfigure
   },
   access: {
     read: adminsAndUser,

@@ -123,6 +123,9 @@ export const canManage =
       ors = ors.concat(tenancyOrs)
     }
 
+    if(ors.length == 0)
+      return false
+
     return {
       or: ors,
     }
