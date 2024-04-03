@@ -7,7 +7,8 @@ const Organisations: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ["name", "place"],
-    group: 'Structure'
+    group: 'Structure',
+    listSearchableFields: ['name','place.name']
   },
   access: {
     read: canManage({placeInProperty: 'place'}),

@@ -10,7 +10,7 @@ type MyImage = {
 const Profiles: CollectionConfig = {
   slug: 'profiles',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'key',
     group: 'Structure'
   },
   access: {

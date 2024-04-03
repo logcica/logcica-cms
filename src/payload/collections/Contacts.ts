@@ -5,7 +5,7 @@ import { canManage } from './canRead';
 const Contacts: CollectionConfig = {
   slug: 'contacts',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'mainPhoneNumber',
     group: 'Gestion'
   },
   access: {

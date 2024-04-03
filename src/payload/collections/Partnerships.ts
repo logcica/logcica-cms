@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManage } from './canRead'
+import categoriesField from '../fields/CategoriesFields'
+import { group } from 'console'
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -22,19 +24,39 @@ const Partnerships: CollectionConfig = {
   },
   fields: [
     {
-      name: 'key',
-      type: 'text',
-    },
-    {
       name: 'name',
       type: 'text',
     },
     {
-      name: 'area',
-      type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
+      type: 'row',
+      fields: [
+        {
+          name: 'place',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+        },
+        {
+          name: 'area',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false
+        },
+      ]
     },
+    {
+      name: 'contacts',
+      type: 'relationship',
+      relationTo: 'contacts',
+      hasMany: true
+    },
+    {
+      name: 'profiles',
+      type: 'relationship',
+      relationTo: 'profiles',
+      hasMany: true
+    },
+    categoriesField,
   ],
 }
 
