@@ -1,7 +1,7 @@
 import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
-import { canManage } from './canRead'
+import { canManageOrContribute } from './canRead'
 
 type MyImage = {
   url: string
@@ -14,7 +14,7 @@ const Profiles: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: canManage({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 
+    read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 
   },
   fields: [
     {

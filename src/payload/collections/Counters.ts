@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead';
+import { canManageOrContribute } from './canRead';
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -19,7 +19,7 @@ const Counters: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
   },
   
   fields: [

@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead'
+import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesFields'
 import { group } from 'console'
 
@@ -20,7 +20,7 @@ const Partnerships: CollectionConfig = {
     group: 'Structure'
   },
   access: {
-    read: canManage({placeInProperty: 'area'}),
+    read: canManageOrContribute({placeInProperty: 'area'}),
   },
   fields: [
     {

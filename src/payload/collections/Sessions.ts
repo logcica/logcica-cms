@@ -5,7 +5,7 @@ import { SlugField } from '@nouance/payload-better-fields-plugin'
 import ObjectID from 'bson-objectid'
 import { createBreadcrumbsField, createParentField } from "@payloadcms/plugin-nested-docs/fields";
 import { slugField } from '../fields/slug'
-import { canManage } from './canRead'
+import { canManageOrContribute } from './canRead'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -14,7 +14,7 @@ const Sessions: CollectionConfig = {
     group: 'Gestion'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
   },
   fields: [
     {

@@ -1,6 +1,6 @@
 import type { Access, CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
-import { canManage } from './canRead';
+import { canManageOrContribute } from './canRead';
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -11,7 +11,7 @@ const Organisations: CollectionConfig = {
     listSearchableFields: ['name','place.name']
   },
   access: {
-    read: canManage({placeInProperty: 'place'}),
+    read: canManageOrContribute({placeInProperty: 'place'}),
   },
   fields: [
     {

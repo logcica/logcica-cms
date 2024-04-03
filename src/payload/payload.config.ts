@@ -47,6 +47,7 @@ import WeekAvailabilities from './collections/WeekAvailabilities'
 import SeasonAvailabilities from './collections/SeasonAvailabilities'
 import Units from './collections/Units'
 import Orders from './collections/Orders'
+import Subscriptions from './collections/Subscriptions'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -97,6 +98,7 @@ export default buildConfig({
     Places,
     Profiles,
     Orders,
+    Subscriptions,
     Products,
     Sessions,
     Contacts,
