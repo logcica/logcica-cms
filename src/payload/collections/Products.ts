@@ -34,6 +34,10 @@ const Products: CollectionConfig = {
       fr: 'Produits',
     },
   },
+  versions: {
+    drafts: false,
+    maxPerDoc: 10
+  },
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
@@ -219,7 +223,7 @@ const Products: CollectionConfig = {
               relationTo: 'codes',
               filterOptions: () => {
                 return {
-                  list: { equals: '6526666e9d5853a8e8048efe' },
+                  list: { equals: '651d94b094bcb52b76132eaa' },
                 }
               },
             },
