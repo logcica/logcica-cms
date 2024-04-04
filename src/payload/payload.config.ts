@@ -53,6 +53,10 @@ import Fulfilments from './collections/Fulfilments'
 import Batches from './collections/Batches'
 import KnowledgeBases from './collections/KnowledgeBases'
 import KnowledgeElements from './collections/KnowledgeElements'
+import Relationships from './collections/Relationships'
+import Contributions from './collections/Contributions'
+import Catalogs from './collections/Catalogs'
+import CatalogItems from './collections/CatalogItems'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -102,13 +106,17 @@ export default buildConfig({
     Activities,
     Counters,
     Places,
+    Contributions,
     Orders,
     Subscriptions,
     Fulfilments,
     Products,
     Batches,
     Sessions,
+    Catalogs,
+    CatalogItems,
     Contacts,
+    Relationships,
     Availabilities,
     WeekAvailabilities,
     SeasonAvailabilities,

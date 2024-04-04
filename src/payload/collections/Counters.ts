@@ -37,6 +37,11 @@ const Counters: CollectionConfig = {
       relationTo: 'counters'
     },
     {
+      name: 'catalog',
+      type: 'relationship',
+      relationTo: 'catalogs'
+    },
+    {
       name: 'place',
       type: 'relationship',
       relationTo: 'places',

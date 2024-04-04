@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
-import categoriesField from '../fields/CategoriesFields'
+import categoriesField from '../fields/CategoriesField'
 import { group } from 'console'
 
 const Partnerships: CollectionConfig = {

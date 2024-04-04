@@ -1,10 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import managerPartyField from '../fields/managerPartyField'
-import categoriesField from '../fields/CategoriesFields'
-import { SlugField } from '@nouance/payload-better-fields-plugin'
-import ObjectID from 'bson-objectid'
-import { createBreadcrumbsField, createParentField } from "@payloadcms/plugin-nested-docs/fields";
-import { slugField } from '../fields/slug'
+import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 
 const Sessions: CollectionConfig = {
@@ -67,6 +63,12 @@ const Sessions: CollectionConfig = {
       hasMany: false,
     },
     managerPartyField,
+    {
+      name: 'catalog',
+      type: 'relationship',
+      relationTo: 'catalogs',
+      hasMany: false,
+    },
     {
       name: 'subject',
       type: 'group',

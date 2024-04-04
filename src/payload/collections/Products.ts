@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import categoriesField from '../fields/CategoriesFields'
+import categoriesField from '../fields/CategoriesField'
 import { useEffect, useState } from 'react'
 import ownerPartyField from '../fields/ownerPartyField'
 import producerPartyField from '../fields/producerPartyField'
