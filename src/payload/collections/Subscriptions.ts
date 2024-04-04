@@ -40,6 +40,10 @@ const Subscriptions: CollectionConfig = {
         {
           name: 'type',
           type: 'text'
+        },
+        {
+          name: 'interval',
+          type: 'number'
         }
       ]
     },
@@ -70,6 +74,10 @@ const Subscriptions: CollectionConfig = {
       name: 'session',
       type: 'relationship',
       relationTo: 'sessions'
+    },
+    {
+      name: 'note',
+      type: 'text'
     },
     {
       name: 'lines',

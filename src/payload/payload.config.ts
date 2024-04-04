@@ -51,6 +51,8 @@ import Subscriptions from './collections/Subscriptions'
 import Workspaces from './collections/Workspaces'
 import Fulfilments from './collections/Fulfilments'
 import Batches from './collections/Batches'
+import KnowledgeBases from './collections/KnowledgeBases'
+import KnowledgeElements from './collections/KnowledgeElements'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -100,7 +102,6 @@ export default buildConfig({
     Activities,
     Counters,
     Places,
-    Profiles,
     Orders,
     Subscriptions,
     Fulfilments,
@@ -117,6 +118,9 @@ export default buildConfig({
     CodeLists,
     Units,
     Media,
+    Profiles,
+    KnowledgeBases,
+    KnowledgeElements,
     Users,
     Pages,
     Posts,
