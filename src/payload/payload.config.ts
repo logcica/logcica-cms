@@ -48,6 +48,9 @@ import SeasonAvailabilities from './collections/SeasonAvailabilities'
 import Units from './collections/Units'
 import Orders from './collections/Orders'
 import Subscriptions from './collections/Subscriptions'
+import Workspaces from './collections/Workspaces'
+import Fulfilments from './collections/Fulfilments'
+import Batches from './collections/Batches'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -93,13 +96,16 @@ export default buildConfig({
   collections: [
     Organisations,
     Partnerships,
+    Workspaces,
     Activities,
     Counters,
     Places,
     Profiles,
     Orders,
     Subscriptions,
+    Fulfilments,
     Products,
+    Batches,
     Sessions,
     Contacts,
     Availabilities,
