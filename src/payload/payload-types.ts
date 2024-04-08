@@ -21,23 +21,37 @@ export interface Config {
   collections: {
     organisations: Organisation;
     partnerships: Partnership;
+    workspaces: Workspace;
     activities: Activity;
     counters: Counter;
     places: Place;
-    profiles: Profile;
+    persons: Person;
     orders: Order;
+    subscriptions: Subscription;
+    fulfilments: Fulfilment;
     products: Product;
+    batches: Batch;
     sessions: Session;
-    contacts: Contact;
+    catalogs: Catalog;
+    catalog_items: CatalogItem;
     availabilities: Availability;
     week_availabilities: WeekAvailability;
     season_availabilities: SeasonAvailability;
+    relationships: Relationship;
+    contributions: Contribution;
+    profiles: Profile;
+    contacts: Contact;
+    actions: Action;
     categories: Category;
     classifications: Classification;
     codes: Code;
     code_lists: CodeList;
     units: Unit;
     media: Media;
+    knowledge_bases: KnowledgeBase;
+    knowledge_element: KnowledgeElement;
+    information_systems: InformationSystem;
+    references: Reference;
     users: User;
     pages: Page;
     posts: Post;
@@ -53,11 +67,63 @@ export interface Config {
  */
 export interface Organisation {
   id: string;
-  key?: string | null;
+  number?: string | null;
   name?: string | null;
+  legalForm?: (string | null) | Code;
+  owner?: Party;
   place?: (string | null) | Place;
   mainImage?: Image;
   images?: Images;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "codes".
+ */
+export interface Code {
+  id: string;
+  name?: string | null;
+  code?: string | null;
+  key?: string | null;
+  rank?: number | null;
+  skip?: boolean | null;
+  list?: (string | null) | CodeList;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "code_lists".
+ */
+export interface CodeList {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Party".
+ */
+export interface Party {
+  organisation?: (string | null) | Organisation;
+  partnership?: (string | null) | Partnership;
+  counter?: (string | null) | Counter;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnerships".
+ */
+export interface Partnership {
+  id: string;
+  name?: string | null;
+  place?: (string | null) | Place;
+  area?: (string | null) | Place;
+  contacts?: (string | Contact)[] | null;
+  profiles?: (string | Profile)[] | null;
+  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -117,41 +183,36 @@ export interface Classification {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image".
+ * via the `definition` "contacts".
  */
-export interface Image {
-  url?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partnerships".
- */
-export interface Partnership {
+export interface Contact {
   id: string;
-  key?: string | null;
+  type?: ('person' | 'organisation') | null;
+  givenName?: string | null;
+  familyName?: string | null;
   name?: string | null;
+  mainPhoneNumber?: string | null;
+  slug?: string | null;
+  editSlug?: boolean | null;
+  holder?: Party;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "activities".
+ * via the `definition` "profiles".
  */
-export interface Activity {
+export interface Profile {
   id: string;
   key?: string | null;
   name?: string | null;
-  manager?: Party;
+  type?: string | null;
+  link?: string | null;
+  subject?: Party;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Party".
- */
-export interface Party {
-  organisation?: (string | null) | Organisation;
-  partnership?: (string | null) | Partnership;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -162,8 +223,28 @@ export interface Counter {
   key?: string | null;
   name?: string | null;
   marketplace?: (string | null) | Counter;
+  catalog?: (string | null) | Catalog;
   place?: (string | null) | Place;
   availabilities?: (string | Availability)[] | null;
+  manager?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalogs".
+ */
+export interface Catalog {
+  id: string;
+  name?: string | null;
+  description?: {
+    short?: {
+      markdown?: string | null;
+    };
+  };
+  seller?: Party;
+  area?: (string | null) | Place;
+  productCategories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -208,14 +289,51 @@ export interface WeekAvailability {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "profiles".
+ * via the `definition` "Image".
  */
-export interface Profile {
+export interface Image {
+  url?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workspaces".
+ */
+export interface Workspace {
   id: string;
   key?: string | null;
   name?: string | null;
-  type?: string | null;
-  link?: string | null;
+  manager?: Party;
+  owner?: Party;
+  place?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities".
+ */
+export interface Activity {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  manager?: Party;
+  place?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "persons".
+ */
+export interface Person {
+  id: string;
+  givenName?: string | null;
+  familyName?: string | null;
+  place?: (string | null) | Place;
+  area?: (string | null) | Place;
+  contacts?: (string | Contact)[] | null;
+  profiles?: (string | Profile)[] | null;
+  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -259,6 +377,7 @@ export interface Session {
   };
   place?: (string | null) | Place;
   manager?: Party;
+  catalog?: (string | null) | Catalog;
   subject?: {
     counter?: (string | null) | Counter;
   };
@@ -335,6 +454,7 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -368,42 +488,186 @@ export interface Unit {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "codes".
+ * via the `definition` "subscriptions".
  */
-export interface Code {
+export interface Subscription {
   id: string;
-  name?: string | null;
-  code?: string | null;
-  key?: string | null;
-  list?: (string | null) | CodeList;
+  number?: string | null;
+  status?: string | null;
+  frequency?: {
+    type?: string | null;
+    interval?: number | null;
+  };
+  timeRange?: {
+    from?: string | null;
+    to?: string | null;
+  };
+  provider?: Party;
+  subscriber?: Party;
+  broker?: Party;
+  categories?: (string | Category)[] | null;
+  counter?: (string | null) | Counter;
+  session?: (string | null) | Session;
+  note?: string | null;
+  lines?:
+    | {
+        product?: (string | null) | Product;
+        quantity?: {
+          value?: number | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "code_lists".
+ * via the `definition` "fulfilments".
  */
-export interface CodeList {
+export interface Fulfilment {
   id: string;
-  key?: string | null;
-  name?: string | null;
+  number?: string | null;
+  operator?: Party;
+  workspace?: (string | null) | Workspace;
+  session?: (string | null) | Session;
+  orders?: (string | Order)[] | null;
+  lines?:
+    | {
+        product?: (string | null) | Product;
+        batch?: (string | null) | Batch;
+        quantity?: {
+          value?: number | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
+ * via the `definition` "batches".
  */
-export interface Contact {
+export interface Batch {
   id: string;
-  type?: ('person' | 'organisation') | null;
-  givenName?: string | null;
-  familyName?: string | null;
+  number?: string | null;
+  operator?: Party;
+  workspace?: (string | null) | Workspace;
+  session?: (string | null) | Session;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog_items".
+ */
+export interface CatalogItem {
+  id: string;
   name?: string | null;
-  mainPhoneNumber?: string | null;
-  slug?: string | null;
-  editSlug?: boolean | null;
+  catalog?: (string | null) | Catalog;
+  product?: (string | null) | Product;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "relationships".
+ */
+export interface Relationship {
+  id: string;
+  name?: string | null;
+  type?: string | null;
+  contacts?: (string | Contact)[] | null;
   holder?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributions".
+ */
+export interface Contribution {
+  id: string;
+  name?: string | null;
+  roles?: string[] | null;
+  contributor?: Party;
+  subject?: {
+    organisation?: (string | null) | Organisation;
+    partnership?: (string | null) | Partnership;
+    counter?: (string | null) | Counter;
+    product?: (string | null) | Product;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actions".
+ */
+export interface Action {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  subject?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "knowledge_bases".
+ */
+export interface KnowledgeBase {
+  id: string;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "knowledge_element".
+ */
+export interface KnowledgeElement {
+  id: string;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  base?: (string | null) | KnowledgeBase;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information_systems".
+ */
+export interface InformationSystem {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "references".
+ */
+export interface Reference {
+  id: string;
+  name?: string | null;
+  tags?: string[] | null;
+  target?: string | null;
+  targetType?: string | null;
+  targetCollection?: string | null;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }

@@ -10,8 +10,9 @@ type MyImage = {
 const Profiles: CollectionConfig = {
   slug: 'profiles',
   admin: {
-    useAsTitle: 'key',
-    group: 'Connexions'
+    useAsTitle: 'title',
+    group: 'Connexions',
+    listSearchableFields: ['key','name','link']
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 
@@ -20,6 +21,26 @@ const Profiles: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+    },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        hidden: true
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            delete siblingData['title']
+          }
+        ],
+        afterRead: [
+          ({ data }) => {  
+            const title = [data.key,data.name,data.link, data.id].filter(n => n)[0]
+            return title.replace(/(.{40})..+/, "$1…");
+          }
+        ],
+      },
     },
     {
       name: 'name',
@@ -37,6 +58,11 @@ const Profiles: CollectionConfig = {
           Cell: CustomLinkCell,
         },
       },
+    },
+    {
+      name: 'informationSystem',
+      type: 'relationship',
+      relationTo: 'information_systems'
     },
     {
       name: 'subject', // required

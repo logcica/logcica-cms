@@ -48,6 +48,12 @@ const Contributions: CollectionConfig = {
           type: 'relationship',
           relationTo: 'activities',
           hasMany: false,
+        },
+        {
+          name: 'person',
+          type: 'relationship',
+          relationTo: 'persons',
+          hasMany: false,
         }
       ],
     },

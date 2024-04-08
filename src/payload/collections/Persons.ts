@@ -15,7 +15,7 @@ const Persons: CollectionConfig = {
     },
   },
   admin: {
-    useAsTitle: 'givenName',
+    useAsTitle: 'name',
     group: 'Structure',
     listSearchableFields: ['givenName', 'familyName']
   },
@@ -30,6 +30,25 @@ const Persons: CollectionConfig = {
     {
       name: 'familyName',
       type: 'text',
+    },
+    {
+      name: 'name',
+      type: 'text',
+      admin: {
+        hidden: true, // hides the field from the admin panel
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            delete siblingData['name']
+          }
+        ],
+        afterRead: [
+          ({ data }) => {  
+            return [data.givenName, data.familyName].filter(n => n).join(' ');
+          }
+        ],
+      },
     },
     {
       type: 'row',

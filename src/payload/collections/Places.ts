@@ -13,8 +13,9 @@ const Places: CollectionConfig = {
     },
   },
   admin: {
-    useAsTitle: 'name',
-    group: 'Structure'
+    useAsTitle: 'title',
+    group: 'Structure',
+    listSearchableFields: ['name', 'address.street', 'address.locality', 'address.postalCode', 'address.municipality']
   },
   access: {
     read: () => true
@@ -28,13 +29,43 @@ const Places: CollectionConfig = {
       }
     },
     {
-      name: 'name',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+        },
+        {
+          name: 'type',
+          type: 'select',
+          options: [
+            {
+              label: 'Adresse',
+              value: 'address',
+            },
+            {
+              label: 'Localité',
+              value: 'locality',
+            },
+            {
+              label: 'Commune',
+              value: 'municipality',
+            },
+            {
+              label: 'Région',
+              value: 'region',
+            },
+            {
+              label: 'Pays',
+              value: 'country',
+            },
+          ]
+        }
+      ]
     },
     {
       name: 'center',
       type: 'point',
-      label: 'Location',
     },
     {
       name: 'within',
@@ -43,24 +74,34 @@ const Places: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'addressText',
+      name: 'title',
       type: 'text',
       admin: {
-        hidden: true, // hides the field from the admin panel
+        hidden: true
       },
       hooks: {
         beforeChange: [
           ({ siblingData }) => {
-            // ensures data is not stored in DB
-            delete siblingData['addressText']
+            delete siblingData['title']
           }
         ],
         afterRead: [
           ({ data }) => {  
             const address = data.address
-            if(address)
-              return [address.street, address.locality, address.municipality].filter(n => n).join(', ')
-            return ''
+
+            if(data.type && data.type != 'address')
+              return data.name
+              
+            const localityParts = [address?.postalCode,(address?.locality ?? address?.municipality)]  
+            const list = [address?.street, localityParts.filter(n => n).join(' ')]
+            
+            if(!address?.street)
+              list.unshift(data.name)
+
+            if(list.every(n => !n))
+              return data.center
+
+            return list.filter(n => n).join(', ')
           }
         ],
       },
@@ -100,11 +141,15 @@ const Places: CollectionConfig = {
           type: 'row',
           fields: [
             {
+              name: 'postalCode',
+              type: 'text',
+            },
+            {
               name: 'locality',
               type: 'text',
             },
             {
-              name: 'postalCode',
+              name: 'municipality',
               type: 'text',
             },
             {

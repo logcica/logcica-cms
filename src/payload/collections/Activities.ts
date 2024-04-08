@@ -35,17 +35,28 @@ const Activities: CollectionConfig = {
       interfaceName: 'Party', // optional
       fields: [
         {
-          name: 'organisation',
-          type: 'relationship',
-          relationTo: 'organisations',
-          hasMany: false,
+          type: 'row',
+          fields: [
+            {
+              name: 'organisation',
+              type: 'relationship',
+              relationTo: 'organisations',
+              hasMany: false,
+            },
+            {
+              name: 'partnership',
+              type: 'relationship',
+              relationTo: 'partnerships',
+              hasMany: false,
+            },
+            {
+              name: 'activity',
+              type: 'relationship',
+              relationTo: 'activities',
+              hasMany: false,
+            }
+          ]
         },
-        {
-          name: 'partnership',
-          type: 'relationship',
-          relationTo: 'partnerships',
-          hasMany: false,
-        }
       ],
     },
     {

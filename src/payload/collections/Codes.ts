@@ -29,6 +29,14 @@ const Codes: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'rank',
+      type: 'number',
+    },
+    {
+      name: 'skip',
+      type: 'checkbox',
+    },
+    {
       name: 'list',
       type: 'relationship',
       relationTo: 'code_lists',
