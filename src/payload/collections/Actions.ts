@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
-import { canManage } from './canRead'
+import { canManage, canManageOrContribute } from './canRead'
 
 const Actions: CollectionConfig = {
   slug: 'actions',
@@ -9,7 +9,7 @@ const Actions: CollectionConfig = {
     group: 'Connexions'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['subject']}) 
+    read: canManageOrContribute({tenancyInAnyProperty: ['subject'], placeInProperty: 'area'}) 
   },
   fields: [
     {
@@ -57,7 +57,13 @@ const Actions: CollectionConfig = {
           hasMany: false,
         }
       ],
-    }
+    },
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
+    },
   ],
 }
 

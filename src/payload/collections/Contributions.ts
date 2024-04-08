@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead';
+import { canManage, canManageOrContribute } from './canRead';
 
 const Contributions: CollectionConfig = {
   slug: 'contributions',
@@ -8,7 +8,7 @@ const Contributions: CollectionConfig = {
     group: 'Connexions'
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['contributor', 'subject']}),
+    read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['contributor', 'subject']}),
   },
   fields: [
     {
@@ -86,6 +86,12 @@ const Contributions: CollectionConfig = {
           hasMany: false,
         }
       ],
+    },
+    {
+      name: 'area',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
     },
   ],
 }
