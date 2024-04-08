@@ -5,8 +5,9 @@ import { canManageOrContribute } from './canRead';
 const Contacts: CollectionConfig = {
   slug: 'contacts',
   admin: {
-    useAsTitle: 'mainPhoneNumber',
-    group: 'Connexions'
+    useAsTitle: 'title',
+    group: 'Connexions',
+    listSearchableFields: ['name', 'givenName', 'familyName','mainPhoneNumber','mainEmail']
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['holder']}),
@@ -82,6 +83,27 @@ const Contacts: CollectionConfig = {
         condition: (data, siblingData, { user }) => data.type == "organisation",
       },
     },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        hidden: true
+      },
+      hooks: {
+        beforeChange: [
+          ({ siblingData }) => {
+            delete siblingData['title']
+          }
+        ],
+        afterRead: [
+          ({ data }) => {  
+            const list = [data.mainPhoneNumber,data.mainEmail]
+            if(list.every(n => !n)) return data.name ?? data.id
+            return list.filter(n => n).join(" | ")
+          }
+        ],
+      },
+    },
     ...TelephoneField({
       name: 'mainPhoneNumber',
       admin: {
@@ -91,6 +113,10 @@ const Contacts: CollectionConfig = {
       international: false,
       defaultCountry: 'BE'
     }),
+    {
+      name: 'mainEmail',
+      type: 'email',
+    },
     ...SlugField(
       {
         name: 'slug',
