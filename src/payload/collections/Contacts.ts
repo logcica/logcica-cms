@@ -6,7 +6,7 @@ const Contacts: CollectionConfig = {
   slug: 'contacts',
   admin: {
     useAsTitle: 'mainPhoneNumber',
-    group: 'Gestion'
+    group: 'Connexions'
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['holder']}),

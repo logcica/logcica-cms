@@ -5,7 +5,7 @@ const Contributions: CollectionConfig = {
   slug: 'contributions',
   admin: {
     useAsTitle: 'name',
-    group: 'Structure'
+    group: 'Connexions'
   },
   access: {
     read: canManage({tenancyInAnyProperty: ['contributor', 'subject']}),

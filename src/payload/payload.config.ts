@@ -57,6 +57,10 @@ import Relationships from './collections/Relationships'
 import Contributions from './collections/Contributions'
 import Catalogs from './collections/Catalogs'
 import CatalogItems from './collections/CatalogItems'
+import Actions from './collections/Actions'
+import InformationSystems from './collections/InformationSystems'
+import References from './collections/References'
+import Persons from './collections/Persons'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -106,7 +110,7 @@ export default buildConfig({
     Activities,
     Counters,
     Places,
-    Contributions,
+    Persons,
     Orders,
     Subscriptions,
     Fulfilments,
@@ -115,20 +119,24 @@ export default buildConfig({
     Sessions,
     Catalogs,
     CatalogItems,
-    Contacts,
-    Relationships,
     Availabilities,
     WeekAvailabilities,
     SeasonAvailabilities,
+    Relationships,
+    Contributions,
+    Profiles,
+    Contacts,
+    Actions,
     Categories,
     Classifications,
     Codes,
     CodeLists,
     Units,
     Media,
-    Profiles,
     KnowledgeBases,
     KnowledgeElements,
+    InformationSystems,
+    References,
     Users,
     Pages,
     Posts,

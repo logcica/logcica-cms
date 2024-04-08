@@ -1,26 +1,21 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead';
+import CustomLinkCell from '../fields/CustomLinkCell'
+import { canManage } from './canRead'
 
-const Relationships: CollectionConfig = {
-  slug: 'relationships',
+const Actions: CollectionConfig = {
+  slug: 'actions',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'key',
     group: 'Connexions'
   },
-  labels: {
-    singular: {
-      en: 'Relationship',
-      fr: 'Relation',
-    },
-    plural: {
-      en: 'Relationships',
-      fr: 'Relations',
-    },
-  },
   access: {
-    read: canManage({tenancyInAnyProperty: ['holder']}),
+    read: canManage({tenancyInAnyProperty: ['subject']}) 
   },
   fields: [
+    {
+      name: 'key',
+      type: 'text',
+    },
     {
       name: 'name',
       type: 'text',
@@ -30,13 +25,16 @@ const Relationships: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'contacts',
-      type: 'relationship',
-      relationTo: 'contacts',
-      hasMany: true
+      name: 'link',
+      type: 'text',
+      admin: {
+        components: {
+          Cell: CustomLinkCell,
+        },
+      },
     },
     {
-      name: 'holder', // required
+      name: 'subject', // required
       type: 'group', // required
       interfaceName: 'Party', // optional
       fields: [
@@ -51,10 +49,16 @@ const Relationships: CollectionConfig = {
           type: 'relationship',
           relationTo: 'partnerships',
           hasMany: false,
+        },
+        {
+          name: 'counter',
+          type: 'relationship',
+          relationTo: 'counters',
+          hasMany: false,
         }
       ],
-    },
+    }
   ],
 }
 
-export default Relationships
+export default Actions

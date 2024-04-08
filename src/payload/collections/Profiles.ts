@@ -11,7 +11,7 @@ const Profiles: CollectionConfig = {
   slug: 'profiles',
   admin: {
     useAsTitle: 'key',
-    group: 'Référencement'
+    group: 'Connexions'
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 
