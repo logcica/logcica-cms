@@ -14,13 +14,12 @@ const Persons: CollectionConfig = {
       fr: 'Personnes',
     },
   },
-  admin: {
-    useAsTitle: 'name',
-    group: 'Structure',
-    listSearchableFields: ['givenName', 'familyName']
-  },
   access: {
     read: canManageOrContribute({placeInProperty: 'area'}),
+  },
+  admin: {
+    useAsTitle: 'name',
+    group: 'Structure'
   },
   fields: [
     {
@@ -39,13 +38,13 @@ const Persons: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ siblingData }) => {
-            delete siblingData['name']
+          ({ data }) => {
+            return [data.givenName, data.familyName].filter(n => n).join(' ')
           }
         ],
         afterRead: [
           ({ data }) => {  
-            return [data.givenName, data.familyName].filter(n => n).join(' ');
+            return data.name ?? [data.givenName, data.familyName].filter(n => n).join(' ');
           }
         ],
       },
