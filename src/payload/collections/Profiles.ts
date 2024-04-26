@@ -23,6 +23,10 @@ const Profiles: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'localKey',
+      type: 'text',
+    },
+    {
       name: 'title',
       type: 'text',
       admin: {

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
+import payload from 'payload'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -14,8 +15,9 @@ const Activities: CollectionConfig = {
     },
   },
   admin: {
-    useAsTitle: 'name',
-    group: 'Structure'
+    useAsTitle: 'title',
+    group: 'Structure',
+    listSearchableFields: ['name', 'title']
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
@@ -28,6 +30,42 @@ const Activities: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+    },
+    {
+      name: 'title',
+      type: 'text',
+      admin: {
+        hidden: true, // hides the field from the admin panel
+      },
+      hooks: {
+        beforeChange: [
+          async ({ data }) => {
+
+
+            const getOrg = async () => {
+              const org = await payload.find({
+                collection: 'organisations',
+                where: {
+                  id: {
+                    equals: data.manager?.organisation,
+                  },
+                },
+              })
+            
+              return org.docs[0]
+            }
+            
+            const orgName = (await getOrg())?.name
+
+            return [orgName, data.name].filter(n => n).join(' > ')
+          },
+        ],
+        afterRead: [
+          ({ data }) => {
+            return data.title ?? [data.manager?.organisation, data.name].filter(n => n).join(' ')
+          },
+        ],
+      },
     },
     {
       name: 'manager', // required

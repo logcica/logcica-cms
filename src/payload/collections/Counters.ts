@@ -32,6 +32,10 @@ const Counters: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'title',
+      type: 'text',
+    },
+    {
       name: 'marketplace',
       type: 'relationship',
       relationTo: 'counters'

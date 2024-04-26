@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
+import { ComboField } from '@nouance/payload-better-fields-plugin'
 
 const Persons: CollectionConfig = {
   slug: 'persons',
@@ -15,11 +16,11 @@ const Persons: CollectionConfig = {
     },
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area'}),
+    read: canManageOrContribute({ placeInProperty: 'area' }),
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Structure'
+    group: 'Structure',
   },
   fields: [
     {
@@ -40,12 +41,12 @@ const Persons: CollectionConfig = {
         beforeChange: [
           ({ data }) => {
             return [data.givenName, data.familyName].filter(n => n).join(' ')
-          }
+          },
         ],
         afterRead: [
-          ({ data }) => {  
-            return data.name ?? [data.givenName, data.familyName].filter(n => n).join(' ');
-          }
+          ({ data }) => {
+            return data.name ?? [data.givenName, data.familyName].filter(n => n).join(' ')
+          },
         ],
       },
     },
@@ -62,21 +63,21 @@ const Persons: CollectionConfig = {
           name: 'area',
           type: 'relationship',
           relationTo: 'places',
-          hasMany: false
+          hasMany: false,
         },
-      ]
+      ],
     },
     {
       name: 'contacts',
       type: 'relationship',
       relationTo: 'contacts',
-      hasMany: true
+      hasMany: true,
     },
     {
       name: 'profiles',
       type: 'relationship',
       relationTo: 'profiles',
-      hasMany: true
+      hasMany: true,
     },
     categoriesField,
   ],
