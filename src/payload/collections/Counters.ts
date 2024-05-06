@@ -32,6 +32,10 @@ const Counters: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'type',
+      type: 'text',
+    },
+    {
       name: 'title',
       type: 'text',
     },
@@ -72,6 +76,12 @@ const Counters: CollectionConfig = {
           name: 'partnership',
           type: 'relationship',
           relationTo: 'partnerships',
+          hasMany: false,
+        },
+        {
+          name: 'activity',
+          type: 'relationship',
+          relationTo: 'activities',
           hasMany: false,
         }
       ],

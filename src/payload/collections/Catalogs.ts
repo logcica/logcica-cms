@@ -39,6 +39,10 @@ const Catalogs: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'type',
+      type: 'text',
+    },
+    {
       name: 'description',
       type: 'group',
       fields: [
