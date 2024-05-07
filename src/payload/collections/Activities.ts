@@ -103,6 +103,30 @@ const Activities: CollectionConfig = {
       relationTo: 'places',
       hasMany: false,
     },
+    {
+      name: 'contacts',
+      type: 'relationship',
+      relationTo: 'contacts',
+      hasMany: true,
+    },
+    {
+      name: 'profiles',
+      type: 'relationship',
+      relationTo: 'profiles',
+      hasMany: true,
+    },
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+    },
+    {
+      name: 'productionCategories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+    },
   ],
 }
 
