@@ -58,7 +58,7 @@ const Organisations: CollectionConfig = {
       name: 'registeredAt',
       type: 'date',
     },
-    partyField({ name: 'owner', relations: ['partnerships', 'persons'] }),
+    partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
     {
       name: 'place',
       type: 'relationship',

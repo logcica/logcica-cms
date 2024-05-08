@@ -39,6 +39,20 @@ const Workspaces: CollectionConfig = {
       relationTo: 'places',
       hasMany: false,
     },
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      admin: {
+        position: 'sidebar'
+      },
+      filterOptions: () => {
+        return {
+          classification: { equals: '663bad09a08a8050428fd1e8' },
+        }
+      }
+    },
   ],
 }
 

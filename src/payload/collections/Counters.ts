@@ -47,7 +47,7 @@ const Counters: CollectionConfig = {
         {
           name: 'workspace',
           type: 'relationship',
-          relationTo: 'counters'
+          relationTo: 'workspaces'
         },
         {
           name: 'place',

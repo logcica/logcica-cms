@@ -5,6 +5,7 @@ import CustomPartyCell from './CustomPartyCell'
 
 type PartyType = (options?: {
   name?: string
+  position?: 'sidebar';
   relations?: string[]
   overrides?: Record<string, unknown>
 }) => Field
@@ -32,7 +33,7 @@ const supportedRelations = [
   },
 ]
 
-const partyField: PartyType = ({ name, relations, overrides = {} } = {}) => {
+const partyField: PartyType = ({ name, position, relations, overrides = {} } = {}) => {
   const partyResult: Field = {
     name: name,
     type: 'group',
@@ -51,6 +52,7 @@ const partyField: PartyType = ({ name, relations, overrides = {} } = {}) => {
       },
     ],
     admin: {
+      position: position,
       components: {
         Cell: CustomPartyCell
       },
