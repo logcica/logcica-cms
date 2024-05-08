@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import payload from 'payload'
+import descriptionField from '../fields/descriptionField'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -145,6 +146,7 @@ const Activities: CollectionConfig = {
         },
       ]
     },
+    descriptionField({})
   ],
 }
 

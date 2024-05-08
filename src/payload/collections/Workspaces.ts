@@ -24,7 +24,7 @@ const Workspaces: CollectionConfig = {
   },
   fields: [
     {
-      name: 'key',
+      name: 'number',
       type: 'text',
     },
     {

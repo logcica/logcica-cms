@@ -24,47 +24,74 @@ const Counters: CollectionConfig = {
   
   fields: [
     {
-      name: 'key',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'type',
+          type: 'text',
+        },
+        {
+          name: 'name',
+          type: 'text',
+        },
+      ]
     },
     {
-      name: 'name',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'marketplace',
+          type: 'relationship',
+          relationTo: 'counters'
+        },
+        {
+          name: 'workspace',
+          type: 'relationship',
+          relationTo: 'counters'
+        },
+        {
+          name: 'place',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+        }
+      ]
     },
     {
-      name: 'type',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'catalog',
+          type: 'relationship',
+          relationTo: 'catalogs'
+        },
+        {
+          name: 'availabilities',
+          type: 'relationship',
+          relationTo: 'availabilities',
+          hasMany: true,
+        },
+      ]
     },
     {
-      name: 'title',
-      type: 'text',
-    },
-    {
-      name: 'marketplace',
+      name: 'contacts',
       type: 'relationship',
-      relationTo: 'counters'
+      relationTo: 'contacts',
+      hasMany: true,
     },
     {
-      name: 'catalog',
+      name: 'profiles',
       type: 'relationship',
-      relationTo: 'catalogs'
-    },
-    {
-      name: 'place',
-      type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
-    },
-    {
-      name: 'availabilities',
-      type: 'relationship',
-      relationTo: 'availabilities',
+      relationTo: 'profiles',
       hasMany: true,
     },
     {
       name: 'manager', // required
       type: 'group', // required
       interfaceName: 'Party', // optional
+      admin: {
+        position: 'sidebar'
+      },
       fields: [
         {
           name: 'organisation',

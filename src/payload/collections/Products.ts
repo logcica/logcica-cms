@@ -4,23 +4,8 @@ import { useEffect, useState } from 'react'
 import ownerPartyField from '../fields/ownerPartyField'
 import producerPartyField from '../fields/producerPartyField'
 import quantityField from '../fields/quantityField'
-
-import { createHeadlessEditor } from '@lexical/headless' // <= make sure this package is installed
-import {
-  getEnabledNodes,
-  sanitizeEditorConfig,
-  defaultEditorConfig
-} from '@payloadcms/richtext-lexical'
-
-import {
-  lexicalEditor, BoldTextFeature,
-} from '@payloadcms/richtext-lexical'
-
-import { $convertToMarkdownString, $convertFromMarkdownString } from '@lexical/markdown'
 import { canManageOrContribute } from './canRead';
-
-const yourEditorConfig = defaultEditorConfig; // <= your editor config here
-yourEditorConfig.features.push(BoldTextFeature())
+import descriptionField from '../fields/descriptionField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -50,63 +35,7 @@ const Products: CollectionConfig = {
       name: 'name',
       type: 'text',
     },
-    {
-      type: 'group',
-      name: 'ingredientStatement',
-      fields: [
-        {
-          name: 'short',
-          type: 'richText',
-          editor: lexicalEditor({
-            features: [BoldTextFeature()]
-          }),
-          hooks: {
-            beforeChange: [
-              async ({value}) => {
-    
-                if(!value)
-                  return undefined
-    
-                const yourSanitizedEditorConfig = sanitizeEditorConfig(yourEditorConfig)
-    
-                const headlessEditor = createHeadlessEditor({
-                  nodes: getEnabledNodes({
-                    editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-                  }),
-                })
-    
-                headlessEditor.setEditorState(headlessEditor.parseEditorState(value)) // This should commit the editor state immediately
-    
-                let markdown: string
-                headlessEditor.getEditorState().read(() => {
-                  markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
-                })
-    
-                return { markdown: markdown}
-              }
-            ],
-            afterRead: [
-                async ({value}) => {
-    
-                  if(!value || !value.markdown)
-                    return undefined
-    
-                  const yourSanitizedEditorConfig = sanitizeEditorConfig(yourEditorConfig)
-    
-                  const headlessEditor = createHeadlessEditor({
-                    nodes: getEnabledNodes({
-                      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-                    }),
-                  })
-                  
-                  headlessEditor.update(() => { $convertFromMarkdownString(value?.markdown, yourSanitizedEditorConfig.features.markdownTransformers) }, { discrete: true })
-                  return headlessEditor.getEditorState().toJSON()
-                }
-            ]
-          }
-        },
-      ]
-    },
+    descriptionField({name: "ingredientStatement"}),
     ownerPartyField,
     producerPartyField,
     {

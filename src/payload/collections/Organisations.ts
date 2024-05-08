@@ -66,6 +66,12 @@ const Organisations: CollectionConfig = {
       hasMany: false,
     },
     {
+      name: 'workspaces',
+      type: 'relationship',
+      relationTo: 'workspaces',
+      hasMany: true,
+    },
+    {
       name: 'mainImage',
       label: 'Image',
       type: 'group',
