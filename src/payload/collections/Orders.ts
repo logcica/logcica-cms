@@ -4,6 +4,7 @@ import sellerPartyField from '../fields/sellerParty'
 import customerPartyField from '../fields/customerParty'
 import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
+import partyField from '../fields/partyField'
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -29,19 +30,25 @@ const Orders: CollectionConfig = {
       name: 'number',
       type: 'text',
     },
-    sellerPartyField,
-    customerPartyField,
-    brokerPartyField,
+
+    partyField({ name: 'seller', relations: ['organisations', 'partnerships', 'activities'] }),
+    partyField({ name: 'customer', relations: ['organisations', 'partnerships', 'activities', 'persons'] }),
     categoriesField,
+    partyField({ name: 'broker', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
-      name: 'counter',
-      type: 'relationship',
-      relationTo: 'counters'
-    },
-    {
-      name: 'session',
-      type: 'relationship',
-      relationTo: 'sessions'
+      type: 'row',
+      fields: [
+        {
+          name: 'counter',
+          type: 'relationship',
+          relationTo: 'counters'
+        },
+        {
+          name: 'session',
+          type: 'relationship',
+          relationTo: 'sessions'
+        },
+      ]
     },
     {
       name: 'lines',

@@ -11,7 +11,7 @@ const Organisations: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'place'],
     group: 'Structure',
-    listSearchableFields: ['name', 'number', 'place.name'],
+    listSearchableFields: ['name', 'number'],
   },
   access: {
     read: canManageOrContribute({ placeInProperty: 'place' }),

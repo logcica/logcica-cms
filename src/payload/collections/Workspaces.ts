@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import managerPartyField from '../fields/managerPartyField'
 import ownerPartyField from '../fields/ownerPartyField'
+import partyField from '../fields/partyField'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -24,20 +25,17 @@ const Workspaces: CollectionConfig = {
   },
   fields: [
     {
-      name: 'number',
-      type: 'text',
-    },
-    {
-      name: 'name',
-      type: 'text',
-    },
-    managerPartyField,
-    ownerPartyField,
-    {
-      name: 'place',
-      type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
+      type: 'row',
+      fields: [
+        {
+          name: 'number',
+          type: 'text',
+        },
+        {
+          name: 'name',
+          type: 'text',
+        },
+      ]
     },
     {
       name: 'categories',
@@ -52,6 +50,14 @@ const Workspaces: CollectionConfig = {
           classification: { equals: '663bad09a08a8050428fd1e8' },
         }
       }
+    },
+    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+    {
+      name: 'place',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
     },
   ],
 }
