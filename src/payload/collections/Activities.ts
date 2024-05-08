@@ -24,12 +24,19 @@ const Activities: CollectionConfig = {
   },
   fields: [
     {
-      name: 'key',
-      type: 'text',
-    },
-    {
-      name: 'name',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+        },
+        {
+          name: 'place',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+        }
+      ]
     },
     {
       name: 'title',
@@ -71,6 +78,9 @@ const Activities: CollectionConfig = {
       name: 'manager', // required
       type: 'group', // required
       interfaceName: 'Party', // optional
+      admin: {
+        position: 'sidebar'
+      },
       fields: [
         {
           type: 'row',
@@ -98,10 +108,10 @@ const Activities: CollectionConfig = {
       ],
     },
     {
-      name: 'place',
+      name: 'profiles',
       type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
+      relationTo: 'profiles',
+      hasMany: true,
     },
     {
       name: 'contacts',
@@ -110,22 +120,30 @@ const Activities: CollectionConfig = {
       hasMany: true,
     },
     {
-      name: 'profiles',
-      type: 'relationship',
-      relationTo: 'profiles',
-      hasMany: true,
-    },
-    {
       name: 'categories',
       type: 'relationship',
       relationTo: 'categories',
       hasMany: true,
+      admin: {
+        position: 'sidebar'
+      }
     },
     {
-      name: 'productionCategories',
-      type: 'relationship',
-      relationTo: 'categories',
-      hasMany: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'productionCategories',
+          type: 'relationship',
+          relationTo: 'categories',
+          hasMany: true,
+        },
+        {
+          name: 'otherCategories',
+          type: 'relationship',
+          relationTo: 'categories',
+          hasMany: true,
+        },
+      ]
     },
   ],
 }

@@ -117,20 +117,6 @@ const Contacts: CollectionConfig = {
       name: 'mainEmail',
       type: 'email',
     },
-    ...SlugField(
-      {
-        name: 'slug',
-        admin: {
-          position: 'sidebar',
-        },
-      },
-      {
-        useFields: ['name','givenName','familyName'],
-      },
-      {
-        enable: false
-      },
-    ),
     {
       name: 'holder', // required
       type: 'group', // required
