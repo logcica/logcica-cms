@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
-import categoriesField from '../fields/CategoriesFields'
 import sellerPartyField from '../fields/sellerParty'
 import customerPartyField from '../fields/customerParty'
 import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
 import operatorPartyField from '../fields/operatorParty'
+import partyField from '../fields/partyField'
 
 const Batches: CollectionConfig = {
   slug: 'batches',
@@ -30,7 +30,7 @@ const Batches: CollectionConfig = {
       name: 'number',
       type: 'text',
     },
-    operatorPartyField,
+    partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'workspace',
       type: 'relationship',

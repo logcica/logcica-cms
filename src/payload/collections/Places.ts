@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
+import GmapsCell from '../fields/GmapsCell'
 
 const Places: CollectionConfig = {
   slug: 'places',
@@ -159,6 +160,22 @@ const Places: CollectionConfig = {
           ]
         }
       ],
+    },
+    {
+      name: 'gmaps',
+      type: 'group',
+      interfaceName: 'GmapsPlace',
+      admin: {
+        components: {
+          Cell: GmapsCell
+        }
+      },
+      fields: [
+        {
+          name: 'id',
+          type: 'text',
+        }
+      ]
     },
     {
       name: 'categories',

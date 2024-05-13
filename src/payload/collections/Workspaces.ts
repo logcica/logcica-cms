@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import managerPartyField from '../fields/managerPartyField'
 import ownerPartyField from '../fields/ownerPartyField'
 import partyField from '../fields/partyField'
+import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -30,6 +31,11 @@ const Workspaces: CollectionConfig = {
         {
           name: 'number',
           type: 'text',
+          admin: {
+            components: {
+              Cell: BCEEstablishmentLinkCell,
+            },
+          },
         },
         {
           name: 'name',
@@ -51,8 +57,8 @@ const Workspaces: CollectionConfig = {
         }
       }
     },
-    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
-    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'place',
       type: 'relationship',

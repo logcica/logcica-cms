@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead';
+import partyField from '../fields/partyField';
+import categoriesField from '../fields/CategoriesField';
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -85,34 +87,8 @@ const Counters: CollectionConfig = {
       relationTo: 'profiles',
       hasMany: true,
     },
-    {
-      name: 'manager', // required
-      type: 'group', // required
-      interfaceName: 'Party', // optional
-      admin: {
-        position: 'sidebar'
-      },
-      fields: [
-        {
-          name: 'organisation',
-          type: 'relationship',
-          relationTo: 'organisations',
-          hasMany: false,
-        },
-        {
-          name: 'partnership',
-          type: 'relationship',
-          relationTo: 'partnerships',
-          hasMany: false,
-        },
-        {
-          name: 'activity',
-          type: 'relationship',
-          relationTo: 'activities',
-          hasMany: false,
-        }
-      ],
-    }
+    categoriesField,
+    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] })
   ],
 }
 

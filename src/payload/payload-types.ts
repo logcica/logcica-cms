@@ -147,6 +147,7 @@ export interface Place {
   within?: (string | Place)[] | null;
   title?: string | null;
   address?: Address;
+  gmaps?: GmapsPlace;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -161,6 +162,13 @@ export interface Address {
   locality?: string | null;
   municipality?: string | null;
   country?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GmapsPlace".
+ */
+export interface GmapsPlace {
+  id?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -251,6 +259,7 @@ export interface Counter {
   availabilities?: (string | Availability)[] | null;
   contacts?: (string | Contact)[] | null;
   profiles?: (string | Profile)[] | null;
+  categories?: (string | Category)[] | null;
   manager?: Party;
   updatedAt: string;
   createdAt: string;
@@ -447,6 +456,7 @@ export interface Product {
   id: string;
   name?: string | null;
   ingredientStatement?: Description;
+  categories?: (string | Category)[] | null;
   producer?: Party;
   owner?: Party;
   mainImage?: string | Media | null;
@@ -458,7 +468,6 @@ export interface Product {
     height?: Quantity;
     volume?: Quantity;
   };
-  categories?: (string | Category)[] | null;
   allergenList?:
     | {
         containmentLevel?: (string | null) | Code;
