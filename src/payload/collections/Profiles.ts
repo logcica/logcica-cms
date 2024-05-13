@@ -2,6 +2,7 @@ import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/ri
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManageOrContribute } from './canRead'
+import descriptionField from '../fields/descriptionField'
 
 type MyImage = {
   url: string
@@ -92,26 +93,15 @@ const Profiles: CollectionConfig = {
       type: 'relationship',
       relationTo: 'places',
       hasMany: false,
+      filterOptions: () => {
+        return {
+          type: {
+            exists: true
+          }
+        }
+      },
     },
-    /*
-    {
-      name: 'description', // required
-      type: 'group', // required
-      interfaceName: 'Description', // optional
-      fields: [
-        {
-          name: 'short', // required
-          type: 'group', // required
-          fields: [
-            {
-              name: 'richText',
-              type: 'richText',
-            },
-          ],
-        },
-      ],
-    },
-    */
+    descriptionField({})
   ],
 }
 

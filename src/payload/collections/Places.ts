@@ -157,6 +157,10 @@ const Places: CollectionConfig = {
       ],
     },
     {
+      type: 'text',
+      name: 'description'
+    },
+    {
       name: 'gmaps',
       type: 'group',
       interfaceName: 'GmapsPlace',
