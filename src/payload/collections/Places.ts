@@ -81,11 +81,6 @@ const Places: CollectionConfig = {
         hidden: true
       },
       hooks: {
-        beforeChange: [
-          ({ siblingData }) => {
-            delete siblingData['title']
-          }
-        ],
         afterRead: [
           ({ data }) => {  
             const address = data.address

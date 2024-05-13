@@ -17,9 +17,9 @@ const Activities: CollectionConfig = {
     },
   },
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: 'name',
     group: 'Structure',
-    listSearchableFields: ['name', 'title']
+    listSearchableFields: ['name']
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
@@ -33,48 +33,16 @@ const Activities: CollectionConfig = {
           type: 'text',
         },
         {
+          name: 'internalName',
+          type: 'text',
+        },
+        {
           name: 'place',
           type: 'relationship',
           relationTo: 'places',
           hasMany: false,
         }
       ]
-    },
-    {
-      name: 'title',
-      type: 'text',
-      admin: {
-        hidden: true, // hides the field from the admin panel
-      },
-      hooks: {
-        beforeChange: [
-          async ({ data }) => {
-
-
-            const getOrg = async () => {
-              const org = await payload.find({
-                collection: 'organisations',
-                where: {
-                  id: {
-                    equals: data.manager?.organisation,
-                  },
-                },
-              })
-            
-              return org.docs[0]
-            }
-            
-            const orgName = (await getOrg())?.name
-
-            return [orgName, data.name].filter(n => n).join(' > ')
-          },
-        ],
-        afterRead: [
-          ({ data }) => {
-            return data.title ?? [data.manager?.organisation, data.name].filter(n => n).join(' ')
-          },
-        ],
-      },
     },
     partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
