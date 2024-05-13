@@ -1,6 +1,7 @@
 import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead';
+import partyField from '../fields/partyField';
 
 const Contacts: CollectionConfig = {
   slug: 'contacts',
@@ -117,25 +118,7 @@ const Contacts: CollectionConfig = {
       name: 'mainEmail',
       type: 'email',
     },
-    {
-      name: 'holder', // required
-      type: 'group', // required
-      interfaceName: 'Party', // optional
-      fields: [
-        {
-          name: 'organisation',
-          type: 'relationship',
-          relationTo: 'organisations',
-          hasMany: false,
-        },
-        {
-          name: 'partnership',
-          type: 'relationship',
-          relationTo: 'partnerships',
-          hasMany: false,
-        }
-      ],
-    },
+    partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'area',
       type: 'relationship',
