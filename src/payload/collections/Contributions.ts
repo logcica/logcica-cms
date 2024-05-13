@@ -1,92 +1,43 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage, canManageOrContribute } from './canRead';
+import { canManage, canManageOrContribute } from './canRead'
+import partyField from '../fields/partyField'
+import subjectField from '../fields/subjectField'
 
 const Contributions: CollectionConfig = {
   slug: 'contributions',
   admin: {
-    useAsTitle: 'name',
-    group: 'Connexions'
+    useAsTitle: 'id',
+    group: 'Connexions',
+    listSearchableFields: [
+      'id',
+      'contributor.organisation.name',
+      'contributor.partnership.name',
+      'contributor.activity.name',
+      'contributor.person.givenName',
+      'contributor.person.familyName',
+      'subject.organisation.name',
+      'subject.partnership.name',
+      'subject.activity.name',
+      'subject.counter.name'
+    ],
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['contributor', 'subject']}),
+    read: canManageOrContribute({
+      placeInProperty: 'area',
+      tenancyInAnyProperty: ['contributor', 'subject'],
+    }),
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-    },
-    {
       name: 'roles',
       type: 'text',
-      hasMany: true
+      hasMany: true,
     },
-    {
-      name: 'contributor', // required
-      type: 'group', // required
-      interfaceName: 'Party', // optional
-      fields: [
-        {
-          name: 'organisation',
-          type: 'relationship',
-          relationTo: 'organisations',
-          hasMany: false,
-        },
-        {
-          name: 'partnership',
-          type: 'relationship',
-          relationTo: 'partnerships',
-          hasMany: false,
-        },
-        {
-          name: 'workspace',
-          type: 'relationship',
-          relationTo: 'workspaces',
-          hasMany: false,
-        },
-        {
-          name: 'activity',
-          type: 'relationship',
-          relationTo: 'activities',
-          hasMany: false,
-        },
-        {
-          name: 'person',
-          type: 'relationship',
-          relationTo: 'persons',
-          hasMany: false,
-        }
-      ],
-    },
-    {
-      name: 'subject', // required
-      type: 'group', // required
-      fields: [
-        {
-          name: 'organisation',
-          type: 'relationship',
-          relationTo: 'organisations',
-          hasMany: false,
-        },
-        {
-          name: 'partnership',
-          type: 'relationship',
-          relationTo: 'partnerships',
-          hasMany: false,
-        },
-        {
-          name: 'counter',
-          type: 'relationship',
-          relationTo: 'counters',
-          hasMany: false,
-        },
-        {
-          name: 'product',
-          type: 'relationship',
-          relationTo: 'products',
-          hasMany: false,
-        }
-      ],
-    },
+    partyField({
+      name: 'contributor',
+      relations: ['organisations', 'partnerships', 'activities', 'persons'],
+    }),
+    subjectField({relations: ['organisations', 'partnerships', 'activities', 'counters', 'products']}),
     {
       name: 'area',
       type: 'relationship',

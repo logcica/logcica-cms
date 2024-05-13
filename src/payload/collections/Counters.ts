@@ -26,14 +26,21 @@ const Counters: CollectionConfig = {
   
   fields: [
     {
+      name: 'type',
+      type: 'text',
+      admin: {
+        position: 'sidebar'
+      }
+    },
+    {
       type: 'row',
       fields: [
         {
-          name: 'type',
+          name: 'name',
           type: 'text',
         },
         {
-          name: 'name',
+          name: 'internalName',
           type: 'text',
         },
       ]

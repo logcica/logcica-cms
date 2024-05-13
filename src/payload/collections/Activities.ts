@@ -35,14 +35,14 @@ const Activities: CollectionConfig = {
         {
           name: 'internalName',
           type: 'text',
-        },
-        {
-          name: 'place',
-          type: 'relationship',
-          relationTo: 'places',
-          hasMany: false,
         }
       ]
+    },
+    {
+      name: 'place',
+      type: 'relationship',
+      relationTo: 'places',
+      hasMany: false,
     },
     partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
+import partyField from '../fields/partyField'
 
 const References: CollectionConfig = {
   slug: 'references',
@@ -36,6 +37,7 @@ const References: CollectionConfig = {
       name: 'target',
       type: 'text',
     },
+    partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'persons'] }),
     {
       name: 'targetType',
       type: 'text',
