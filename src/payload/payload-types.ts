@@ -69,9 +69,12 @@ export interface Organisation {
   id: string;
   number?: string | null;
   name?: string | null;
+  legalFormShort?: string | null;
   legalForm?: (string | null) | Code;
+  registeredAt?: string | null;
   owner?: Party;
   place?: (string | null) | Place;
+  workspaces?: (string | Workspace)[] | null;
   mainImage?: Image;
   images?: Images;
   updatedAt: string;
@@ -135,13 +138,14 @@ export interface Place {
   id: string;
   key?: string | null;
   name?: string | null;
+  type?: ('address' | 'locality' | 'municipality' | 'region' | 'country') | null;
   /**
    * @minItems 2
    * @maxItems 2
    */
   center?: [number, number] | null;
   within?: (string | Place)[] | null;
-  addressText?: string | null;
+  title?: string | null;
   address?: Address;
   categories?: (string | Category)[] | null;
   updatedAt: string;
@@ -153,8 +157,9 @@ export interface Place {
  */
 export interface Address {
   street?: string | null;
-  locality?: string | null;
   postalCode?: string | null;
+  locality?: string | null;
+  municipality?: string | null;
   country?: string | null;
 }
 /**
@@ -191,9 +196,9 @@ export interface Contact {
   givenName?: string | null;
   familyName?: string | null;
   name?: string | null;
+  title?: string | null;
   mainPhoneNumber?: string | null;
-  slug?: string | null;
-  editSlug?: boolean | null;
+  mainEmail?: string | null;
   holder?: Party;
   area?: (string | null) | Place;
   updatedAt: string;
@@ -206,10 +211,27 @@ export interface Contact {
 export interface Profile {
   id: string;
   key?: string | null;
+  localKey?: string | null;
+  title?: string | null;
   name?: string | null;
   type?: string | null;
   link?: string | null;
+  informationSystem?: (string | null) | InformationSystem;
   subject?: Party;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information_systems".
+ */
+export interface InformationSystem {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
@@ -220,13 +242,31 @@ export interface Profile {
  */
 export interface Counter {
   id: string;
-  key?: string | null;
+  type?: string | null;
   name?: string | null;
   marketplace?: (string | null) | Counter;
-  catalog?: (string | null) | Catalog;
+  workspace?: (string | null) | Workspace;
   place?: (string | null) | Place;
+  catalog?: (string | null) | Catalog;
   availabilities?: (string | Availability)[] | null;
+  contacts?: (string | Contact)[] | null;
+  profiles?: (string | Profile)[] | null;
   manager?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workspaces".
+ */
+export interface Workspace {
+  id: string;
+  number?: string | null;
+  name?: string | null;
+  categories?: (string | Category)[] | null;
+  manager?: Party;
+  owner?: Party;
+  place?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -237,16 +277,34 @@ export interface Counter {
 export interface Catalog {
   id: string;
   name?: string | null;
-  description?: {
-    short?: {
-      markdown?: string | null;
-    };
-  };
+  type?: string | null;
+  description?: Description;
   seller?: Party;
   area?: (string | null) | Place;
   productCategories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Description".
+ */
+export interface Description {
+  short?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -281,9 +339,12 @@ export interface SeasonAvailability {
  */
 export interface WeekAvailability {
   id: string;
-  key?: string | null;
   name?: string | null;
   days?: ('Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su')[] | null;
+  timeRange?: {
+    from?: string | null;
+    to?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -296,28 +357,20 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "workspaces".
- */
-export interface Workspace {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  manager?: Party;
-  owner?: Party;
-  place?: (string | null) | Place;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activities".
  */
 export interface Activity {
   id: string;
-  key?: string | null;
   name?: string | null;
-  manager?: Party;
   place?: (string | null) | Place;
+  title?: string | null;
+  manager?: Party;
+  profiles?: (string | Profile)[] | null;
+  contacts?: (string | Contact)[] | null;
+  categories?: (string | Category)[] | null;
+  productionCategories?: (string | Category)[] | null;
+  otherCategories?: (string | Category)[] | null;
+  description?: Description;
   updatedAt: string;
   createdAt: string;
 }
@@ -329,6 +382,7 @@ export interface Person {
   id: string;
   givenName?: string | null;
   familyName?: string | null;
+  name?: string | null;
   place?: (string | null) | Place;
   area?: (string | null) | Place;
   contacts?: (string | Contact)[] | null;
@@ -346,8 +400,8 @@ export interface Order {
   number?: string | null;
   seller?: Party;
   customer?: Party;
-  broker?: Party;
   categories?: (string | Category)[] | null;
+  broker?: Party;
   counter?: (string | null) | Counter;
   session?: (string | null) | Session;
   lines?:
@@ -368,21 +422,20 @@ export interface Order {
  */
 export interface Session {
   id: string;
-  key?: string | null;
   name?: string | null;
   parent?: (string | null) | Session;
   timeRange?: {
     from?: string | null;
     to?: string | null;
   };
-  place?: (string | null) | Place;
+  categories?: (string | Category)[] | null;
   manager?: Party;
+  place?: (string | null) | Place;
   catalog?: (string | null) | Catalog;
+  profiles?: (string | Profile)[] | null;
   subject?: {
     counter?: (string | null) | Counter;
   };
-  profiles?: (string | Profile)[] | null;
-  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -393,48 +446,17 @@ export interface Session {
 export interface Product {
   id: string;
   name?: string | null;
-  ingredientStatement?: {
-    short?: {
-      root: {
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        type: string;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-  };
-  owner?: Party;
+  ingredientStatement?: Description;
   producer?: Party;
+  owner?: Party;
   mainImage?: string | Media | null;
   images?: (string | Media)[] | null;
-  netWeight?: {
-    value?: number | null;
-    unit?: (string | null) | Unit;
-  };
+  netWeight?: Quantity;
   dimensions?: {
-    length?: {
-      value?: number | null;
-      unit?: (string | null) | Unit;
-    };
-    width?: {
-      value?: number | null;
-      unit?: (string | null) | Unit;
-    };
-    height?: {
-      value?: number | null;
-      unit?: (string | null) | Unit;
-    };
-    volume?: {
-      value?: number | null;
-      unit?: (string | null) | Unit;
-    };
+    length?: Quantity;
+    width?: Quantity;
+    height?: Quantity;
+    volume?: Quantity;
   };
   categories?: (string | Category)[] | null;
   allergenList?:
@@ -473,6 +495,14 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Quantity".
+ */
+export interface Quantity {
+  value?: number | null;
+  unit?: (string | null) | Unit;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -598,6 +628,7 @@ export interface Contribution {
     counter?: (string | null) | Counter;
     product?: (string | null) | Product;
   };
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -612,6 +643,7 @@ export interface Action {
   type?: string | null;
   link?: string | null;
   subject?: Party;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -638,20 +670,6 @@ export interface KnowledgeElement {
   type?: string | null;
   link?: string | null;
   base?: (string | null) | KnowledgeBase;
-  area?: (string | null) | Place;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "information_systems".
- */
-export interface InformationSystem {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  type?: string | null;
-  link?: string | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;

@@ -1,6 +1,7 @@
 import type { Field } from 'payload/types'
 
 import deepMerge from '../utilities/deepMerge'
+import QuantityCell from './QuantityCell'
 
 type QuantityType = (options?: {
   name?: string
@@ -12,6 +13,12 @@ const quantityField: QuantityType = ({ name, overrides = {} } = {}) => {
   {
     name: name,
     type: 'group',
+    interfaceName: 'Quantity',
+    admin: {
+      components: {
+        Cell: QuantityCell
+      },
+    },
     fields: [
       {
         type: 'row',

@@ -6,6 +6,7 @@ import producerPartyField from '../fields/producerPartyField'
 import quantityField from '../fields/quantityField'
 import { canManageOrContribute } from './canRead';
 import descriptionField from '../fields/descriptionField'
+import partyField from '../fields/partyField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -36,8 +37,9 @@ const Products: CollectionConfig = {
       type: 'text',
     },
     descriptionField({name: "ingredientStatement"}),
-    ownerPartyField,
-    producerPartyField,
+    categoriesField,
+    partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
     {
       name: 'mainImage', // required
       type: 'upload', // required
@@ -72,7 +74,6 @@ const Products: CollectionConfig = {
           }
         ]
     },
-    categoriesField,
     {
       name: 'allergenList',
       type: 'array',

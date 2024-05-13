@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import payload from 'payload'
 import descriptionField from '../fields/descriptionField'
+import partyField from '../fields/partyField'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -75,39 +76,7 @@ const Activities: CollectionConfig = {
         ],
       },
     },
-    {
-      name: 'manager', // required
-      type: 'group', // required
-      interfaceName: 'Party', // optional
-      admin: {
-        position: 'sidebar'
-      },
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'organisation',
-              type: 'relationship',
-              relationTo: 'organisations',
-              hasMany: false,
-            },
-            {
-              name: 'partnership',
-              type: 'relationship',
-              relationTo: 'partnerships',
-              hasMany: false,
-            },
-            {
-              name: 'activity',
-              type: 'relationship',
-              relationTo: 'activities',
-              hasMany: false,
-            }
-          ]
-        },
-      ],
-    },
+    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'profiles',
       type: 'relationship',

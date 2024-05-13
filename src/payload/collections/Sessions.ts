@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import managerPartyField from '../fields/managerPartyField'
 import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
+import partyField from '../fields/partyField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -14,10 +15,6 @@ const Sessions: CollectionConfig = {
   },
   fields: [
     {
-      name: 'key',
-      type: 'text',
-    },
-    {
       name: 'name',
       type: 'text',
     },
@@ -26,6 +23,9 @@ const Sessions: CollectionConfig = {
       type: 'relationship',
       relationTo: 'sessions',
       hasMany: false,
+      admin: {
+        position: 'sidebar'
+      }
     },
     {
       name: 'timeRange',
@@ -56,18 +56,30 @@ const Sessions: CollectionConfig = {
         }
       ]
     },
+    categoriesField,
+    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
-      name: 'place',
-      type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
+      type: 'row',
+      fields: [
+        {
+          name: 'place',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+        },
+        {
+          name: 'catalog',
+          type: 'relationship',
+          relationTo: 'catalogs',
+          hasMany: false,
+        },
+      ]
     },
-    managerPartyField,
     {
-      name: 'catalog',
+      name: 'profiles',
       type: 'relationship',
-      relationTo: 'catalogs',
-      hasMany: false,
+      relationTo: 'profiles',
+      hasMany: true,
     },
     {
       name: 'subject',
@@ -81,16 +93,6 @@ const Sessions: CollectionConfig = {
         }
       ]
     },
-    {
-      name: 'profiles',
-      type: 'relationship',
-      relationTo: 'profiles',
-      hasMany: true,
-      admin: {
-        position: 'sidebar'
-      }
-    },
-    categoriesField,
   ],
 }
 

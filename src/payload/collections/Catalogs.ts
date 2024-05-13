@@ -8,6 +8,7 @@ import sellerPartyField from '../fields/sellerParty'
 import { canManageOrContribute } from './canRead'
 import productCategoriesField from '../fields/productCategoriesField'
 import { group } from 'console'
+import descriptionField from '../fields/descriptionField'
 
 
 const Catalogs: CollectionConfig = {
@@ -42,22 +43,7 @@ const Catalogs: CollectionConfig = {
       name: 'type',
       type: 'text',
     },
-    {
-      name: 'description',
-      type: 'group',
-      fields: [
-        {
-          name: 'short',
-          type: 'group',
-          fields: [
-            {
-              name: 'markdown',
-              type: 'text'
-            }
-          ]
-        }
-      ]
-    },
+    descriptionField({name: 'description'}),
     sellerPartyField,
     {
       name: 'area',

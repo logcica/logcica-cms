@@ -5,7 +5,8 @@ import { createHeadlessEditor } from '@lexical/headless' // <= make sure this pa
 import {
   getEnabledNodes,
   sanitizeEditorConfig,
-  defaultEditorConfig
+  defaultEditorConfig,
+  convertLexicalToHTML
 } from '@payloadcms/richtext-lexical'
 
 import {
@@ -13,6 +14,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { $convertToMarkdownString, $convertFromMarkdownString } from '@lexical/markdown'
+import DescriptionCell from './DescriptionCell'
 
 type DescriptionType = (options?: {
   name?: string
@@ -25,7 +27,13 @@ editorConfig.features.push(BoldTextFeature())
 const descriptionField: DescriptionType = ({ name = "description", overrides = {} } = {}) => {
   const descriptionResult: Field = {
     type: 'group',
+    interfaceName: 'Description',
     name: name,
+    admin: {
+      components: {
+        Cell: DescriptionCell
+      },
+    },
     fields: [
       {
         name: 'short',
@@ -59,10 +67,13 @@ const descriptionField: DescriptionType = ({ name = "description", overrides = {
             }
           ],
           afterRead: [
-              async ({value}) => {
+              async ({value, findMany}) => {
   
                 if(!value || !value.markdown)
                   return undefined
+
+                if(findMany)
+                  return value
   
                 const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
   
