@@ -59,7 +59,7 @@ const Sessions: CollectionConfig = {
     },
     descriptionField({}),
     categoriesField,
-    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       type: 'row',
       fields: [

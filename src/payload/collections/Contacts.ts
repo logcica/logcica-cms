@@ -118,7 +118,7 @@ const Contacts: CollectionConfig = {
       name: 'mainEmail',
       type: 'email',
     },
-    partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'area',
       type: 'relationship',

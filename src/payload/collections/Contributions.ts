@@ -34,7 +34,7 @@ const Contributions: CollectionConfig = {
       type: 'text',
       hasMany: true,
     },
-    partyField({
+    ...partyField({
       name: 'contributor',
       relations: ['organisations', 'partnerships', 'activities', 'persons'],
     }),

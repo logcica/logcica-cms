@@ -10,14 +10,8 @@ type LogcicaRelationshipType = (options?: {
   overrides?: Record<string, unknown>
 }) => Field[]
 
-const logcicaRelationshipField: LogcicaRelationshipType = ({
-  name,
-  relationTo,
-  position,
-  overrides = {},
-} = {}) => {
-
-  const foreignKeyField: Field = {
+export function newForeignKeyField(name: string): Field{
+   const foreignKeyField: Field = {
     name: name + 'Id',
     type: 'richText',
     hooks: {
@@ -32,6 +26,18 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
       hidden: true,
     },
   }
+
+  return foreignKeyField
+}
+
+const logcicaRelationshipField: LogcicaRelationshipType = ({
+  name,
+  relationTo,
+  position,
+  overrides = {},
+} = {}) => {
+
+  const foreignKeyField = newForeignKeyField(name)
 
   const relationshipField: Field = {
     name: name,

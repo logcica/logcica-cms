@@ -1,5 +1,4 @@
 import type { Field } from 'payload/types'
-import { useEffect, useState } from 'react'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
 import { Types } from 'mongoose'
@@ -9,7 +8,7 @@ type PartyType = (options?: {
   position?: 'sidebar'
   relations?: string[]
   overrides?: Record<string, unknown>
-}) => Field
+}) => Field[]
 
 const supportedRelations = [
   {
@@ -34,6 +33,26 @@ const supportedRelations = [
   },
 ]
 
+export function newForeignKeyField(name: string, localName: string): Field{
+  const foreignKeyField: Field = {
+   name: name + capitalizeFirstLetter(localName) + 'Id',
+   type: 'richText',
+   hooks: {
+     beforeChange: [
+       ({ siblingData }) => {
+         if (!siblingData[name][localName]) return siblingData[name][localName]
+         return new Types.ObjectId(siblingData[name][localName])
+       },
+     ],
+   },
+   admin: {
+     hidden: true,
+   },
+ }
+
+ return foreignKeyField
+}
+
 const partyField: PartyType = ({ name, position, relations, overrides = {} } = {}) => {
   const partyResult: Field = {
     name: name,
@@ -42,35 +61,18 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     fields: [
       {
         type: 'row',
-        fields: relations.reduce((arr, r) => {
-          const name = supportedRelations.find(sr => sr.plural == r).singural
+        fields: relations.map(r => {
+          const localName = supportedRelations.find(sr => sr.plural == r).singural
           const relationTo = supportedRelations.find(sr => sr.plural == r).plural
 
-          const foreignKeyField: Field = {
-            name: name + 'Id',
-            type: 'richText',
-            hooks: {
-              beforeChange: [
-                ({ siblingData }) => {
-                  if (!siblingData[name]) return siblingData[name]
-                  return new Types.ObjectId(siblingData[name])
-                },
-              ],
-            },
-            admin: {
-              hidden: true,
-            },
-          }
-
           const relationshipField: Field = {
-            name: name,
+            name: localName,
             type: 'relationship',
             relationTo: relationTo,
           }
 
-          arr.push(foreignKeyField, relationshipField)
-          return arr
-        }, []),
+          return relationshipField
+        }),
       },
     ],
     admin: {
@@ -81,7 +83,19 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     },
   }
 
-  return deepMerge(partyResult, overrides)
+  const foreignKeys = relations.map(r => {
+    const localName = supportedRelations.find(sr => sr.plural == r).singural
+
+    const foreignKeyField = newForeignKeyField(name, localName)
+    console.log(foreignKeyField)
+    return deepMerge(foreignKeyField,overrides)
+  })
+
+  return [deepMerge(partyResult, overrides), ...foreignKeys]
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export default partyField

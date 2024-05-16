@@ -38,8 +38,8 @@ const Products: CollectionConfig = {
     },
     descriptionField({name: "ingredientStatement"}),
     categoriesField,
-    partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
-    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+    ...partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
     {
       name: 'mainImage', // required
       type: 'upload', // required

@@ -31,10 +31,10 @@ const Orders: CollectionConfig = {
       type: 'text',
     },
 
-    partyField({ name: 'seller', relations: ['organisations', 'partnerships', 'activities'] }),
-    partyField({ name: 'customer', relations: ['organisations', 'partnerships', 'activities', 'persons'] }),
+    ...partyField({ name: 'seller', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'customer', relations: ['organisations', 'partnerships', 'activities', 'persons'] }),
     categoriesField,
-    partyField({ name: 'broker', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'broker', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       type: 'row',
       fields: [

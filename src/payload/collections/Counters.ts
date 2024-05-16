@@ -105,7 +105,7 @@ const Counters: CollectionConfig = {
       hasMany: true,
     },
     categoriesField,
-    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] })
+    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] })
   ],
 }
 

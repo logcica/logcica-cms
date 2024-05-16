@@ -30,7 +30,7 @@ const Batches: CollectionConfig = {
       name: 'number',
       type: 'text',
     },
-    partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'workspace',
       type: 'relationship',

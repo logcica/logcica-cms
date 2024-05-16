@@ -27,8 +27,17 @@ const Activities: CollectionConfig = {
   },
   fields: [
     {
+      name: 'isMain', // required
+      type: 'checkbox', // required
+      defaultValue: false,
+      admin: {
+        position: 'sidebar'
+      }
+    },
+    {
       type: 'row',
       fields: [
+
         {
           name: 'name',
           type: 'text',
@@ -54,7 +63,7 @@ const Activities: CollectionConfig = {
         },
       ]
     },
-    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'profiles',
       type: 'relationship',

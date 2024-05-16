@@ -37,7 +37,7 @@ const References: CollectionConfig = {
       name: 'target',
       type: 'text',
     },
-    partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'persons'] }),
+    ...partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'persons'] }),
     {
       name: 'targetType',
       type: 'text',

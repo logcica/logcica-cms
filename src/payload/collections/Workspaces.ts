@@ -61,8 +61,8 @@ const Workspaces: CollectionConfig = {
         }
       }
     },
-    partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
-    partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'place',
       type: 'relationship',

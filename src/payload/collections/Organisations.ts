@@ -65,7 +65,7 @@ const Organisations: CollectionConfig = {
       relationTo: 'activities',
       position: 'sidebar'
     }),
-    partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
+    ...partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
     ...logcicaRelationshipField({
       name: 'place',
       relationTo: 'places',
