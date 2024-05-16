@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import payload from 'payload'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -39,10 +40,19 @@ const Activities: CollectionConfig = {
       ]
     },
     {
-      name: 'place',
-      type: 'relationship',
-      relationTo: 'places',
-      hasMany: false,
+      type: 'row', 
+      fields: [
+        ...logcicaRelationshipField({
+          name: 'mainWorkspace',
+          relationTo: 'workspaces',
+        }),
+        {
+          name: 'place',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+        },
+      ]
     },
     partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {

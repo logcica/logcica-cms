@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead';
 import partyField from '../fields/partyField';
 import categoriesField from '../fields/CategoriesField';
+import CustomLinkCell from '../fields/CustomLinkCell';
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -81,6 +82,15 @@ const Counters: CollectionConfig = {
           hasMany: true,
         },
       ]
+    },
+    {
+      name: 'link',
+      type: 'text',
+      admin: {
+        components: {
+          Cell: CustomLinkCell,
+        },
+      },
     },
     {
       name: 'contacts',

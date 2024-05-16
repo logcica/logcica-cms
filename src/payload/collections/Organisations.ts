@@ -4,6 +4,8 @@ import { canManageOrContribute } from './canRead'
 import ownerPartyField from '../fields/ownerPartyField'
 import partyField from '../fields/partyField'
 import BCELinkCell from '../fields/BCELinkCell'
+import { Types } from "mongoose";
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -58,13 +60,17 @@ const Organisations: CollectionConfig = {
       name: 'registeredAt',
       type: 'date',
     },
+    ...logcicaRelationshipField({
+      name: 'mainActivity',
+      relationTo: 'activities',
+      position: 'sidebar'
+    }),
     partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
-    {
+    ...logcicaRelationshipField({
       name: 'place',
-      type: 'relationship',
       relationTo: 'places',
-      hasMany: false,
-    },
+      position: 'sidebar'
+    }),
     {
       name: 'workspaces',
       type: 'relationship',

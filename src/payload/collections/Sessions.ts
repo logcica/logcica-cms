@@ -3,6 +3,7 @@ import managerPartyField from '../fields/managerPartyField'
 import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
+import descriptionField from '../fields/descriptionField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -56,6 +57,7 @@ const Sessions: CollectionConfig = {
         }
       ]
     },
+    descriptionField({}),
     categoriesField,
     partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {

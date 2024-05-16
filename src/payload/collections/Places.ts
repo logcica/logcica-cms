@@ -73,6 +73,11 @@ const Places: CollectionConfig = {
       type: 'relationship',
       relationTo: 'places',
       hasMany: true,
+      filterOptions: () => {
+        return {
+          type: { in: ["region", "country", "province"] },
+        }
+      },
     },
     {
       name: 'title',

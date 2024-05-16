@@ -41,6 +41,10 @@ const Workspaces: CollectionConfig = {
           name: 'name',
           type: 'text',
         },
+        {
+          name: 'internalName',
+          type: 'text',
+        },
       ]
     },
     {

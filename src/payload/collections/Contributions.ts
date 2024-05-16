@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { canManage, canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import subjectField from '../fields/subjectField'
+import descriptionField from '../fields/descriptionField'
 
 const Contributions: CollectionConfig = {
   slug: 'contributions',
@@ -44,6 +45,7 @@ const Contributions: CollectionConfig = {
       relationTo: 'places',
       hasMany: false,
     },
+    descriptionField({})
   ],
 }
 
