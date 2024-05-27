@@ -61,6 +61,7 @@ import Actions from './collections/Actions'
 import InformationSystems from './collections/InformationSystems'
 import References from './collections/References'
 import Persons from './collections/Persons'
+import Sectors from './collections/Sectors'
 
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
@@ -140,7 +141,8 @@ export default buildConfig({
     Users,
     Pages,
     Posts,
-    Projects
+    Projects,
+    Sectors
   ],
   /*
   globals: [Settings, Header, Footer],

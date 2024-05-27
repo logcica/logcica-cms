@@ -20,6 +20,17 @@ const tenancyFields: Field[] = [
         hasMany: false,
       },
       {
+        name: 'sector',
+        type: 'relationship',
+        relationTo: 'sectors',
+        hasMany: false,
+      },
+    ]
+  },
+  {
+    type: 'row',
+    fields: [
+      {
         name: 'organisation',
         type: 'relationship',
         relationTo: 'organisations',
@@ -51,7 +62,7 @@ const roleTypeOptions = [
     value: 'manager',
   },
   {
-    label: 'Responsable territoire',
+    label: 'Responsable',
     value: 'maintainer',
   },
   {
@@ -121,6 +132,13 @@ const Users: CollectionConfig = {
                 })
               }
 
+              if (data.tenancy.sector) {
+                const url = `${process.env.PAYLOAD_PUBLIC_API}/sectors/${data?.tenancy?.sector}`
+                fetch(url).then(async res => {
+                  setLabel(getTypeLabel(data.type) + ' -> ' + (await res.json()).name)
+                })
+              }
+
               if (data.tenancy.organisation) {
                 const url = `${process.env.PAYLOAD_PUBLIC_API}/organisations/${data?.tenancy?.organisation}`
                 fetch(url).then(async res => {
@@ -128,7 +146,7 @@ const Users: CollectionConfig = {
                 })
               }
 
-            }, [data.tenancy.area, data.tenancy.organisation, data.type])
+            }, [data.tenancy.area, data.tenancy.sector, data.tenancy.organisation, data.type])
 
             return label
           },
