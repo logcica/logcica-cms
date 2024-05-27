@@ -11,7 +11,7 @@ const Organisations: CollectionConfig = {
   slug: 'organisations',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'place'],
+    defaultColumns: ['name','number','place','legalFormShort'],
     group: 'Structure',
     listSearchableFields: ['name', 'number'],
   },

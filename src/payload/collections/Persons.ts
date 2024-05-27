@@ -21,6 +21,7 @@ const Persons: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
+    defaultColumns: ['name','contacts','id','place'],
   },
   fields: [
     {

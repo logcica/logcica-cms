@@ -21,6 +21,8 @@ const Batches: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Gestion',
+    defaultColumns: ['number','id','operator','workspace'],
+
   },
   access: {
     read: canManage({tenancyInAnyProperty: ['operator']}),

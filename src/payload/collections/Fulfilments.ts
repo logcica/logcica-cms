@@ -21,6 +21,8 @@ const Fulfilments: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
+    defaultColumns: ['number','id','operator','workspace'],
+
   },
   access: {
     read: canManage({tenancyInAnyProperty: ['operator']}),

@@ -21,6 +21,7 @@ const Orders: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
+    defaultColumns: ['number','id','seller','customer','session'],
   },
   access: {
     read: canManage({tenancyInAnyProperty: ['seller','customer','broker']}),

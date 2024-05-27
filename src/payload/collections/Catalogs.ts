@@ -30,6 +30,7 @@ const Catalogs: CollectionConfig = {
   admin: {
     useAsTitle: 'description.short.markdown',
     group: 'Gestion',
+    defaultColumns: ['id','type','productCategories','description','name'],
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['seller']}),

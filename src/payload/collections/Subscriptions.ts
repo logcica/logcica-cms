@@ -20,6 +20,8 @@ const Subscriptions: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
+    defaultColumns: ['number','id','status','frequency'],
+
   },
   access: {
     read: canManage({tenancyInAnyProperty: ['provider','subscriber','broker']}),

@@ -15,7 +15,8 @@ const WeekAvailabilities: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Gestion'
+    group: 'Gestion',
+    defaultColumns: ['name','id','key','days'],
   },
   access: {
     read: () => true,

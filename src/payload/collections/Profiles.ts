@@ -13,7 +13,8 @@ const Profiles: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Connexions',
-    listSearchableFields: ['key','name','link']
+    listSearchableFields: ['key','name','link'],
+    defaultColumns: ['title','key','name','type','link','description'],
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['subject']}) 

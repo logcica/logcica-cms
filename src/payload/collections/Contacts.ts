@@ -8,7 +8,8 @@ const Contacts: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Connexions',
-    listSearchableFields: ['name', 'givenName', 'familyName','mainPhoneNumber','mainEmail']
+    listSearchableFields: ['name', 'givenName', 'familyName','mainPhoneNumber','mainEmail'],
+    defaultColumns: ['title','id','type','givenName','holder'],
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['holder']}),

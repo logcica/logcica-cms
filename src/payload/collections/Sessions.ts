@@ -9,7 +9,8 @@ const Sessions: CollectionConfig = {
   slug: 'sessions',
   admin: {
     useAsTitle: 'name',
-    group: 'Gestion'
+    group: 'Gestion',
+    defaultColumns: ['name','place','manager','parent','categories','timeRange'],
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),

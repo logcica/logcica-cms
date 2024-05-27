@@ -17,7 +17,8 @@ const Partnerships: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Structure'
+    group: 'Structure',
+    defaultColumns: ['name','area','categories','contacts','profiles'],
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area'}),

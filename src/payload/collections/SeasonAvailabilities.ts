@@ -5,7 +5,9 @@ const SeasonAvailabilities: CollectionConfig = {
   slug: 'season_availabilities',
   admin: {
     useAsTitle: 'name',
-    group: 'Gestion'
+    group: 'Gestion',
+    defaultColumns: ['name','id','key','year'],
+
   },
   labels: {
     singular: {

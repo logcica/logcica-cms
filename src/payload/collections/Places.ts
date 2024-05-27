@@ -16,7 +16,8 @@ const Places: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Structure',
-    listSearchableFields: ['name', 'address.street', 'address.locality', 'address.postalCode', 'address.municipality']
+    listSearchableFields: ['name', 'address.street', 'address.locality', 'address.postalCode', 'address.municipality'],
+    defaultColumns: ['title','center','within','key','type','gmaps'],
   },
   access: {
     read: () => true

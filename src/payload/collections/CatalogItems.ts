@@ -18,6 +18,8 @@ const Catalogs: CollectionConfig = {
   },
   admin: {
     group: 'Gestion',
+    defaultColumns: ['id','name','catalog','product'],
+
   },
   access: {
     read: () => true

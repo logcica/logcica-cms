@@ -5,7 +5,8 @@ const Relationships: CollectionConfig = {
   slug: 'relationships',
   admin: {
     useAsTitle: 'name',
-    group: 'Connexions'
+    group: 'Connexions',
+    defaultColumns: ['name','id','type','contacts'],
   },
   labels: {
     singular: {

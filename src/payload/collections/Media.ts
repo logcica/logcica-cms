@@ -5,7 +5,9 @@ import type { CollectionConfig } from 'payload/types'
 export const Media: CollectionConfig = {
   slug: 'media',
   admin: {
-    group: 'Gestion'
+    group: 'Gestion',
+    defaultColumns: ['name','id','alt','updatedAt','createdAt'],
+
   },
   upload: {
     staticDir: path.resolve(__dirname, '../../../media'),

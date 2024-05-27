@@ -20,7 +20,8 @@ const Activities: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
-    listSearchableFields: ['name']
+    listSearchableFields: ['name'],
+    defaultColumns: ['name','place','contacts','categories','manager'],
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),

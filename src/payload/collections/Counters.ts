@@ -18,7 +18,7 @@ const Counters: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ["name", "place"],
+    defaultColumns: ['id','name','type','manager','place','marketplace','catalog'],
     group: 'Structure'
   },
   access: {

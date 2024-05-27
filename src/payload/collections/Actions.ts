@@ -6,7 +6,9 @@ const Actions: CollectionConfig = {
   slug: 'actions',
   admin: {
     useAsTitle: 'key',
-    group: 'Connexions'
+    group: 'Connexions',
+    defaultColumns: ['key','id','name','type'],
+
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['subject'], placeInProperty: 'area'}) 

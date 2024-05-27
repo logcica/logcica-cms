@@ -9,6 +9,7 @@ const Contributions: CollectionConfig = {
   admin: {
     useAsTitle: 'id',
     group: 'Connexions',
+    defaultColumns: ['id','roles','contributor','subject'],
     listSearchableFields: [
       'id',
       'contributor.organisation.name',

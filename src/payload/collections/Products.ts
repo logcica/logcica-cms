@@ -8,6 +8,7 @@ import { canManageOrContribute } from './canRead';
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 
+
 const Products: CollectionConfig = {
   slug: 'products',
   labels: {
@@ -27,6 +28,7 @@ const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
+    defaultColumns: ['name','producer','ingredientStatement','categories'],
   },
   access: {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['owner','producer']}),

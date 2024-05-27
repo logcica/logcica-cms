@@ -19,7 +19,8 @@ const Workspaces: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Structure'
+    group: 'Structure',
+    defaultColumns: ['name','number','place','manager','internalName','categories'],
   },
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
