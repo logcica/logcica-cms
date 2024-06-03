@@ -1,29 +1,16 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloud } from '@payloadcms/plugin-cloud'
-import nestedDocs from '@payloadcms/plugin-nested-docs'
-import redirects from '@payloadcms/plugin-redirects'
-import seo from '@payloadcms/plugin-seo'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
 
 import Categories from './collections/Categories'
-import Comments from './collections/Comments'
 import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { Projects } from './collections/Projects'
 import Users from './collections/Users'
 import BeforeDashboard from './components/BeforeDashboard'
 import BeforeLogin from './components/BeforeLogin'
-import { seed } from './endpoints/seed'
-import { Footer } from './globals/Footer'
-import { Header } from './globals/Header'
-import { Settings } from './globals/Settings'
-import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
-import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
 import Classifications from './collections/Classifications'
 import Organisations from './collections/Organisations'
 import Activities from './collections/Activities'
@@ -31,13 +18,10 @@ import Partnerships from './collections/Partnerships'
 import Places from './collections/Places'
 import Profiles from './collections/Profiles'
 import {
-  HTMLConverterFeature,
-  LexicalPluginToLexicalFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import Contacts from './collections/Contacts'
 import Products from './collections/Products'
-import { relationshipsAsObjectID } from './plugins/relationshipObjectIds'
 import CodeLists from './collections/CodeLists'
 import Codes from './collections/Codes'
 import Sessions from './collections/Sessions'
@@ -90,11 +74,7 @@ export default buildConfig({
         ...config.resolve,
         alias: {
           ...config.resolve.alias,
-          dotenv: path.resolve(__dirname, './dotenv.js'),
-          [path.resolve(__dirname, './endpoints/seed')]: path.resolve(
-            __dirname,
-            './emptyModuleMock.js',
-          ),
+          dotenv: path.resolve(__dirname, './dotenv.js')
         },
       },
     }),
@@ -139,9 +119,6 @@ export default buildConfig({
     InformationSystems,
     References,
     Users,
-    Pages,
-    Posts,
-    Projects,
     Sectors
   ],
   /*
@@ -155,15 +132,6 @@ export default buildConfig({
   },
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-  endpoints: [
-    // The seed endpoint is used to populate the database with some example data
-    // You should delete this endpoint before deploying your site to production
-    {
-      path: '/seed',
-      method: 'get',
-      handler: seed,
-    },
-  ],
   i18n: {
     fallbackLng: 'en', // default
     debug: false, // default
