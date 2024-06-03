@@ -1,7 +1,12 @@
 import express from 'express';
 import payload from 'payload';
+import dotenv from 'dotenv';
+import path from 'path';
 
-require('dotenv').config();
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+})
+
 const app = express();
 
 // Redirect root to Admin panel
