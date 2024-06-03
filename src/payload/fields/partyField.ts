@@ -87,7 +87,6 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     const localName = supportedRelations.find(sr => sr.plural == r).singural
 
     const foreignKeyField = newForeignKeyField(name, localName)
-    console.log(foreignKeyField)
     return deepMerge(foreignKeyField,overrides)
   })
 
