@@ -1,13 +1,12 @@
-import type { CollectionConfig } from 'payload/types'
-import categoriesField from '../fields/CategoriesField'
-import { useEffect, useState } from 'react'
-import ownerPartyField from '../fields/ownerPartyField'
-import producerPartyField from '../fields/producerPartyField'
-import quantityField from '../fields/quantityField'
+import type { CollectionConfig } from 'payload/types';
+import categoriesField from '../fields/CategoriesField';
+import { useEffect, useState } from 'react';
+import ownerPartyField from '../fields/ownerPartyField';
+import producerPartyField from '../fields/producerPartyField';
+import quantityField from '../fields/quantityField';
 import { canManageOrContribute } from './canRead';
-import descriptionField from '../fields/descriptionField'
-import partyField from '../fields/partyField'
-
+import descriptionField from '../fields/descriptionField';
+import partyField from '../fields/partyField';
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -23,25 +22,27 @@ const Products: CollectionConfig = {
   },
   versions: {
     drafts: false,
-    maxPerDoc: 10
+    maxPerDoc: 10,
   },
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name','producer','ingredientStatement','categories'],
+    defaultColumns: ['name', 'producer', 'ingredientStatement', 'categories', 'productGroup'],
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['owner','producer']}),
+    read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['owner', 'producer'] }),
   },
   fields: [
     {
       name: 'name',
       type: 'text',
     },
-    descriptionField({name: "ingredientStatement"}),
+    descriptionField({ name: 'ingredientStatement' }),
     categoriesField,
     ...partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+
+
     {
       name: 'mainImage', // required
       type: 'upload', // required
@@ -59,22 +60,22 @@ const Products: CollectionConfig = {
         mimeType: { contains: 'image' },
       },
     },
-    quantityField({name: 'netWeight'}),
+    quantityField({ name: 'netWeight' }),
     {
-        name: 'dimensions',
-        type: 'group',
-        fields: [
-          {
-            type: 'collapsible',
-            label: (data) => [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(" x "),
-            fields: [
-              quantityField({name: 'length'}),
-              quantityField({name: 'width'}),
-              quantityField({name: 'height'}),
-              quantityField({name: 'volume'}),
-            ]
-          }
-        ]
+      name: 'dimensions',
+      type: 'group',
+      fields: [
+        {
+          type: 'collapsible',
+          label: (data) => [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(' x '),
+          fields: [
+            quantityField({ name: 'length' }),
+            quantityField({ name: 'width' }),
+            quantityField({ name: 'height' }),
+            quantityField({ name: 'volume' }),
+          ],
+        },
+      ],
     },
     {
       name: 'allergenList',
@@ -82,18 +83,18 @@ const Products: CollectionConfig = {
       admin: {
         components: {
           RowLabel: ({ data, index, path }) => {
-            const [label, setLabel] = useState(`Allergène ${String(index).padStart(2, '0')}`)
+            const [label, setLabel] = useState(`Allergène ${String(index).padStart(2, '0')}`);
 
-            console.log(data)
+            console.log(data);
             useEffect(() => {
-              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.allergen}`
-              console.log(url)
-              fetch(url).then(async res => {
-                setLabel((await res.json()).name)
-              })
-            }, [data.name])
+              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.allergen}`;
+              console.log(url);
+              fetch(url).then(async (res) => {
+                setLabel((await res.json()).name);
+              });
+            }, [data.name]);
 
-            return label
+            return label;
           },
         },
       },
@@ -108,7 +109,7 @@ const Products: CollectionConfig = {
               filterOptions: () => {
                 return {
                   list: { equals: '64e61fda2b00ce4a7ee277ff' },
-                }
+                };
               },
             },
             {
@@ -118,7 +119,7 @@ const Products: CollectionConfig = {
               filterOptions: () => {
                 return {
                   list: { equals: '64e61fda2b00ce4a7ee277fe' },
-                }
+                };
               },
             },
           ],
@@ -131,17 +132,17 @@ const Products: CollectionConfig = {
       admin: {
         components: {
           RowLabel: ({ data, index, path }) => {
-            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`)
+            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`);
 
             useEffect(() => {
-              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`
-              console.log(url)
-              fetch(url).then(async res => {
-                setLabel((await res.json()).name)
-              })
-            }, [data.name])
+              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`;
+              console.log(url);
+              fetch(url).then(async (res) => {
+                setLabel((await res.json()).name);
+              });
+            }, [data.name]);
 
-            return label
+            return label;
           },
         },
       },
@@ -156,7 +157,7 @@ const Products: CollectionConfig = {
               filterOptions: () => {
                 return {
                   list: { equals: '651d94b094bcb52b76132eaa' },
-                }
+                };
               },
             },
             {
@@ -168,20 +169,29 @@ const Products: CollectionConfig = {
                   fields: [
                     {
                       name: 'value',
-                      type: 'number'
+                      type: 'number',
                     },
                     {
                       name: 'unit',
                       type: 'relationship',
                       relationTo: 'units',
-                    }
-                  ]
-                }
-              ]
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
       ],
+    },
+    {
+      name: 'productGroup',
+      type: 'relationship',
+      relationTo: 'product_groups',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'area',
@@ -189,7 +199,8 @@ const Products: CollectionConfig = {
       relationTo: 'places',
       hasMany: false,
     },
+    
   ],
-}
+};
 
-export default Products
+export default Products;
