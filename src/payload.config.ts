@@ -90,6 +90,7 @@ export default buildConfig({
     Subscriptions,
     Fulfilments,
     Products,
+    ProductGroup,
     Batches,
     Sessions,
     Catalogs,
@@ -113,8 +114,7 @@ export default buildConfig({
     InformationSystems,
     References,
     Users,
-    Sectors,
-    ProductGroup,
+    Sectors
   ],
   /*
   globals: [Settings, Header, Footer],
