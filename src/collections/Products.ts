@@ -27,15 +27,25 @@ const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name', 'producer', 'ingredientStatement', 'categories', 'productGroup'],
+    defaultColumns: ['name', 'netWeight', 'producer', 'productGroup', 'ingredientStatement', 'categories'],
   },
   access: {
     read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['owner', 'producer'] }),
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+        },
+        {
+          name: 'productGroup',
+          type: 'relationship',
+          relationTo: 'product_groups',
+        }
+      ]
     },
     descriptionField({ name: 'ingredientStatement' }),
     categoriesField,
@@ -183,15 +193,6 @@ const Products: CollectionConfig = {
           ],
         },
       ],
-    },
-    {
-      name: 'productGroup',
-      type: 'relationship',
-      relationTo: 'product_groups',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
     },
     {
       name: 'area',
