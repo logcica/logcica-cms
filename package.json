@@ -1,6 +1,6 @@
 {
-  "name": "logica-CMS-2",
-  "description": "Website template for Payload",
+  "name": "logcica-cms",
+  "description": "logCiCA CMS",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
