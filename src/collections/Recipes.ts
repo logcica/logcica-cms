@@ -27,7 +27,7 @@ const Recipes: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name'],
+    defaultColumns: ['name', 'seasonality', 'difficulty', 'costs'],
   },
   access: {
     read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['author'] }),
@@ -84,42 +84,108 @@ const Recipes: CollectionConfig = {
       ],
     },
 
+    descriptionField({ name: 'stepStatement' }),
+
     {
-      name: 'Informations',
-      type: 'group',
+      type: 'row',
       fields: [
+
         {
-          type: 'row',
-          fields: [
-            {
-              name: 'Yield',
-              type: 'text',
-            },
-          ],
+          name: "cookTime",
+          type: "number",
+          admin: {
+            placeholder: "Entrez la durée en minute (ex: 30)",
+            step: 5,
+          },
+          min: 5,
+          max: 720,
+        },
+
+        {
+          name: "prepTime",
+          type: "number",
+          admin: {
+            placeholder: "Entrez la durée en minute (ex: 30)",
+            step: 5,
+          },
+          min: 5,
+          max: 720,
         },
         {
-          type: 'row',
-          fields: [
-            {
-              name: 'Instructions',
-              type: 'text',
-            },
-          ],
+          name: "totalTime",
+          type: "number",
+          admin: {
+            placeholder: "Entrez la durée en minute (ex: 30)",
+            step: 5,
+          },
+          min: 5,
+          max: 720,
+        }
+
+      ],
+    },
+
+    {
+      type: 'row',
+      fields: [
+
+        {
+          name: 'seasonality',
+          type: 'relationship',
+          relationTo: 'categories',
+          hasMany: false,
+          filterOptions: () => {
+            return {
+              classification: { equals: '668279309f105cb961f5583c' },
+            };
+          },
+        },
+
+        {
+          name: 'difficulty',
+          type: 'relationship',
+          relationTo: 'categories',
+          hasMany: false,
+          filterOptions: () => {
+            return {
+              classification: { equals: '66828eed9f105cb961f55844' },
+            };
+          },
         },
       ],
     },
+
     {
-      name: 'CookTime',
-      type: 'date',
-      admin: {
-        date: {
-          pickerAppearance: 'timeOnly',
-          displayFormat: 'h:mm',
+      type: 'row',
+      fields: [
+
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'yieldStatement',
+              type: 'text',
+            },
+          ],
         },
-      },
+
+        {
+          name: 'costCategory',
+          type: 'relationship',
+          relationTo: 'categories',
+          hasMany: false,
+          filterOptions: () => {
+            return {
+              classification: { equals: '6682a6309f105cb961f55862' },
+            };
+          },
+        },
+
+      ],
     },
+
     {
-      name: 'nutritions',
+      name: 'nutrientList',
       type: 'array',
       admin: {
         components: {
@@ -176,6 +242,7 @@ const Recipes: CollectionConfig = {
         },
       ],
     },
+
     {
       name: 'mainImage', // required
       type: 'upload', // required
