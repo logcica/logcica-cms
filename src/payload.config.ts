@@ -81,7 +81,6 @@ export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [
     Organisations,
-    Recipes,
     Partnerships,
     Workspaces,
     Activities,
@@ -93,6 +92,7 @@ export default buildConfig({
     Fulfilments,
     Products,
     ProductGroup,
+    Recipes,
     Batches,
     Sessions,
     Catalogs,
