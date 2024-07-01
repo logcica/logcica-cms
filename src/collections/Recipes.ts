@@ -44,15 +44,6 @@ const Recipes: CollectionConfig = {
     },
     descriptionField({ name: 'description' }),
     {
-      name: 'Persons',
-      type: 'relationship',
-      relationTo: 'persons',
-      hasMany: false,
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'ingredientsList',
       type: 'array',
       fields: [ // Représente les champs qui seront présents pour chaque ingrédients
