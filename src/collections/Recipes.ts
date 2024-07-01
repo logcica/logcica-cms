@@ -72,7 +72,7 @@ const Recipes: CollectionConfig = {
       relations: ['organisations', 'partnerships', 'persons'],
     }),
     {
-      name: 'ingredientsList',
+      name: 'ingredientList',
       type: 'array',
       fields: [
         // Représente les champs qui seront présents pour chaque ingrédients
