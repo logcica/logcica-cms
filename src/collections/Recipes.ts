@@ -1,12 +1,12 @@
-import type { CollectionConfig } from 'payload/types';
-import categoriesField from '../fields/CategoriesField';
-import { useEffect, useState } from 'react';
-import ownerPartyField from '../fields/ownerPartyField';
-import producerPartyField from '../fields/producerPartyField';
-import quantityField from '../fields/quantityField';
-import { canManageOrContribute } from './canRead';
-import descriptionField from '../fields/descriptionField';
-import partyField from '../fields/partyField';
+import type { CollectionConfig } from 'payload/types'
+import categoriesField from '../fields/CategoriesField'
+import { useEffect, useState } from 'react'
+import ownerPartyField from '../fields/ownerPartyField'
+import producerPartyField from '../fields/producerPartyField'
+import quantityField from '../fields/quantityField'
+import { canManageOrContribute } from './canRead'
+import descriptionField from '../fields/descriptionField'
+import partyField from '../fields/partyField'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -30,7 +30,7 @@ const Recipes: CollectionConfig = {
     defaultColumns: ['name'],
   },
   access: {
-    read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['owner', 'producer'] }),
+    read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['author'] }),
   },
   fields: [
     {
@@ -39,19 +39,35 @@ const Recipes: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
-        }
-      ]
+        },
+        {
+          name: 'area',
+          type: 'relationship',
+          relationTo: 'places',
+          hasMany: false,
+          admin: {
+            position: 'sidebar',
+          },
+        },
+      ],
     },
     descriptionField({ name: 'description' }),
+    categoriesField,
+    ...partyField({
+      name: 'author',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'persons'],
+    }),
     {
       name: 'ingredientsList',
       type: 'array',
-      fields: [ // Représente les champs qui seront présents pour chaque ingrédients
+      fields: [
+        // Représente les champs qui seront présents pour chaque ingrédients
         {
           name: 'name',
           type: 'text',
         },
-        quantityField({ name: 'quantity' })
+        quantityField({ name: 'quantity' }),
       ],
     },
 
@@ -65,8 +81,8 @@ const Recipes: CollectionConfig = {
             {
               name: 'Yield',
               type: 'text',
-            }
-          ]
+            },
+          ],
         },
         {
           type: 'row',
@@ -74,10 +90,10 @@ const Recipes: CollectionConfig = {
             {
               name: 'Instructions',
               type: 'text',
-            }
-          ]
+            },
+          ],
         },
-      ]
+      ],
     },
     {
       name: 'OthersInformations',
@@ -85,7 +101,10 @@ const Recipes: CollectionConfig = {
       fields: [
         {
           type: 'collapsible',
-          label: (data) => [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value].filter(d => d).join(' x '),
+          label: data =>
+            [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value]
+              .filter(d => d)
+              .join(' x '),
           fields: [
             {
               name: 'CookTime',
@@ -97,18 +116,6 @@ const Recipes: CollectionConfig = {
                 },
               },
             },
-            {
-              name: 'Category',
-              type: 'relationship',
-              relationTo: 'categories',
-              hasMany: false
-            },
-            {
-              name: 'Area',
-              type: 'relationship',
-              relationTo: 'places',
-              hasMany: false
-            },
           ],
         },
       ],
@@ -119,17 +126,17 @@ const Recipes: CollectionConfig = {
       admin: {
         components: {
           RowLabel: ({ data, index, path }) => {
-            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`);
+            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`)
 
             useEffect(() => {
-              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`;
-              console.log(url);
-              fetch(url).then(async (res) => {
-                setLabel((await res.json()).name);
-              });
-            }, [data.name]);
+              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`
+              console.log(url)
+              fetch(url).then(async res => {
+                setLabel((await res.json()).name)
+              })
+            }, [data.name])
 
-            return label;
+            return label
           },
         },
       },
@@ -144,7 +151,7 @@ const Recipes: CollectionConfig = {
               filterOptions: () => {
                 return {
                   list: { equals: '651d94b094bcb52b76132eaa' },
-                };
+                }
               },
             },
             {
@@ -190,6 +197,6 @@ const Recipes: CollectionConfig = {
       },
     },
   ],
-};
+}
 
-export default Recipes;
+export default Recipes
