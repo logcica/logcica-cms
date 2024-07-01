@@ -1,12 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
-import categoriesField from '../fields/CategoriesField'
 import { useEffect, useState } from 'react'
-import ownerPartyField from '../fields/ownerPartyField'
-import producerPartyField from '../fields/producerPartyField'
 import quantityField from '../fields/quantityField'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
+import i18next from "i18next";
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -39,6 +37,10 @@ const Recipes: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: {
+            en: 'Name',
+            fr: 'Nom'
+          }
         },
         {
           name: 'area',
@@ -265,3 +267,4 @@ const Recipes: CollectionConfig = {
 }
 
 export default Recipes
+
