@@ -12,6 +12,7 @@ import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import Classifications from './collections/Classifications';
 import Organisations from './collections/Organisations';
+import Recipes from './collections/Recipes';
 import Activities from './collections/Activities';
 import Partnerships from './collections/Partnerships';
 import Places from './collections/Places';
@@ -80,6 +81,7 @@ export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [
     Organisations,
+    Recipes,
     Partnerships,
     Workspaces,
     Activities,
