@@ -52,7 +52,20 @@ const Recipes: CollectionConfig = {
       ],
     },
     descriptionField({ name: 'description' }),
-    categoriesField,
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+      filterOptions: () => {
+        return {
+          classification: { equals: '668267f39f105cb961f55831' },
+        };
+      },
+    },
     ...partyField({
       name: 'author',
       position: 'sidebar',
@@ -96,29 +109,14 @@ const Recipes: CollectionConfig = {
       ],
     },
     {
-      name: 'OthersInformations',
-      type: 'group',
-      fields: [
-        {
-          type: 'collapsible',
-          label: data =>
-            [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value]
-              .filter(d => d)
-              .join(' x '),
-          fields: [
-            {
-              name: 'CookTime',
-              type: 'date',
-              admin: {
-                date: {
-                  pickerAppearance: 'timeOnly',
-                  displayFormat: 'h:mm',
-                },
-              },
-            },
-          ],
+      name: 'CookTime',
+      type: 'date',
+      admin: {
+        date: {
+          pickerAppearance: 'timeOnly',
+          displayFormat: 'h:mm',
         },
-      ],
+      },
     },
     {
       name: 'nutritions',
