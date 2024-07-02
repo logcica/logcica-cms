@@ -4,20 +4,11 @@ import quantityField from '../fields/quantityField'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
-import i18next from "i18next";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
-  labels: {
-    singular: {
-      en: 'Recipe',
-      fr: 'Recette',
-    },
-    plural: {
-      en: 'Recipes',
-      fr: 'Recettes',
-    },
-  },
+  labels: getCollectionLabelsTranslations('recipes'),
   versions: {
     drafts: false,
     maxPerDoc: 10,
@@ -37,14 +28,12 @@ const Recipes: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
-          label: {
-            en: 'Name',
-            fr: 'Nom'
-          }
+          label: getLabelTranslations('name')
         },
         {
           name: 'area',
           type: 'relationship',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
           hasMany: false,
           admin: {
