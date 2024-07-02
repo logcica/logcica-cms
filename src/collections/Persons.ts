@@ -2,9 +2,11 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { ComboField } from '@nouance/payload-better-fields-plugin'
+import { getCollectionLabelsTranslations } from '../utilities/translate'
 
 const Persons: CollectionConfig = {
   slug: 'persons',
+  /*labels: getCollectionLabelsTranslations('persons'),*/
   labels: {
     singular: {
       en: 'Person',

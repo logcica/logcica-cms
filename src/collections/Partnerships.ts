@@ -2,10 +2,12 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { group } from 'console'
+import {getCollectionLabelsTranslations} from "../utilities/translate";
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
-  labels: {
+  labels: getCollectionLabelsTranslations('partnerships'),
+  /*labels: {
     singular: {
       en: 'Partnership',
       fr: 'Partenariat',
@@ -14,7 +16,7 @@ const Partnerships: CollectionConfig = {
       en: 'Partnerships',
       fr: 'Partenariats',
     },
-  },
+  },*/
   admin: {
     useAsTitle: 'name',
     group: 'Structure',

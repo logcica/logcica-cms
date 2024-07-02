@@ -6,12 +6,14 @@ import partyField from '../fields/partyField'
 import BCELinkCell from '../fields/BCELinkCell'
 import { Types } from "mongoose";
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import { getCollectionLabelsTranslations } from '../utilities/translate'
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
+  labels: getCollectionLabelsTranslations('organisations'),
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name','number','place','legalFormShort'],
+    defaultColumns: ['name', 'number', 'place', 'legalFormShort'],
     group: 'Structure',
     listSearchableFields: ['name', 'number'],
   },
