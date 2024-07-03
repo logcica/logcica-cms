@@ -5,7 +5,7 @@ import { getLabelTranslations } from '../utilities/translate'
 
 type DurationType = (options?: { name?: string; overrides?: Record<string, unknown> }) => Field
 
-const durationField: DurationType = ({ name = 'Cooktime', overrides = {} } = {}) => {
+const durationField: DurationType = ({ name, overrides = {} } = {}) => {
   const durationResult: Field = {
     name: name,
     type: 'number',
