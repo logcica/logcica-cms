@@ -1,8 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function getLabelTranslations(fieldName: string) {
+export function getLabelTranslations(key: string) {
   return {
-    en: translations.en.logcica.fields[fieldName] ?? fieldName,
-    fr: translations.fr.logcica.fields[fieldName] ?? fieldName,
+    en: translations.en.logcica.fields[key] ?? key,
+    fr: translations.fr.logcica.fields[key] ?? key,
+  }
+}
+
+export function getPlaceholderTranslations(key: string) {
+  return {
+    en: translations.en.logcica.placeholder[key] ?? key + ' placeholder',
+    fr: translations.fr.logcica.placeholder[key] ?? key + ' placeholder',
   }
 }
 
@@ -24,6 +31,9 @@ export function getCollectionLabelsTranslations(collectionSlug: string) {
 const translations = {
   en: {
     logcica: {
+      placeholder: {
+        recipeYieldStatement: 'For 4 persons',
+      },
       fields: {
         name: 'Name',
         area: 'Area',
@@ -62,11 +72,14 @@ const translations = {
   },
   fr: {
     logcica: {
+      placeholder: {
+        recipeYieldStatement: 'Pour 4 personnes',
+      },
       fields: {
         name: 'Nom',
         area: 'Territoire',
         categories: 'Catégories',
-        ingredientList: "Ingrédients",
+        ingredientList: 'Ingrédients',
         quantity: 'Quantité',
         unit: 'Unité',
         value: 'Valeur',

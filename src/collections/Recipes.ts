@@ -5,7 +5,7 @@ import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import durationField from '../fields/durationField'
-import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import { getCollectionLabelsTranslations, getLabelTranslations, getPlaceholderTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
 import productCategoriesField from "../fields/productCategoriesField";
 
@@ -72,6 +72,9 @@ const Recipes: CollectionConfig = {
           name: 'yieldStatement',
           type: 'text',
           label: getLabelTranslations('yieldStatement'),
+          admin: {
+            placeholder: getPlaceholderTranslations('recipeYieldStatement'),
+          }
         },
         {
           name: 'costCategory',
