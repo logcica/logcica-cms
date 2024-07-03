@@ -7,19 +7,11 @@ import quantityField from '../fields/quantityField';
 import { canManageOrContribute } from './canRead';
 import descriptionField from '../fields/descriptionField';
 import partyField from '../fields/partyField';
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Products: CollectionConfig = {
   slug: 'products',
-  labels: {
-    singular: {
-      en: 'Product',
-      fr: 'Produit',
-    },
-    plural: {
-      en: 'Products',
-      fr: 'Produits',
-    },
-  },
+  labels: getCollectionLabelsTranslations('products'),
   versions: {
     drafts: false,
     maxPerDoc: 10,
@@ -39,10 +31,12 @@ const Products: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: getLabelTranslations('name'),
         },
         {
           name: 'productGroup',
           type: 'relationship',
+          label: getLabelTranslations('productGroup'),
           relationTo: 'product_groups',
         }
       ]
@@ -56,6 +50,7 @@ const Products: CollectionConfig = {
     {
       name: 'mainImage', // required
       type: 'upload', // required
+      label: getLabelTranslations('mainImage'),
       relationTo: 'media', // required
       filterOptions: {
         mimeType: { contains: 'image' },
@@ -64,6 +59,7 @@ const Products: CollectionConfig = {
     {
       name: 'images', // required
       type: 'relationship', // required
+      label: getLabelTranslations('images'),
       hasMany: true,
       relationTo: 'media', // required
       filterOptions: {
@@ -74,6 +70,7 @@ const Products: CollectionConfig = {
     {
       name: 'dimensions',
       type: 'group',
+      label: getLabelTranslations('dimensions'),
       fields: [
         {
           type: 'collapsible',
@@ -90,6 +87,7 @@ const Products: CollectionConfig = {
     {
       name: 'allergenList',
       type: 'array',
+      label: getLabelTranslations('allergenList'),
       admin: {
         components: {
           RowLabel: ({ data, index, path }) => {
@@ -115,6 +113,7 @@ const Products: CollectionConfig = {
             {
               name: 'containmentLevel',
               type: 'relationship',
+              label: getLabelTranslations('containmentLevel'),
               relationTo: 'codes',
               filterOptions: () => {
                 return {
@@ -125,6 +124,7 @@ const Products: CollectionConfig = {
             {
               name: 'allergen',
               type: 'relationship',
+              label: getLabelTranslations('allergen'),
               relationTo: 'codes',
               filterOptions: () => {
                 return {
@@ -139,6 +139,7 @@ const Products: CollectionConfig = {
     {
       name: 'nutrientList',
       type: 'array',
+      label: getLabelTranslations('nutrientList'),
       admin: {
         components: {
           RowLabel: ({ data, index, path }) => {
@@ -163,6 +164,7 @@ const Products: CollectionConfig = {
             {
               name: 'nutrient',
               type: 'relationship',
+              label: getLabelTranslations('nutrient'),
               relationTo: 'codes',
               filterOptions: () => {
                 return {
@@ -173,6 +175,7 @@ const Products: CollectionConfig = {
             {
               name: 'quantity',
               type: 'group',
+              label: getLabelTranslations('quantity'),
               fields: [
                 {
                   type: 'row',
@@ -180,10 +183,12 @@ const Products: CollectionConfig = {
                     {
                       name: 'value',
                       type: 'number',
+                      label: getLabelTranslations('value'),
                     },
                     {
                       name: 'unit',
                       type: 'relationship',
+                      label: getLabelTranslations('unit'),
                       relationTo: 'units',
                     },
                   ],
@@ -197,10 +202,11 @@ const Products: CollectionConfig = {
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },
-    
+
   ],
 };
 

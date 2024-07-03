@@ -2,20 +2,12 @@ import type { CollectionConfig } from 'payload/types';
 import { canManageOrContribute } from './canRead';
 import partyField from '../fields/partyField';
 import categoriesField from '../fields/CategoriesField';
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 
 const ProductGroup: CollectionConfig = {
   slug: 'product_groups',
-  labels: {
-    singular: {
-      en: 'Product group',
-      fr: 'Groupe de produits',
-    },
-    plural: {
-      en: 'Product groups',
-      fr: 'Groupes de produits',
-    },
-  },
+  labels: getCollectionLabelsTranslations('product_groups'),
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
@@ -28,26 +20,30 @@ const ProductGroup: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
       required: true,
     },
-    
+
     categoriesField,
     ...partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
-    
+
     {
       name: 'allergenList',
       type: 'array',
+      label: getLabelTranslations('allergenList'),
       required: false,
       fields: [
         {
           name: 'allergen',
           type: 'text',
+          label: getLabelTranslations('allergen'),
           required: true,
         },
         {
           name: 'level',
           type: 'text',
+          label: getLabelTranslations('level'),
           required: true,
         },
 
@@ -56,10 +52,11 @@ const ProductGroup: CollectionConfig = {
     {
         name: 'area',
         type: 'relationship',
+      label: getLabelTranslations('area'),
         relationTo: 'places',
         hasMany: false,
       }
-    
+
   ],
 };
 
