@@ -57,6 +57,9 @@ const translations = {
         mainImage: 'Main image',
         images: 'Images',
         nutrient: 'Nutrient',
+        partnerships: 'Partnership',
+        organisations: 'Organisation',
+        persons: 'Person',
       },
       collections: {
         recipes_one: 'Recipe',
@@ -98,6 +101,9 @@ const translations = {
         mainImage: 'Image principale',
         images: 'Images',
         nutrient: 'Nutriment',
+        partnerships: 'Partenariat',
+        organisations: 'Organisation',
+        persons: 'Personne',
       },
       collections: {
         recipes_one: 'Recette',
