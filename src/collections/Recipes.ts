@@ -45,7 +45,6 @@ const Recipes: CollectionConfig = {
         },
       ],
     },
-    descriptionField({ name: 'description' }),
     {
       name: 'categories',
       type: 'relationship',
@@ -67,76 +66,13 @@ const Recipes: CollectionConfig = {
       relations: ['organisations', 'partnerships', 'persons'],
     }),
     {
-      name: 'ingredientList',
-      type: 'array',
-      label: getLabelTranslations('ingredientList'),
+      type: 'row',
       fields: [
-        // Représente les champs qui seront présents pour chaque ingrédients
         {
-          name: 'name',
+          name: 'yieldStatement',
           type: 'text',
-          label: getLabelTranslations('name'),
+          label: getLabelTranslations('yieldStatement'),
         },
-        quantityField({ name: 'quantity' }),
-      ],
-    },
-
-    descriptionField({ name: 'stepStatement' }),
-
-    {
-      type: 'row',
-      fields: [
-        durationField({ name: 'cookTime' }),
-        durationField({ name: 'prepTime' }),
-        durationField({ name: 'totalTime' }),
-      ],
-    },
-
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'seasonality',
-          type: 'relationship',
-          label: getLabelTranslations('seasonality'),
-          relationTo: 'categories',
-          hasMany: false,
-          filterOptions: () => {
-            return {
-              classification: { equals: '668279309f105cb961f5583c' },
-            }
-          },
-        },
-
-        {
-          name: 'difficulty',
-          type: 'relationship',
-          label: getLabelTranslations('difficulty'),
-          relationTo: 'categories',
-          hasMany: false,
-          filterOptions: () => {
-            return {
-              classification: { equals: '66828eed9f105cb961f55844' },
-            }
-          },
-        },
-      ],
-    },
-
-    {
-      type: 'row',
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'yieldStatement',
-              type: 'text',
-              label: getLabelTranslations('yieldStatement'),
-            },
-          ],
-        },
-
         {
           name: 'costCategory',
           type: 'relationship',
@@ -152,6 +88,79 @@ const Recipes: CollectionConfig = {
       ],
     },
 
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'difficulty',
+          type: 'relationship',
+          label: getLabelTranslations('difficulty'),
+          relationTo: 'categories',
+          hasMany: false,
+          filterOptions: () => {
+            return {
+              classification: { equals: '66828eed9f105cb961f55844' },
+            }
+          },
+        },
+        {
+          name: 'seasonality',
+          type: 'relationship',
+          label: getLabelTranslations('seasonality'),
+          relationTo: 'categories',
+          hasMany: false,
+          filterOptions: () => {
+            return {
+              classification: { equals: '668279309f105cb961f5583c' },
+            }
+          },
+        },
+      ],
+    },
+    descriptionField({ name: 'description' }),
+    {
+      type: 'row',
+      fields: [
+        durationField({ name: 'cookTime' }),
+        durationField({ name: 'prepTime' }),
+        durationField({ name: 'totalTime' }),
+      ],
+    },
+    {
+      name: 'ingredientList',
+      type: 'array',
+      label: getLabelTranslations('ingredientList'),
+      fields: [
+        // Représente les champs qui seront présents pour chaque ingrédients
+        {
+          name: 'name',
+          type: 'text',
+          label: getLabelTranslations('name'),
+        },
+        quantityField({ name: 'quantity' }),
+      ],
+    },
+    descriptionField({ name: 'stepStatement' }),
+    {
+      name: 'mainImage', // required
+      type: 'upload', // required
+      label: getLabelTranslations('mainImage'),
+      relationTo: 'media', // required
+      filterOptions: {
+        mimeType: { contains: 'image' },
+      },
+    },
+
+    {
+      name: 'images', // required
+      type: 'relationship', // required
+      label: getLabelTranslations('images'),
+      hasMany: true,
+      relationTo: 'media', // required
+      filterOptions: {
+        mimeType: { contains: 'image' },
+      },
+    },
     {
       name: 'nutrientList',
       type: 'array',
@@ -214,27 +223,6 @@ const Recipes: CollectionConfig = {
           ],
         },
       ],
-    },
-
-    {
-      name: 'mainImage', // required
-      type: 'upload', // required
-      label: getLabelTranslations('mainImage'),
-      relationTo: 'media', // required
-      filterOptions: {
-        mimeType: { contains: 'image' },
-      },
-    },
-
-    {
-      name: 'images', // required
-      type: 'relationship', // required
-      label: getLabelTranslations('images'),
-      hasMany: true,
-      relationTo: 'media', // required
-      filterOptions: {
-        mimeType: { contains: 'image' },
-      },
     },
   ],
 }
