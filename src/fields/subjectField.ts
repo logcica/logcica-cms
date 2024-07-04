@@ -2,6 +2,7 @@ import type { Field } from 'payload/types'
 import { useEffect, useState } from 'react'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
+import {getLabelTranslations} from "../utilities/translate";
 
 type SubjectType = (options?: {
   name?: string
@@ -44,6 +45,7 @@ const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {}
   const partyResult: Field = {
     name: name,
     type: 'group',
+    label: getLabelTranslations(name),
     interfaceName: 'Subject',
     fields: [
       {
@@ -52,6 +54,7 @@ const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {}
           const f: Field = {
             name: supportedRelations.find(sr => sr.plural == r).singural,
             type: 'relationship',
+            label: getLabelTranslations(r),
             relationTo: supportedRelations.find(sr => sr.plural == r).plural,
           }
           return f
@@ -60,7 +63,7 @@ const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {}
     ],
     admin: {
       components: {
-        Cell: CustomPartyCell
+        Cell: CustomPartyCell,
       },
     },
   }
