@@ -9,20 +9,12 @@ import { canManageOrContribute } from './canRead'
 import productCategoriesField from '../fields/productCategoriesField'
 import { group } from 'console'
 import descriptionField from '../fields/descriptionField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 
 const Catalogs: CollectionConfig = {
   slug: 'catalogs',
-  labels: {
-    singular: {
-      en: 'Catalog',
-      fr: 'Catalogue',
-    },
-    plural: {
-      en: 'Catalogs',
-      fr: 'Catalogues',
-    },
-  },
+  labels: getCollectionLabelsTranslations('catalogs'),
   versions: {
     drafts: false,
     maxPerDoc: 10
@@ -39,16 +31,19 @@ const Catalogs: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
     },
     {
       name: 'type',
       type: 'text',
+      label: getLabelTranslations('type'),
     },
     descriptionField({name: 'description'}),
     sellerPartyField,
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },

@@ -2,6 +2,7 @@ import type { Field } from 'payload/types'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
 import { Types } from 'mongoose'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 type PartyType = (options?: {
   name?: string
@@ -57,17 +58,20 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
   const partyResult: Field = {
     name: name,
     type: 'group',
+    label: getLabelTranslations(name),
     interfaceName: 'Party',
     fields: [
       {
         type: 'row',
         fields: relations.map(r => {
           const localName = supportedRelations.find(sr => sr.plural == r).singural
+          /*const localName = getCollectionLabelsTranslations(r)*/
           const relationTo = supportedRelations.find(sr => sr.plural == r).plural
 
           const relationshipField: Field = {
             name: localName,
             type: 'relationship',
+            label: getLabelTranslations(r),
             relationTo: relationTo,
           }
 
@@ -87,7 +91,7 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     const localName = supportedRelations.find(sr => sr.plural == r).singural
 
     const foreignKeyField = newForeignKeyField(name, localName)
-    return deepMerge(foreignKeyField,overrides)
+    return deepMerge(foreignKeyField, overrides)
   })
 
   return [deepMerge(partyResult, overrides), ...foreignKeys]

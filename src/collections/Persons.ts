@@ -2,19 +2,11 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { ComboField } from '@nouance/payload-better-fields-plugin'
+import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
 
 const Persons: CollectionConfig = {
   slug: 'persons',
-  labels: {
-    singular: {
-      en: 'Person',
-      fr: 'Personne',
-    },
-    plural: {
-      en: 'Persons',
-      fr: 'Personnes',
-    },
-  },
+  labels: getCollectionLabelsTranslations('persons'),
   access: {
     read: canManageOrContribute({ placeInProperty: 'area' }),
   },
@@ -27,14 +19,17 @@ const Persons: CollectionConfig = {
     {
       name: 'givenName',
       type: 'text',
+      label: getLabelTranslations('givenName'),
     },
     {
       name: 'familyName',
       type: 'text',
+      label: getLabelTranslations('familyName'),
     },
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
       admin: {
         hidden: true, // hides the field from the admin panel
       },
@@ -57,12 +52,14 @@ const Persons: CollectionConfig = {
         {
           name: 'place',
           type: 'relationship',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
         },
         {
           name: 'area',
           type: 'relationship',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
           hasMany: false,
         },
@@ -71,12 +68,14 @@ const Persons: CollectionConfig = {
     {
       name: 'contacts',
       type: 'relationship',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
     },
     {
       name: 'profiles',
       type: 'relationship',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
     },

@@ -4,19 +4,11 @@ import payload from 'payload'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Activities: CollectionConfig = {
   slug: 'activities',
-  labels: {
-    singular: {
-      en: 'Activity',
-      fr: 'Activité',
-    },
-    plural: {
-      en: 'Activities',
-      fr: 'Activités',
-    },
-  },
+  labels: getCollectionLabelsTranslations('activities'),
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
@@ -30,6 +22,7 @@ const Activities: CollectionConfig = {
     {
       name: 'isMain', // required
       type: 'checkbox', // required
+      label: getLabelTranslations('isMain'),
       defaultValue: false,
       admin: {
         position: 'sidebar'
@@ -42,15 +35,17 @@ const Activities: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: getLabelTranslations('name'),
         },
         {
           name: 'internalName',
           type: 'text',
+          label: getLabelTranslations('internalName'),
         }
       ]
     },
     {
-      type: 'row', 
+      type: 'row',
       fields: [
         ...logcicaRelationshipField({
           name: 'mainWorkspace',
@@ -59,6 +54,7 @@ const Activities: CollectionConfig = {
         {
           name: 'place',
           type: 'relationship',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
         },
@@ -68,18 +64,21 @@ const Activities: CollectionConfig = {
     {
       name: 'profiles',
       type: 'relationship',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
     },
     {
       name: 'contacts',
       type: 'relationship',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
     },
     {
       name: 'categories',
       type: 'relationship',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
       hasMany: true,
       admin: {
@@ -92,12 +91,14 @@ const Activities: CollectionConfig = {
         {
           name: 'productionCategories',
           type: 'relationship',
+          label: getLabelTranslations('productionCategories'),
           relationTo: 'categories',
           hasMany: true,
         },
         {
           name: 'otherCategories',
           type: 'relationship',
+          label: getLabelTranslations('otherCategories'),
           relationTo: 'categories',
           hasMany: true,
         },

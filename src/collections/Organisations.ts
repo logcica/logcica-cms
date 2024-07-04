@@ -6,12 +6,14 @@ import partyField from '../fields/partyField'
 import BCELinkCell from '../fields/BCELinkCell'
 import { Types } from "mongoose";
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
+  labels: getCollectionLabelsTranslations('organisations'),
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name','number','place','legalFormShort'],
+    defaultColumns: ['name', 'number', 'place', 'legalFormShort'],
     group: 'Structure',
     listSearchableFields: ['name', 'number'],
   },
@@ -25,6 +27,7 @@ const Organisations: CollectionConfig = {
         {
           name: 'number',
           type: 'text',
+          label: getLabelTranslations('number'),
           admin: {
             components: {
               Cell: BCELinkCell,
@@ -34,14 +37,17 @@ const Organisations: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: getLabelTranslations('name'),
         },
         {
           name: 'legalFormShort',
           type: 'text',
+          label: getLabelTranslations('legalFormShort'),
         },
         {
           name: 'legalForm',
           type: 'relationship',
+          label: getLabelTranslations('legalForm'),
           relationTo: 'codes',
           /* -> is not sorting alpha. afterwards ...
         admin: {
@@ -59,27 +65,29 @@ const Organisations: CollectionConfig = {
     {
       name: 'registeredAt',
       type: 'date',
+      label: getLabelTranslations('registeredAt'),
     },
     ...logcicaRelationshipField({
       name: 'mainActivity',
       relationTo: 'activities',
-      position: 'sidebar'
+      position: 'sidebar',
     }),
     ...partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
     ...logcicaRelationshipField({
       name: 'place',
       relationTo: 'places',
-      position: 'sidebar'
+      position: 'sidebar',
     }),
     {
       name: 'workspaces',
       type: 'relationship',
+      label: getLabelTranslations('workspaces'),
       relationTo: 'workspaces',
       hasMany: true,
     },
     {
       name: 'mainImage',
-      label: 'Image',
+      label: getLabelTranslations('images'),
       type: 'group',
       interfaceName: 'Image',
       admin: {
@@ -90,6 +98,7 @@ const Organisations: CollectionConfig = {
       fields: [
         {
           name: 'url',
+          label: getLabelTranslations('url'),
           type: 'text',
         },
       ],
@@ -97,6 +106,7 @@ const Organisations: CollectionConfig = {
     {
       name: 'images',
       type: 'array',
+      label: getLabelTranslations('images'),
       interfaceName: 'Images',
       fields: [
         {

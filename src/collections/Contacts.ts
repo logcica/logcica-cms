@@ -2,9 +2,11 @@ import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead';
 import partyField from '../fields/partyField';
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Contacts: CollectionConfig = {
   slug: 'contacts',
+  labels: getCollectionLabelsTranslations('contacts'),
   admin: {
     useAsTitle: 'title',
     group: 'Connexions',
@@ -33,15 +35,16 @@ const Contacts: CollectionConfig = {
     {
       name: 'type', // required
       type: 'radio', // required
+      label: getLabelTranslations('type'),
       options: [
         // required
         {
-          label: 'Personne',
           value: 'person',
+          label: getLabelTranslations('person'),
         },
         {
-          label: 'Organisation',
           value: 'organisation',
+          label: getLabelTranslations('organisation'),
         },
       ],
       defaultValue: 'person', // The first value in options.
@@ -53,7 +56,7 @@ const Contacts: CollectionConfig = {
         beforeChange: [({ siblingData, value }) => {
           if(value == 'person')
             delete siblingData.name;
-          
+
           if(value == 'organisation'){
             delete siblingData.givenName;
             delete siblingData.familyName;
@@ -65,13 +68,15 @@ const Contacts: CollectionConfig = {
       type: 'row',
       fields: [
         {
-          
+
           name: 'givenName',
           type: 'text',
+          label: getLabelTranslations('givenName'),
         },
         {
           name: 'familyName',
           type: 'text',
+          label: getLabelTranslations('familyName'),
         },
       ],
       admin: {
@@ -81,6 +86,7 @@ const Contacts: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
       admin: {
         condition: (data, siblingData, { user }) => data.type == "organisation",
       },
@@ -88,6 +94,7 @@ const Contacts: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      label: getLabelTranslations('title'),
       admin: {
         hidden: true
       },
@@ -98,7 +105,7 @@ const Contacts: CollectionConfig = {
           }
         ],
         afterRead: [
-          ({ data }) => {  
+          ({ data }) => {
             const list = [data.mainPhoneNumber,data.mainEmail]
             if(list.every(n => !n)) return data.name ?? data.id
             return list.filter(n => n).join(" | ")
@@ -108,6 +115,7 @@ const Contacts: CollectionConfig = {
     },
     ...TelephoneField({
       name: 'mainPhoneNumber',
+      label: getLabelTranslations('mainPhoneNumber'),
       admin: {
         placeholder: '099 99 99 99',
       },
@@ -118,11 +126,13 @@ const Contacts: CollectionConfig = {
     {
       name: 'mainEmail',
       type: 'email',
+      label: getLabelTranslations('mainEmail'),
     },
     ...partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },

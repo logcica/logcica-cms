@@ -1,18 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const WeekAvailabilities: CollectionConfig = {
   slug: 'week_availabilities',
-  labels: {
-    singular: {
-      en: 'Weekly availability',
-      fr: 'Disponibilité hebdo.',
-    },
-    plural: {
-      en: 'Weekly availabilities',
-      fr: 'Disponibilités hebdo.',
-    },
-  },
+  labels: getCollectionLabelsTranslations('week_availabilities'),
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
@@ -21,7 +13,7 @@ const WeekAvailabilities: CollectionConfig = {
   access: {
     read: () => true,
   },
-  
+
   fields: [
     {
       type: 'row',
@@ -29,41 +21,43 @@ const WeekAvailabilities: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: getLabelTranslations('name'),
         },
         {
           name: 'days',
           type: 'select',
+          label: getLabelTranslations('days'),
           hasMany: true,
           admin: {
             isClearable: true,
           },
           options: [
             {
-              label: 'Lu',
+              label: getLabelTranslations('Mo'),
               value: 'Mo',
             },
             {
-              label: 'Ma',
+              label: getLabelTranslations('Tu'),
               value: 'Tu',
             },
             {
-              label: 'Me',
+              label: getLabelTranslations('We'),
               value: 'We',
             },
             {
-              label: 'Je',
+              label: getLabelTranslations('Th'),
               value: 'Th',
             },
             {
-              label: 'Ve',
+              label: getLabelTranslations('Fr'),
               value: 'Fr',
             },
             {
-              label: 'Sa',
+              label: getLabelTranslations('Sa'),
               value: 'Sa',
             },
             {
-              label: 'Di',
+              label: getLabelTranslations('Su'),
               value: 'Su',
             },
           ],
@@ -73,6 +67,7 @@ const WeekAvailabilities: CollectionConfig = {
     {
       name: 'timeRange',
       type: 'group',
+      label: getLabelTranslations('timeRange'),
       admin: {
         hideGutter: true
       },
@@ -83,6 +78,7 @@ const WeekAvailabilities: CollectionConfig = {
             {
               name: 'from',
               type: 'date',
+              label: getLabelTranslations('from'),
               admin: {
                 date: {
                   pickerAppearance: 'timeOnly',
@@ -93,6 +89,7 @@ const WeekAvailabilities: CollectionConfig = {
             {
               name: 'to',
               type: 'date',
+              label: getLabelTranslations('to'),
               admin: {
                 date: {
                   pickerAppearance: 'timeOnly',

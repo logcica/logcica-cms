@@ -1,18 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
 import GmapsCell from '../fields/GmapsCell'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Places: CollectionConfig = {
   slug: 'places',
-  labels: {
-    singular: {
-      en: 'Place',
-      fr: 'Emplacement',
-    },
-    plural: {
-      en: 'Places',
-      fr: 'Emplacements',
-    },
-  },
+  labels: getCollectionLabelsTranslations('places'),
   admin: {
     useAsTitle: 'title',
     group: 'Structure',
@@ -26,8 +18,9 @@ const Places: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      label: getLabelTranslations('key'),
       admin: {
-        position: 'sidebar'
+        position: 'sidebar',
       }
     },
     {
@@ -36,29 +29,36 @@ const Places: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
+          label: getLabelTranslations('name'),
         },
         {
           name: 'type',
           type: 'select',
+          label: getLabelTranslations('type'),
           options: [
             {
-              label: 'Adresse',
+              /*label: 'Adresse',*/
+              label: getLabelTranslations('address'),
               value: 'address',
             },
             {
-              label: 'Localité',
+              /*label: 'Localité',*/
+              label: getLabelTranslations('locality'),
               value: 'locality',
             },
             {
-              label: 'Commune',
+              /*label: 'Commune',*/
+              label: getLabelTranslations('municipality'),
               value: 'municipality',
             },
             {
-              label: 'Région',
+              /*label: 'Région',*/
+              label: getLabelTranslations('region'),
               value: 'region',
             },
             {
-              label: 'Pays',
+              /*label: 'Pays',*/
+              label: getLabelTranslations('country'),
               value: 'country',
             },
           ]
@@ -68,10 +68,12 @@ const Places: CollectionConfig = {
     {
       name: 'center',
       type: 'point',
+      label: getLabelTranslations('center'),
     },
     {
       name: 'within',
       type: 'relationship',
+      label: getLabelTranslations('within'),
       relationTo: 'places',
       hasMany: true,
       filterOptions: () => {
@@ -83,20 +85,21 @@ const Places: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      label: getLabelTranslations('title'),
       admin: {
         hidden: true
       },
       hooks: {
         afterRead: [
-          ({ data }) => {  
+          ({ data }) => {
             const address = data.address
 
             if(data.type && data.type != 'address')
               return data.name
-              
-            const localityParts = [address?.postalCode,(address?.locality ?? address?.municipality)]  
+
+            const localityParts = [address?.postalCode,(address?.locality ?? address?.municipality)]
             const list = [address?.street, localityParts.filter(n => n).join(' ')]
-            
+
             if(!address?.street)
               list.unshift(data.name)
 
@@ -133,11 +136,13 @@ const Places: CollectionConfig = {
     {
       name: 'address', // required
       type: 'group', // required
+      label: getLabelTranslations('address'),
       interfaceName: 'Address', // optional
       fields: [
         {
           name: 'street',
           type: 'text',
+          label: getLabelTranslations('street'),
         },
         {
           type: 'row',
@@ -145,30 +150,36 @@ const Places: CollectionConfig = {
             {
               name: 'postalCode',
               type: 'text',
+              label: getLabelTranslations('postalCode'),
             },
             {
               name: 'locality',
               type: 'text',
+              label: getLabelTranslations('locality'),
             },
             {
               name: 'municipality',
               type: 'text',
+              label: getLabelTranslations('municipality'),
             },
             {
               name: 'country',
               type: 'text',
+              label: getLabelTranslations('country'),
             }
           ]
         }
       ],
     },
     {
+      name: 'description',
       type: 'text',
-      name: 'description'
+      label: getLabelTranslations('description'),
     },
     {
       name: 'gmaps',
       type: 'group',
+      label: getLabelTranslations('gmaps'),
       interfaceName: 'GmapsPlace',
       admin: {
         components: {
@@ -179,17 +190,19 @@ const Places: CollectionConfig = {
         {
           name: 'id',
           type: 'text',
+          label: getLabelTranslations('id'),
         }
       ]
     },
     {
       name: 'categories',
       type: 'relationship',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
       hasMany: true,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
   ],
 }

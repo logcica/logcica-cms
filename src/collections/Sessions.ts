@@ -4,9 +4,11 @@ import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import descriptionField from '../fields/descriptionField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
+  labels: getCollectionLabelsTranslations('sessions'),
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
@@ -19,10 +21,12 @@ const Sessions: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
     },
     {
       name: 'parent',
       type: 'relationship',
+      label: getLabelTranslations('parent'),
       relationTo: 'sessions',
       hasMany: false,
       admin: {
@@ -32,6 +36,7 @@ const Sessions: CollectionConfig = {
     {
       name: 'timeRange',
       type: 'group',
+      label: getLabelTranslations('timeRange'),
       fields: [
         {
           type: 'row',
@@ -39,6 +44,7 @@ const Sessions: CollectionConfig = {
             {
               name: 'from',
               type: 'date',
+              label: getLabelTranslations('from'),
               admin: {
                 date: {
                   pickerAppearance: 'dayAndTime'
@@ -48,6 +54,7 @@ const Sessions: CollectionConfig = {
             {
               name: 'to',
               type: 'date',
+              label: getLabelTranslations('to'),
               admin: {
                 date: {
                   pickerAppearance: 'dayAndTime'
@@ -67,12 +74,14 @@ const Sessions: CollectionConfig = {
         {
           name: 'place',
           type: 'relationship',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
         },
         {
           name: 'catalog',
           type: 'relationship',
+          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
           hasMany: false,
         },
@@ -81,18 +90,21 @@ const Sessions: CollectionConfig = {
     {
       name: 'profiles',
       type: 'relationship',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
     },
     {
       name: 'subject',
       type: 'group',
+      label: getLabelTranslations('subject'),
       fields: [
         {
           name: 'counter',
           type: 'relationship',
+          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-          hasMany: false
+          hasMany: false,
         }
       ]
     },

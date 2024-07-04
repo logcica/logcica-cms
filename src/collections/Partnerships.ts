@@ -2,19 +2,11 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { group } from 'console'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
-  labels: {
-    singular: {
-      en: 'Partnership',
-      fr: 'Partenariat',
-    },
-    plural: {
-      en: 'Partnerships',
-      fr: 'Partenariats',
-    },
-  },
+  labels: getCollectionLabelsTranslations('partnerships'),
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
@@ -27,6 +19,7 @@ const Partnerships: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
     },
     {
       type: 'row',
@@ -34,12 +27,14 @@ const Partnerships: CollectionConfig = {
         {
           name: 'place',
           type: 'relationship',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
         },
         {
           name: 'area',
           type: 'relationship',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
           hasMany: false
         },
@@ -48,12 +43,14 @@ const Partnerships: CollectionConfig = {
     {
       name: 'contacts',
       type: 'relationship',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true
     },
     {
       name: 'profiles',
       type: 'relationship',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true
     },
