@@ -8,6 +8,9 @@ import durationField from '../fields/durationField'
 import { getCollectionLabelsTranslations, getLabelTranslations, getPlaceholderTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
 import productCategoriesField from "../fields/productCategoriesField";
+import nutrientListField from "../fields/nutrientListField";
+import allergenListField from "../fields/allergenListField";
+import uploadImagesField from "../fields/uploadImagesField";
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -144,89 +147,9 @@ const Recipes: CollectionConfig = {
       ],
     },
     descriptionField({ name: 'stepStatement' }),
-    {
-      name: 'mainImage', // required
-      type: 'upload', // required
-      label: getLabelTranslations('mainImage'),
-      relationTo: 'media', // required
-      filterOptions: {
-        mimeType: { contains: 'image' },
-      },
-    },
-
-    {
-      name: 'images', // required
-      type: 'relationship', // required
-      label: getLabelTranslations('images'),
-      hasMany: true,
-      relationTo: 'media', // required
-      filterOptions: {
-        mimeType: { contains: 'image' },
-      },
-    },
-    {
-      name: 'nutrientList',
-      type: 'array',
-      label: getLabelTranslations('nutrientList'),
-      admin: {
-        components: {
-          RowLabel: ({ data, index, path }) => {
-            const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`)
-
-            useEffect(() => {
-              const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`
-              console.log(url)
-              fetch(url).then(async res => {
-                setLabel((await res.json()).name)
-              })
-            }, [data.name])
-
-            return label
-          },
-        },
-      },
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'nutrient',
-              type: 'relationship',
-              label: getLabelTranslations('nutrient'),
-              relationTo: 'codes',
-              filterOptions: () => {
-                return {
-                  list: { equals: '651d94b094bcb52b76132eaa' },
-                }
-              },
-            },
-            {
-              name: 'quantity',
-              type: 'group',
-              label: getLabelTranslations('quantity'),
-              fields: [
-                {
-                  type: 'row',
-                  fields: [
-                    {
-                      name: 'value',
-                      type: 'number',
-                      label: getLabelTranslations('value'),
-                    },
-                    {
-                      name: 'unit',
-                      type: 'relationship',
-                      label: getLabelTranslations('unit'),
-                      relationTo: 'units',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    ...uploadImagesField,
+    allergenListField,
+    nutrientListField,
   ],
 }
 

@@ -1,9 +1,11 @@
-import type { CollectionConfig } from 'payload/types';
-import { canManageOrContribute } from './canRead';
-import partyField from '../fields/partyField';
-import categoriesField from '../fields/CategoriesField';
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import type { CollectionConfig } from 'payload/types'
 
+import allergenListField from '../fields/allergenListField'
+import categoriesField from '../fields/CategoriesField'
+import nutrientListField from '../fields/nutrientListField'
+import partyField from '../fields/partyField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import { canManageOrContribute } from './canRead'
 
 const ProductGroup: CollectionConfig = {
   slug: 'product_groups',
@@ -11,10 +13,13 @@ const ProductGroup: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name','producer','categories'],
+    defaultColumns: ['name', 'producer', 'categories'],
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['owner','producer']}),
+    read: canManageOrContribute({
+      placeInProperty: 'area',
+      tenancyInAnyProperty: ['owner', 'producer'],
+    }),
   },
   fields: [
     {
@@ -25,39 +30,26 @@ const ProductGroup: CollectionConfig = {
     },
 
     categoriesField,
-    ...partyField({ name: 'producer', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
-    ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships'] }),
+    ...partyField({
+      name: 'producer',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
+    ...partyField({
+      name: 'owner',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships'],
+    }),
 
+    allergenListField,
     {
-      name: 'allergenList',
-      type: 'array',
-      label: getLabelTranslations('allergenList'),
-      required: false,
-      fields: [
-        {
-          name: 'allergen',
-          type: 'text',
-          label: getLabelTranslations('allergen'),
-          required: true,
-        },
-        {
-          name: 'level',
-          type: 'text',
-          label: getLabelTranslations('level'),
-          required: true,
-        },
-
-      ],
-    },
-    {
-        name: 'area',
-        type: 'relationship',
+      name: 'area',
+      type: 'relationship',
       label: getLabelTranslations('area'),
-        relationTo: 'places',
-        hasMany: false,
-      }
-
+      relationTo: 'places',
+      hasMany: false,
+    },
   ],
-};
+}
 
-export default ProductGroup;
+export default ProductGroup
