@@ -10,7 +10,7 @@ import { canManageOrContribute } from './canRead'
 import productCategoriesField from "../fields/productCategoriesField";
 import nutrientListField from "../fields/nutrientListField";
 import allergenListField from "../fields/allergenListField";
-import uploadImagesField from "../fields/uploadImagesField";
+import uploadImagesField from "../fields/imageField";
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',

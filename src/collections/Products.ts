@@ -9,7 +9,7 @@ import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
-import uploadImagesField from "../fields/uploadImagesField";
+import uploadImagesField from "../fields/imageField";
 
 const Products: CollectionConfig = {
   slug: 'products',
