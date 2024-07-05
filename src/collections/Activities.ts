@@ -22,7 +22,7 @@ const Activities: CollectionConfig = {
     {
       name: 'isMain', // required
       type: 'checkbox', // required
-      label: getLabelTranslations('isMain'),
+      label: getLabelTranslations('isMain_female'),
       defaultValue: false,
       admin: {
         position: 'sidebar'

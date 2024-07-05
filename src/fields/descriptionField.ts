@@ -34,7 +34,7 @@ const descriptionField: DescriptionType = ({ name = 'description', overrides = {
       {
         name: 'short',
         type: 'richText',
-        label: getLabelTranslations('short'),
+        label: getLabelTranslations('short_female'),
         editor: lexicalEditor({
           features: [BoldTextFeature()],
         }),

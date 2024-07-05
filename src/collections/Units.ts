@@ -1,8 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
+import { getCollectionLabelsTranslations } from '../utilities/translate'
 
 const Units: CollectionConfig = {
   slug: 'units',
+  labels: getCollectionLabelsTranslations('units'),
   admin: {
     useAsTitle: 'id',
     group: 'Configuration',
