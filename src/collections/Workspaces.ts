@@ -1,7 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
-import managerPartyField from '../fields/managerPartyField'
-import ownerPartyField from '../fields/ownerPartyField'
 import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";

@@ -1,9 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import sellerPartyField from '../fields/sellerParty'
-import customerPartyField from '../fields/customerParty'
-import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
-import operatorPartyField from '../fields/operatorParty'
 import partyField from '../fields/partyField'
 
 const Batches: CollectionConfig = {

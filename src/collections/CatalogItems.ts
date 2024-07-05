@@ -1,9 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
-import sellerPartyField from '../fields/sellerParty'
-import { canManageOrContribute } from './canRead'
-import productCategoriesField from '../fields/productCategoriesField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-
 
 const Catalogs: CollectionConfig = {
   slug: 'catalog_items',

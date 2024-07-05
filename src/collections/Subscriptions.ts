@@ -1,9 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
-import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
-import providerPartyField from '../fields/providerParty'
-import subscriberPartyField from '../fields/subscriberParty'
+import partyField from '../fields/partyField';
 
 const Subscriptions: CollectionConfig = {
   slug: 'subscriptions',
@@ -63,9 +61,9 @@ const Subscriptions: CollectionConfig = {
         }
       ]
     },
-    providerPartyField,
-    subscriberPartyField,
-    brokerPartyField,
+    ...partyField({ name: 'provider', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'subscriber', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({ name: 'broker', relations: ['organisations', 'partnerships', 'activities'] }),
     categoriesField,
     {
       name: 'counter',

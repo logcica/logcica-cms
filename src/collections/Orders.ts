@@ -1,8 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
-import sellerPartyField from '../fields/sellerParty'
-import customerPartyField from '../fields/customerParty'
-import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField'
 

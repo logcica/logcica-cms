@@ -1,10 +1,8 @@
-import type { Access, CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
 import { canManageOrContribute } from './canRead'
-import ownerPartyField from '../fields/ownerPartyField'
 import partyField from '../fields/partyField'
 import BCELinkCell from '../fields/BCELinkCell'
-import { Types } from "mongoose";
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
 

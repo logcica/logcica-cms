@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload/types'
-import managerPartyField from '../fields/managerPartyField'
 import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
