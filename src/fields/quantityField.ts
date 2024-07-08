@@ -10,8 +10,7 @@ type QuantityType = (options?: {
 }) => Field
 
 const quantityField: QuantityType = ({ name, overrides = {} } = {}) => {
-  const linkResult: Field =
-  {
+  const linkResult: Field = {
     name: name,
     type: 'group',
     label: getLabelTranslations(name),

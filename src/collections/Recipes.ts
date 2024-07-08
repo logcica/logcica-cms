@@ -4,13 +4,15 @@ import type { CollectionConfig } from 'payload/types'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
-import durationField from '../fields/durationField'
+import durationField from '../fields/duration/durationField'
 import { getCollectionLabelsTranslations, getLabelTranslations, getPlaceholderTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
 import productCategoriesField from "../fields/productCategoriesField";
 import nutrientListField from "../fields/nutrientListField";
 import allergenListField from "../fields/allergenListField";
 import uploadImagesField from "../fields/imageField";
+import PatternField from "../fields/duration/index";
+import durationField2 from '../fields/duration/durationField2'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
