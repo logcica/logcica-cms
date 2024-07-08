@@ -5,6 +5,7 @@ import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -32,11 +33,7 @@ const Activities: CollectionConfig = {
       type: 'row',
       fields: [
 
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'internalName',
           type: 'text',

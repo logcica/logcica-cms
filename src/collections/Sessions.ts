@@ -4,6 +4,7 @@ import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import descriptionField from '../fields/descriptionField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -17,11 +18,7 @@ const Sessions: CollectionConfig = {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       name: 'parent',
       type: 'relationship',

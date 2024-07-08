@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { group } from 'console'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -16,11 +17,7 @@ const Partnerships: CollectionConfig = {
     read: canManageOrContribute({placeInProperty: 'area'}),
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       type: 'row',
       fields: [

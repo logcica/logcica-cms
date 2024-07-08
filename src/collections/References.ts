@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import partyField from '../fields/partyField'
+import nameField from "../fields/nameField";
 
 const References: CollectionConfig = {
   slug: 'references',
@@ -24,10 +25,7 @@ const References: CollectionConfig = {
     read: () => true
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'tags',
       type: 'text',

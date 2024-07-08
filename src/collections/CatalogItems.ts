@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Catalogs: CollectionConfig = {
   slug: 'catalog_items',
@@ -13,11 +14,7 @@ const Catalogs: CollectionConfig = {
     read: () => true
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       name: 'catalog',
       type: 'relationship',

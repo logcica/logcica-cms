@@ -4,6 +4,7 @@ import partyField from '../fields/partyField';
 import categoriesField from '../fields/CategoriesField';
 import CustomLinkCell from '../fields/CustomLinkCell';
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -29,11 +30,7 @@ const Counters: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'internalName',
           type: 'text',

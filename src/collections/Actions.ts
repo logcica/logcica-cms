@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManage, canManageOrContribute } from './canRead'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Actions: CollectionConfig = {
   slug: 'actions',
@@ -21,11 +22,7 @@ const Actions: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('key'),
     },
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import GmapsCell from '../fields/GmapsCell'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Places: CollectionConfig = {
   slug: 'places',
@@ -26,11 +27,7 @@ const Places: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'type',
           type: 'select',
