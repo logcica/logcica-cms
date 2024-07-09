@@ -1,10 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
-import sellerPartyField from '../fields/sellerParty'
-import customerPartyField from '../fields/customerParty'
-import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField'
+import numberField from "../fields/numberField";
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -27,10 +25,7 @@ const Orders: CollectionConfig = {
     read: canManage({tenancyInAnyProperty: ['seller','customer','broker']}),
   },
   fields: [
-    {
-      name: 'number',
-      type: 'text',
-    },
+    numberField,
 
     ...partyField({ name: 'seller', relations: ['organisations', 'partnerships', 'activities'] }),
     ...partyField({ name: 'customer', relations: ['organisations', 'partnerships', 'activities', 'persons'] }),

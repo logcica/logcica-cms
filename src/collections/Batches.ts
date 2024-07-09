@@ -1,10 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
-import sellerPartyField from '../fields/sellerParty'
-import customerPartyField from '../fields/customerParty'
-import brokerPartyField from '../fields/broker'
 import { canManage } from './canRead';
-import operatorPartyField from '../fields/operatorParty'
 import partyField from '../fields/partyField'
+import numberField from "../fields/numberField";
 
 const Batches: CollectionConfig = {
   slug: 'batches',
@@ -28,10 +25,7 @@ const Batches: CollectionConfig = {
     read: canManage({tenancyInAnyProperty: ['operator']}),
   },
   fields: [
-    {
-      name: 'number',
-      type: 'text',
-    },
+    numberField,
     ...partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'workspace',

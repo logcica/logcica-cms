@@ -3,19 +3,12 @@ import { canManageOrContribute } from './canRead';
 import partyField from '../fields/partyField';
 import categoriesField from '../fields/CategoriesField';
 import CustomLinkCell from '../fields/CustomLinkCell';
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Counters: CollectionConfig = {
   slug: 'counters',
-  labels: {
-    singular: {
-      en: 'Counter',
-      fr: 'Comptoir',
-    },
-    plural: {
-      en: 'Counters',
-      fr: 'Comptoirs',
-    },
-  },
+  labels: getCollectionLabelsTranslations('counters'),
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['id','name','type','manager','place','marketplace','catalog'],
@@ -24,11 +17,12 @@ const Counters: CollectionConfig = {
   access: {
     read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
   },
-  
+
   fields: [
     {
       name: 'type',
       type: 'text',
+      label: getLabelTranslations('type'),
       admin: {
         position: 'sidebar'
       }
@@ -36,13 +30,11 @@ const Counters: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-        },
+        nameField,
         {
           name: 'internalName',
           type: 'text',
+          label: getLabelTranslations('internalName'),
         },
       ]
     },
@@ -52,16 +44,19 @@ const Counters: CollectionConfig = {
         {
           name: 'marketplace',
           type: 'relationship',
+          label: getLabelTranslations('marketplace'),
           relationTo: 'counters'
         },
         {
           name: 'workspace',
           type: 'relationship',
+          label: getLabelTranslations('workspace'),
           relationTo: 'workspaces'
         },
         {
           name: 'place',
           type: 'relationship',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
         }
@@ -73,11 +68,13 @@ const Counters: CollectionConfig = {
         {
           name: 'catalog',
           type: 'relationship',
-          relationTo: 'catalogs'
+          label: getLabelTranslations('catalog'),
+          relationTo: 'catalogs',
         },
         {
           name: 'availabilities',
           type: 'relationship',
+          label: getLabelTranslations('availabilities'),
           relationTo: 'availabilities',
           hasMany: true,
         },
@@ -86,6 +83,7 @@ const Counters: CollectionConfig = {
     {
       name: 'link',
       type: 'text',
+      label: getLabelTranslations('link'),
       admin: {
         components: {
           Cell: CustomLinkCell,
@@ -95,12 +93,14 @@ const Counters: CollectionConfig = {
     {
       name: 'contacts',
       type: 'relationship',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
     },
     {
       name: 'profiles',
       type: 'relationship',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
     },

@@ -1,4 +1,5 @@
 import { Field, RelationshipField } from 'payload/types'
+import {getLabelTranslations} from "../utilities/translate";
 
 export const partyCommonFields : Field[] = [
 
@@ -8,18 +9,21 @@ export const partyCommonFields : Field[] = [
       {
         name: 'organisation',
         type: 'relationship',
+        label: getLabelTranslations('organisation'),
         relationTo: 'organisations',
         hasMany: false,
       },
       {
         name: 'partnership',
         type: 'relationship',
+        label: getLabelTranslations('partnership'),
         relationTo: 'partnerships',
         hasMany: false,
       },
       {
         name: 'activity',
         type: 'relationship',
+        label: getLabelTranslations('activity'),
         relationTo: 'activities',
         hasMany: false,
       },

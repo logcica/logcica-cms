@@ -1,28 +1,15 @@
 import type { CollectionConfig } from 'payload/types'
-import categoriesField from '../fields/CategoriesField'
-import { useEffect, useState } from 'react'
-import ownerPartyField from '../fields/ownerPartyField'
-import producerPartyField from '../fields/producerPartyField'
-import quantityField from '../fields/quantityField'
-import sellerPartyField from '../fields/sellerParty'
 import { canManageOrContribute } from './canRead'
 import productCategoriesField from '../fields/productCategoriesField'
-import { group } from 'console'
 import descriptionField from '../fields/descriptionField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import partyField from '../fields/partyField'
+import nameField from "../fields/nameField";
 
 
 const Catalogs: CollectionConfig = {
   slug: 'catalogs',
-  labels: {
-    singular: {
-      en: 'Catalog',
-      fr: 'Catalogue',
-    },
-    plural: {
-      en: 'Catalogs',
-      fr: 'Catalogues',
-    },
-  },
+  labels: getCollectionLabelsTranslations('catalogs'),
   versions: {
     drafts: false,
     maxPerDoc: 10
@@ -36,19 +23,22 @@ const Catalogs: CollectionConfig = {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['seller']}),
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',
+      label: getLabelTranslations('type'),
     },
     descriptionField({name: 'description'}),
-    sellerPartyField,
+    ...partyField({
+      name: 'selller',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },

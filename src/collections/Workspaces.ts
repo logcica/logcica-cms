@@ -1,22 +1,13 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
-import managerPartyField from '../fields/managerPartyField'
-import ownerPartyField from '../fields/ownerPartyField'
 import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
-  labels: {
-    singular: {
-      en: 'Workspace',
-      fr: 'Espace de travail',
-    },
-    plural: {
-      en: 'Workspaces',
-      fr: 'Espaces de travail',
-    },
-  },
+  labels: getCollectionLabelsTranslations('workspaces'),
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
@@ -32,25 +23,25 @@ const Workspaces: CollectionConfig = {
         {
           name: 'number',
           type: 'text',
+          label: getLabelTranslations('number'),
           admin: {
             components: {
               Cell: BCEEstablishmentLinkCell,
             },
           },
         },
-        {
-          name: 'name',
-          type: 'text',
-        },
+        nameField,
         {
           name: 'internalName',
           type: 'text',
+          label: getLabelTranslations('internalName'),
         },
       ]
     },
     {
       name: 'categories',
       type: 'relationship',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
       hasMany: true,
       admin: {
@@ -67,6 +58,7 @@ const Workspaces: CollectionConfig = {
     {
       name: 'place',
       type: 'relationship',
+      label: getLabelTranslations('place'),
       relationTo: 'places',
       hasMany: false,
     },

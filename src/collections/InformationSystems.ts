@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
+import nameField from "../fields/nameField";
 
 const InformationSystems: CollectionConfig = {
   slug: 'information_systems',
@@ -27,10 +28,7 @@ const InformationSystems: CollectionConfig = {
       name: 'key',
       type: 'text',
     },
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',

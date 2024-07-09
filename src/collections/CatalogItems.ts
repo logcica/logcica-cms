@@ -1,21 +1,10 @@
 import type { CollectionConfig } from 'payload/types'
-import sellerPartyField from '../fields/sellerParty'
-import { canManageOrContribute } from './canRead'
-import productCategoriesField from '../fields/productCategoriesField'
-
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Catalogs: CollectionConfig = {
   slug: 'catalog_items',
-  labels: {
-    singular: {
-      en: 'Item',
-      fr: 'Article',
-    },
-    plural: {
-      en: 'Items',
-      fr: 'Articles',
-    },
-  },
+  labels: getCollectionLabelsTranslations('catalog_items'),
   admin: {
     group: 'Gestion',
     defaultColumns: ['id','name','catalog','product'],
@@ -25,18 +14,17 @@ const Catalogs: CollectionConfig = {
     read: () => true
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'catalog',
       type: 'relationship',
+      label: getLabelTranslations('catalog'),
       relationTo: 'catalogs'
     },
     {
       name: 'product',
       type: 'relationship',
+      label: getLabelTranslations('product'),
       relationTo: 'products'
     }
   ],

@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const SeasonAvailabilities: CollectionConfig = {
   slug: 'season_availabilities',
@@ -9,16 +11,7 @@ const SeasonAvailabilities: CollectionConfig = {
     defaultColumns: ['name','id','key','year'],
 
   },
-  labels: {
-    singular: {
-      en: 'Seasonal availability',
-      fr: 'Disponibilité saisonnière',
-    },
-    plural: {
-      en: 'Seasonal availabilities',
-      fr: 'Disponibilités saisonnières',
-    },
-  },
+  labels: getCollectionLabelsTranslations('season_availabilities'),
   access: {
     read: () => true,
   },
@@ -26,69 +19,69 @@ const SeasonAvailabilities: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      label: getLabelTranslations('key'),
     },
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'year',
       type: 'group',
+      label: getLabelTranslations('year'),
       fields: [
         {
           name: 'months',
           type: 'select',
+          label: getLabelTranslations('months'),
           hasMany: true,
           admin: {
             isClearable: true,
           },
           options: [
             {
-              label: 'Jan',
+              label: getLabelTranslations('Jan'),
               value: 'Jan',
             },
             {
-              label: 'Fév',
+              label: getLabelTranslations('Feb'),
               value: 'Feb',
             },
             {
-              label: 'Mar',
+              label: getLabelTranslations('Mar'),
               value: 'Mar',
             },
             {
-              label: 'Avr',
+              label: getLabelTranslations('Apr'),
               value: 'Apr',
             },
             {
-              label: 'Mai',
+              label: getLabelTranslations('May'),
               value: 'May',
             },
             {
-              label: 'Juin',
+              label: getLabelTranslations('Jun'),
               value: 'Jun',
             },
             {
-              label: 'Juil',
+              label: getLabelTranslations('Jul'),
               value: 'Jul',
             },
             {
-              label: 'Août',
+              label: getLabelTranslations('Aug'),
               value: 'Aug',
             },
             {
-              label: 'Sep',
+              label: getLabelTranslations('Sep'),
               value: 'Sep',
             },
             {
-              label: 'Oct',
+              label: getLabelTranslations('Oct'),
               value: 'Oct',
             },
             {
-              label: 'Nov',
+              label: getLabelTranslations('Nov'),
               value: 'Nov',
             },
             {
-              label: 'Déc',
+              label: getLabelTranslations('Dec'),
               value: 'Dec',
             },
           ],

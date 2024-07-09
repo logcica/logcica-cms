@@ -3,9 +3,11 @@ import { canManage, canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import subjectField from '../fields/subjectField'
 import descriptionField from '../fields/descriptionField'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Contributions: CollectionConfig = {
   slug: 'contributions',
+  labels: getCollectionLabelsTranslations('contributions'),
   admin: {
     useAsTitle: 'id',
     group: 'Connexions',
@@ -33,6 +35,7 @@ const Contributions: CollectionConfig = {
     {
       name: 'roles',
       type: 'text',
+      label: getLabelTranslations('roles'),
       hasMany: true,
     },
     ...partyField({
@@ -43,10 +46,11 @@ const Contributions: CollectionConfig = {
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },
-    descriptionField({})
+    descriptionField({}),
   ],
 }
 

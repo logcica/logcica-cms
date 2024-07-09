@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
+import nameField from "../fields/nameField";
 
 const CodeLists: CollectionConfig = {
   slug: 'code_lists',
@@ -26,10 +27,7 @@ const CodeLists: CollectionConfig = {
       name: 'key',
       type: 'text',
     },
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
   ],
 }
 

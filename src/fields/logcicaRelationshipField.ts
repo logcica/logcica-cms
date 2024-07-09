@@ -1,6 +1,7 @@
 import type { Field } from 'payload/types'
 import deepMerge from '../utilities/deepMerge'
 import { Types } from 'mongoose'
+import {getLabelTranslations} from "../utilities/translate";
 
 
 type LogcicaRelationshipType = (options?: {
@@ -42,9 +43,10 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
   const relationshipField: Field = {
     name: name,
     type: 'relationship',
+    label: getLabelTranslations(name),
     relationTo: relationTo,
     admin: {
-      position: position
+      position: position,
     }
   }
 
