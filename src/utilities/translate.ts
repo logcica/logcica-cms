@@ -386,7 +386,7 @@ const translations = {
         targetType: 'Type de cible',
         targetCollection: 'Collection cible',
         session: 'Session',
-        orders: 'Ordres',
+        orders: 'Commandes',
         lines: 'Lignes',
         batch: 'Lot',
         classification: 'Classification',
