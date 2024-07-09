@@ -1,19 +1,11 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
 import nameField from "../fields/nameField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const CodeLists: CollectionConfig = {
   slug: 'code_lists',
-  labels: {
-    singular: {
-      en: 'Code list',
-      fr: 'Liste de codes',
-    },
-    plural: {
-      en: 'Code lists',
-      fr: 'Listes de codes',
-    },
-  },
+  labels: getCollectionLabelsTranslations('code_lists'),
   admin: {
     useAsTitle: 'key',
     group: 'Configuration',
@@ -26,6 +18,7 @@ const CodeLists: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      label: getLabelTranslations('key'),
     },
     nameField,
   ],

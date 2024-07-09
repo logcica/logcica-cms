@@ -3,19 +3,11 @@ import categoriesField from '../fields/CategoriesField'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField'
 import numberField from "../fields/numberField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Orders: CollectionConfig = {
   slug: 'orders',
-  labels: {
-    singular: {
-      en: 'Order',
-      fr: 'Commande',
-    },
-    plural: {
-      en: 'Orders',
-      fr: 'Commandes',
-    },
-  },
+  labels: getCollectionLabelsTranslations('orders'),
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
@@ -37,11 +29,13 @@ const Orders: CollectionConfig = {
         {
           name: 'counter',
           type: 'relationship',
+          label: getLabelTranslations('counter'),
           relationTo: 'counters'
         },
         {
           name: 'session',
           type: 'relationship',
+          label: getLabelTranslations('session'),
           relationTo: 'sessions'
         },
       ]
@@ -49,6 +43,7 @@ const Orders: CollectionConfig = {
     {
       name: 'lines',
       type: 'array',
+      label: getLabelTranslations('lines'),
       fields: [
         {
           type: 'row',
@@ -56,15 +51,18 @@ const Orders: CollectionConfig = {
             {
               name: 'product',
               type: 'relationship',
-              relationTo: 'products'
+              label: getLabelTranslations('product'),
+              relationTo: 'products',
             },
             {
               name: 'quantity',
               type: 'group',
+              label: getLabelTranslations('quantity'),
               fields: [
                 {
                   name: 'value',
-                  type: 'number'
+                  type: 'number',
+                  label: getLabelTranslations('value'),
                 }
               ]
             },

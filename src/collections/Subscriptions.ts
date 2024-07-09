@@ -3,19 +3,11 @@ import categoriesField from '../fields/CategoriesField'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField';
 import numberField from "../fields/numberField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Subscriptions: CollectionConfig = {
   slug: 'subscriptions',
-  labels: {
-    singular: {
-      en: 'Subscription',
-      fr: 'Abonnement',
-    },
-    plural: {
-      en: 'Subscriptions',
-      fr: 'Abonnements',
-    },
-  },
+  labels: getCollectionLabelsTranslations('subscriptions'),
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
@@ -29,33 +21,40 @@ const Subscriptions: CollectionConfig = {
     numberField,
     {
       name: 'status',
-      type: 'text'
+      type: 'text',
+      label: getLabelTranslations('status'),
     },
     {
       name: 'frequency',
       type: 'group',
+      label: getLabelTranslations('frequency'),
       fields: [
         {
           name: 'type',
-          type: 'text'
+          type: 'text',
+          label: getLabelTranslations('type'),
         },
         {
           name: 'interval',
-          type: 'number'
+          type: 'number',
+          label: getLabelTranslations('interval'),
         }
       ]
     },
     {
       name: 'timeRange',
       type: 'group',
+      label: getLabelTranslations('timeRange'),
       fields: [
         {
           name: 'from',
-          type: 'date'
+          type: 'date',
+          label: getLabelTranslations('from'),
         },
         {
           name: 'to',
-          type: 'date'
+          type: 'date',
+          label: getLabelTranslations('to'),
         }
       ]
     },
@@ -66,20 +65,24 @@ const Subscriptions: CollectionConfig = {
     {
       name: 'counter',
       type: 'relationship',
+      label: getLabelTranslations('counter'),
       relationTo: 'counters'
     },
     {
       name: 'session',
       type: 'relationship',
+      label: getLabelTranslations('session'),
       relationTo: 'sessions'
     },
     {
       name: 'note',
-      type: 'text'
+      type: 'text',
+      label: getLabelTranslations('note'),
     },
     {
       name: 'lines',
       type: 'array',
+      label: getLabelTranslations('lines'),
       fields: [
         {
           type: 'row',
@@ -87,15 +90,18 @@ const Subscriptions: CollectionConfig = {
             {
               name: 'product',
               type: 'relationship',
+              label: getLabelTranslations('product'),
               relationTo: 'products'
             },
             {
               name: 'quantity',
               type: 'group',
+              label: getLabelTranslations('quantity'),
               fields: [
                 {
                   name: 'value',
-                  type: 'number'
+                  type: 'number',
+                  label: getLabelTranslations('value'),
                 }
               ]
             },

@@ -1,19 +1,11 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead';
 import nameField from "../fields/nameField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Sectors: CollectionConfig = {
   slug: 'sectors',
-  labels: {
-    singular: {
-      en: 'Sector',
-      fr: 'Filière',
-    },
-    plural: {
-      en: 'Sectors',
-      fr: 'Filières',
-    },
-  },
+  labels: getCollectionLabelsTranslations('sectors'),
   admin: {
     useAsTitle: 'name',
     group: 'Configuration',
@@ -27,6 +19,7 @@ const Sectors: CollectionConfig = {
     {
       name: 'place',
       type: 'relationship',
+      label: getLabelTranslations('place'),
       relationTo: 'places',
       hasMany: false,
       filterOptions: () => {

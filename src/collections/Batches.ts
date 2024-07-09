@@ -2,19 +2,11 @@ import type { CollectionConfig } from 'payload/types'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField'
 import numberField from "../fields/numberField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Batches: CollectionConfig = {
   slug: 'batches',
-  labels: {
-    singular: {
-      en: 'Batch',
-      fr: 'Lot',
-    },
-    plural: {
-      en: 'Batches',
-      fr: 'Lots',
-    },
-  },
+  labels: getCollectionLabelsTranslations('batches'),
   admin: {
     useAsTitle: 'number',
     group: 'Gestion',
@@ -30,11 +22,13 @@ const Batches: CollectionConfig = {
     {
       name: 'workspace',
       type: 'relationship',
+      label: getLabelTranslations('workspace'),
       relationTo: 'workspaces'
     },
     {
       name: 'session',
       type: 'relationship',
+      label: getLabelTranslations('session'),
       relationTo: 'sessions'
     },
   ],

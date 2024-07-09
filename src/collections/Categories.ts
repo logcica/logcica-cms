@@ -1,19 +1,11 @@
 import type { CollectionConfig } from 'payload/types'
 import { anyone } from '../access/anyone'
 import { cannotConfigure } from './canRead'
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const Categories: CollectionConfig = {
   slug: 'categories',
-  labels: {
-    singular: {
-      en: 'Category',
-      fr: 'Catégorie',
-    },
-    plural: {
-      en: 'Categories',
-      fr: 'Catégories',
-    },
-  },
+  labels: getCollectionLabelsTranslations('categories'),
   admin: {
     useAsTitle: 'name',
     group: 'Configuration',
@@ -27,6 +19,7 @@ const Categories: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      label: getLabelTranslations('key'),
       admin: {
         position: 'sidebar',
         disableBulkEdit: true
@@ -35,6 +28,7 @@ const Categories: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      label: getLabelTranslations('name'),
       admin: {
         disableBulkEdit: true
       }
@@ -42,10 +36,12 @@ const Categories: CollectionConfig = {
     {
       name: 'subject',
       type: 'text',
+      label: getLabelTranslations('subject'),
     },
     {
       name: 'classification',
       type: 'relationship',
+      label: getLabelTranslations('classification'),
       relationTo: 'classifications',
       hasMany: false,
     }
