@@ -329,7 +329,7 @@ const translations = {
         months: 'Mois',
         alt: 'alt',
         roles: 'Rôles',
-        contributor: 'Contributeurs',
+        contributor: 'Contributeur',
         counters: 'Comptoirs',
         products: 'Produits',
         localKey: 'Clé locale',
