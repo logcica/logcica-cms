@@ -71,7 +71,7 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
           const relationshipField: Field = {
             name: localName,
             type: 'relationship',
-            label: getLabelTranslations(r),
+            label: getLabelTranslations(localName),
             relationTo: relationTo,
           }
 
