@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
 import { canManage } from './canRead';
 import partyField from '../fields/partyField';
+import numberField from "../fields/numberField";
 
 const Subscriptions: CollectionConfig = {
   slug: 'subscriptions',
@@ -25,10 +26,7 @@ const Subscriptions: CollectionConfig = {
     read: canManage({tenancyInAnyProperty: ['provider','subscriber','broker']}),
   },
   fields: [
-    {
-      name: 'number',
-      type: 'text',
-    },
+    numberField,
     {
       name: 'status',
       type: 'text'

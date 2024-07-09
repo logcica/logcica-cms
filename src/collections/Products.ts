@@ -10,6 +10,7 @@ import quantityField from '../fields/quantityField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
 import uploadImagesField from "../fields/imageField";
+import nameField from "../fields/nameField";
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -40,11 +41,7 @@ const Products: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'productGroup',
           type: 'relationship',

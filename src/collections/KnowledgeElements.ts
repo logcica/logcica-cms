@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
+import nameField from "../fields/nameField";
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
@@ -26,10 +27,7 @@ const KnowledgeElements: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-        },
+        nameField,
         {
           name: 'type',
           type: 'text',

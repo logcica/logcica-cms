@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const SeasonAvailabilities: CollectionConfig = {
   slug: 'season_availabilities',
@@ -20,11 +21,7 @@ const SeasonAvailabilities: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('key'),
     },
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       name: 'year',
       type: 'group',

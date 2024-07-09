@@ -4,6 +4,7 @@ import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 type MyImage = {
   url: string
@@ -53,11 +54,7 @@ const Profiles: CollectionConfig = {
         ],
       },
     },
-    {
-      name: 'name',
-      type: 'text',
-      label: getLabelTranslations('name'),
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',

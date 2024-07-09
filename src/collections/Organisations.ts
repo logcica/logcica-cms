@@ -5,6 +5,7 @@ import partyField from '../fields/partyField'
 import BCELinkCell from '../fields/BCELinkCell'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
+import nameField from "../fields/nameField";
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -32,11 +33,7 @@ const Organisations: CollectionConfig = {
             },
           },
         },
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'legalFormShort',
           type: 'text',

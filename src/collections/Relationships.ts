@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManage } from './canRead';
+import nameField from "../fields/nameField";
 
 const Relationships: CollectionConfig = {
   slug: 'relationships',
@@ -22,10 +23,7 @@ const Relationships: CollectionConfig = {
     read: canManage({tenancyInAnyProperty: ['holder']}),
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',

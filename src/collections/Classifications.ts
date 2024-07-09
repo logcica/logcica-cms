@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
+import nameField from "../fields/nameField";
 
 const Classifications: CollectionConfig = {
   slug: 'classifications',
@@ -16,10 +17,7 @@ const Classifications: CollectionConfig = {
       name: 'key',
       type: 'text',
     },
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
   ],
 }
 

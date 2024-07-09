@@ -11,6 +11,7 @@ import productCategoriesField from "../fields/productCategoriesField";
 import nutrientListField from "../fields/nutrientListField";
 import allergenListField from "../fields/allergenListField";
 import uploadImagesField from "../fields/imageField";
+import nameField from "../fields/nameField";
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -31,11 +32,7 @@ const Recipes: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'area',
           type: 'relationship',
@@ -138,11 +135,7 @@ const Recipes: CollectionConfig = {
       label: getLabelTranslations('ingredientList'),
       fields: [
         // Représente les champs qui seront présents pour chaque ingrédients
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         quantityField({ name: 'quantity' }),
       ],
     },

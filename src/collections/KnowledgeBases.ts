@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
+import nameField from "../fields/nameField";
 
 const KnowledgeBases: CollectionConfig = {
   slug: 'knowledge_bases',
@@ -23,10 +24,7 @@ const KnowledgeBases: CollectionConfig = {
     read: () => true
   },
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-    },
+    nameField,
     {
       name: 'type',
       type: 'text',

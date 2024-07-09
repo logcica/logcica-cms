@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from "../fields/nameField";
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -29,11 +30,7 @@ const Workspaces: CollectionConfig = {
             },
           },
         },
-        {
-          name: 'name',
-          type: 'text',
-          label: getLabelTranslations('name'),
-        },
+        nameField,
         {
           name: 'internalName',
           type: 'text',
