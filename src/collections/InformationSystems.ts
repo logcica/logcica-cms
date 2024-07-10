@@ -2,19 +2,11 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import nameField from "../fields/nameField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 
 const InformationSystems: CollectionConfig = {
   slug: 'information_systems',
-  labels: {
-    singular: {
-      en: 'Information system',
-      fr: "Système d'information",
-    },
-    plural: {
-      en: 'Information systems',
-      fr: "Systèmes d'information",
-    },
-  },
+  labels: getCollectionLabelsTranslations('information_systems'),
   admin: {
     useAsTitle: 'name',
     group: 'Référencement',
@@ -27,15 +19,18 @@ const InformationSystems: CollectionConfig = {
     {
       name: 'key',
       type: 'text',
+      label: getLabelTranslations('key'),
     },
     nameField,
     {
       name: 'type',
       type: 'text',
+      label: getLabelTranslations('type'),
     },
     {
       name: 'link',
       type: 'text',
+      label: getLabelTranslations('link'),
       admin: {
         components: {
           Cell: CustomLinkCell,
@@ -45,6 +40,7 @@ const InformationSystems: CollectionConfig = {
     {
       name: 'area',
       type: 'relationship',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
       hasMany: false,
     },
