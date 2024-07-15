@@ -5,6 +5,7 @@ import categoriesField from '../fields/CategoriesField';
 import CustomLinkCell from '../fields/CustomLinkCell';
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
 import nameField from "../fields/nameField";
+import descriptionField from '../fields/descriptionField';
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -62,6 +63,7 @@ const Counters: CollectionConfig = {
         }
       ]
     },
+    descriptionField({ name: 'availabilityStatement' }),
     {
       type: 'row',
       fields: [
