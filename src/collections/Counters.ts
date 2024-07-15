@@ -63,7 +63,7 @@ const Counters: CollectionConfig = {
         }
       ]
     },
-    descriptionField({ name: 'availabilityStatement' }),
+    descriptionField({ name: 'availabilityStatement', fields: ['short'] }),
     {
       type: 'row',
       fields: [

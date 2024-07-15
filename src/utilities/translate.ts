@@ -276,6 +276,8 @@ const translations = {
         description: 'Description',
         short_male: 'Court',
         short_female: 'Courte',
+        long_male: 'Long',
+        long_female: 'Longue',
         author: 'Auteur',
         stepStatement: 'Instructions',
         cookTime: 'Temps de cuisson',
