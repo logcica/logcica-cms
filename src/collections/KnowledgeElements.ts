@@ -2,19 +2,12 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import nameField from "../fields/nameField";
+import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import categoriesField from '../fields/CategoriesField';
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
-  labels: {
-    singular: {
-      en: 'Knowledge element',
-      fr: 'Élément de connaissances',
-    },
-    plural: {
-      en: 'Knowledge elements',
-      fr: 'Éléments de connaissances',
-    },
-  },
+  labels: getCollectionLabelsTranslations('knowledge_element'),
   admin: {
     useAsTitle: 'name',
     group: 'Référencement',
@@ -31,12 +24,14 @@ const KnowledgeElements: CollectionConfig = {
         {
           name: 'type',
           type: 'text',
+          label: getLabelTranslations('type'),
         },
       ]
     },
     {
       name: 'link',
       type: 'text',
+      label: getLabelTranslations('link'),
       admin: {
         components: {
           Cell: CustomLinkCell,
@@ -49,16 +44,19 @@ const KnowledgeElements: CollectionConfig = {
         {
           name: 'base',
           type: 'relationship',
+          label: getLabelTranslations('base'),
           relationTo: 'knowledge_bases'
         },
         {
           name: 'area',
           type: 'relationship',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
           hasMany: false,
         },
       ]
-    }
+    },
+    categoriesField,
   ],
 }
 

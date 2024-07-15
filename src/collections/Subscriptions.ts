@@ -1,85 +1,117 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
-import { canManage } from './canRead';
-import partyField from '../fields/partyField';
-import numberField from "../fields/numberField";
+import { canManage } from './canRead'
+import partyField from '../fields/partyField'
+import numberField from '../fields/numberField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Subscriptions: CollectionConfig = {
   slug: 'subscriptions',
-  labels: {
-    singular: {
-      en: 'Subscription',
-      fr: 'Abonnement',
-    },
-    plural: {
-      en: 'Subscriptions',
-      fr: 'Abonnements',
-    },
-  },
+  labels: getCollectionLabelsTranslations('subscriptions'),
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
-    defaultColumns: ['number','id','status','frequency'],
-
+    defaultColumns: ['number', 'id', 'status', 'frequency'],
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['provider','subscriber','broker']}),
+    read: canManage({ tenancyInAnyProperty: ['provider', 'subscriber', 'broker'] }),
   },
   fields: [
-    numberField,
     {
-      name: 'status',
-      type: 'text'
+      type: 'row',
+      fields: [
+        numberField,
+        {
+          name: 'status',
+          type: 'text',
+          label: getLabelTranslations('status'),
+        },
+      ],
     },
     {
-      name: 'frequency',
-      type: 'group',
+      type: 'row',
       fields: [
+
         {
-          name: 'type',
-          type: 'text'
+          name: 'frequency',
+          type: 'group',
+          label: getLabelTranslations('frequency'),
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'type',
+                  type: 'text',
+                  label: getLabelTranslations('type'),
+                },
+                {
+                  name: 'interval',
+                  type: 'number',
+                  label: getLabelTranslations('interval'),
+                },
+              ],
+            },
+          ],
         },
         {
-          name: 'interval',
-          type: 'number'
-        }
-      ]
-    },
-    {
-      name: 'timeRange',
-      type: 'group',
-      fields: [
-        {
-          name: 'from',
-          type: 'date'
+          name: 'timeRange',
+          type: 'group',
+          label: getLabelTranslations('timeRange'),
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'from',
+                  type: 'date',
+                  label: getLabelTranslations('from'),
+                },
+                {
+                  name: 'to',
+                  type: 'date',
+                  label: getLabelTranslations('to'),
+                },
+              ],
+            },
+          ],
         },
-        {
-          name: 'to',
-          type: 'date'
-        }
       ]
     },
-    ...partyField({ name: 'provider', relations: ['organisations', 'partnerships', 'activities'] }),
-    ...partyField({ name: 'subscriber', relations: ['organisations', 'partnerships', 'activities'] }),
-    ...partyField({ name: 'broker', relations: ['organisations', 'partnerships', 'activities'] }),
     categoriesField,
+    ...partyField({ name: 'provider', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'subscriber',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
-      name: 'counter',
-      type: 'relationship',
-      relationTo: 'counters'
-    },
-    {
-      name: 'session',
-      type: 'relationship',
-      relationTo: 'sessions'
+      type: 'row',
+      fields: [
+        {
+          name: 'counter',
+          type: 'relationship',
+          label: getLabelTranslations('counter'),
+          relationTo: 'counters',
+        },
+        {
+          name: 'session',
+          type: 'relationship',
+          label: getLabelTranslations('session'),
+          relationTo: 'sessions',
+        },
+      ]
     },
     {
       name: 'note',
-      type: 'text'
+      type: 'text',
+      label: getLabelTranslations('note'),
     },
+    ...partyField({ name: 'broker', relations: ['organisations', 'partnerships', 'activities'] }),
     {
       name: 'lines',
       type: 'array',
+      label: getLabelTranslations('lines'),
       fields: [
         {
           type: 'row',
@@ -87,22 +119,25 @@ const Subscriptions: CollectionConfig = {
             {
               name: 'product',
               type: 'relationship',
-              relationTo: 'products'
+              label: getLabelTranslations('product'),
+              relationTo: 'products',
             },
             {
               name: 'quantity',
               type: 'group',
+              label: getLabelTranslations('quantity'),
               fields: [
                 {
                   name: 'value',
-                  type: 'number'
-                }
-              ]
+                  type: 'number',
+                  label: getLabelTranslations('value'),
+                },
+              ],
             },
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
   ],
 }
 

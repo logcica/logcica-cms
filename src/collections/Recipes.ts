@@ -134,9 +134,13 @@ const Recipes: CollectionConfig = {
       type: 'array',
       label: getLabelTranslations('ingredientList'),
       fields: [
-        // Représente les champs qui seront présents pour chaque ingrédients
-        nameField,
-        quantityField({ name: 'quantity' }),
+        {
+          type: 'row',
+          fields: [
+            nameField,
+            quantityField({ name: 'quantity' }),
+          ]
+        }
       ],
     },
     descriptionField({ name: 'stepStatement' }),

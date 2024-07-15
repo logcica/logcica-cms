@@ -31,7 +31,7 @@ const supportedRelations = [
   {
     singural: 'person',
     plural: 'persons',
-  },
+  }
 ]
 
 export function newForeignKeyField(name: string, localName: string): Field{
