@@ -17,26 +17,36 @@ const Fulfilments: CollectionConfig = {
     read: canManage({tenancyInAnyProperty: ['operator']}),
   },
   fields: [
-    numberField,
-    ...partyField({ name: 'operator', relations: ['organisations', 'partnerships', 'activities'] }),
     {
-      name: 'workspace',
-      type: 'relationship',
-      label: getLabelTranslations('workspace'),
-      relationTo: 'workspaces'
+      type: 'row',
+      fields: [
+        numberField,
+        {
+          name: 'orders',
+          type: 'relationship',
+          label: getLabelTranslations('orders'),
+          relationTo: 'orders',
+          hasMany: true
+        },
+      ]
     },
+    ...partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
     {
-      name: 'session',
-      type: 'relationship',
-      label: getLabelTranslations('session'),
-      relationTo: 'sessions'
-    },
-    {
-      name: 'orders',
-      type: 'relationship',
-      label: getLabelTranslations('orders'),
-      relationTo: 'orders',
-      hasMany: true
+      type: 'row',
+      fields: [
+        {
+          name: 'workspace',
+          type: 'relationship',
+          label: getLabelTranslations('workspace'),
+          relationTo: 'workspaces'
+        },
+        {
+          name: 'session',
+          type: 'relationship',
+          label: getLabelTranslations('session'),
+          relationTo: 'sessions'
+        },
+      ]
     },
     {
       name: 'lines',

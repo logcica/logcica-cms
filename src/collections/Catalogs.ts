@@ -23,15 +23,20 @@ const Catalogs: CollectionConfig = {
     read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['seller']}),
   },
   fields: [
-    nameField,
     {
-      name: 'type',
-      type: 'text',
-      label: getLabelTranslations('type'),
+      type: 'row',
+      fields: [
+        nameField,
+        {
+          name: 'type',
+          type: 'text',
+          label: getLabelTranslations('type'),
+        }
+      ]
     },
     descriptionField({name: 'description'}),
     ...partyField({
-      name: 'selller',
+      name: 'seller',
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),

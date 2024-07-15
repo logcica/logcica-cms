@@ -338,7 +338,7 @@ const translations = {
         level: 'Niveau',
         parent: 'Parent',
         timeRange: 'Intervalle de temps',
-        from: 'Depuis',
+        from: 'De',
         to: 'À',
         subject: 'Sujet',
         counter: 'Comptoir',
