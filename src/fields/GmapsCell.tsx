@@ -7,10 +7,17 @@ const baseClass = 'custom-cell'
 const GmapsCell: React.FC<Props> = (props) => {
   const { cellData, rowData } = props;
 
-  if(!cellData || !(cellData as GmapsPlace)?.id)
+
+  if(!cellData || !(cellData as GmapsPlace))
     return <span></span>
 
-  const id = (cellData as GmapsPlace)?.id
+  const gmaps = cellData as GmapsPlace;
+
+  const id = gmaps.placeId ?? gmaps.id
+
+  if(!id)
+    return <span></span>
+
   console.log(rowData)
   const coordinates = rowData.center
   const link = `https://www.google.com/maps/search/?api=1&query=${coordinates[0]}%2C${coordinates[1]}&query_place_id=${id}`

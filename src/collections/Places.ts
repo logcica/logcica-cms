@@ -183,11 +183,19 @@ const Places: CollectionConfig = {
           Cell: GmapsCell
         }
       },
+      
       fields: [
         {
           name: 'id',
           type: 'text',
-          label: getLabelTranslations('id'),
+          admin: {
+            hidden: true
+          }
+        },
+        {
+          name: 'placeId',
+          type: 'text',
+          label: getLabelTranslations('gmapsPlaceId'),
         }
       ]
     },

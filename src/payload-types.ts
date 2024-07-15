@@ -31,6 +31,7 @@ export interface Config {
     fulfilments: Fulfilment;
     products: Product;
     product_groups: ProductGroup;
+    recipes: Recipe;
     batches: Batch;
     sessions: Session;
     catalogs: Catalog;
@@ -441,6 +442,7 @@ export interface Address {
  */
 export interface GmapsPlace {
   id?: string | null;
+  placeId?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -660,6 +662,51 @@ export interface Catalog {
   type?: string | null;
   description?: Description;
   seller?: Party;
+  sellerOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sellerPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sellerActivityId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   area?: (string | null) | Place;
   productCategories?: (string | Category)[] | null;
   updatedAt: string;
@@ -1038,8 +1085,6 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
-  mainImage?: string | Media | null;
-  images?: (string | Media)[] | null;
   netWeight?: Quantity;
   dimensions?: {
     length?: Quantity;
@@ -1047,6 +1092,8 @@ export interface Product {
     height?: Quantity;
     volume?: Quantity;
   };
+  mainImage?: string | Media | null;
+  images?: (string | Media)[] | null;
   allergenList?:
     | {
         containmentLevel?: (string | null) | Code;
@@ -1155,30 +1202,14 @@ export interface ProductGroup {
   } | null;
   allergenList?:
     | {
-        allergen: string;
-        level: string;
+        containmentLevel?: (string | null) | Code;
+        allergen?: (string | null) | Code;
         id?: string | null;
       }[]
     | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1202,6 +1233,22 @@ export interface Unit {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscriptions".
  */
 export interface Subscription {
@@ -1216,13 +1263,148 @@ export interface Subscription {
     from?: string | null;
     to?: string | null;
   };
-  provider?: Party;
-  subscriber?: Party;
-  broker?: Party;
   categories?: (string | Category)[] | null;
+  provider?: Party;
+  providerOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  providerPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  providerActivityId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subscriber?: Party;
+  subscriberOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subscriberPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subscriberActivityId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   counter?: (string | null) | Counter;
   session?: (string | null) | Session;
   note?: string | null;
+  broker?: Party;
+  brokerOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brokerPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brokerActivityId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   lines?:
     | {
         product?: (string | null) | Product;
@@ -1242,10 +1424,55 @@ export interface Subscription {
 export interface Fulfilment {
   id: string;
   number?: string | null;
+  orders?: (string | Order)[] | null;
   operator?: Party;
+  operatorOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  operatorPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  operatorActivityId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   workspace?: (string | null) | Workspace;
   session?: (string | null) | Session;
-  orders?: (string | Order)[] | null;
   lines?:
     | {
         product?: (string | null) | Product;
@@ -1314,6 +1541,99 @@ export interface Batch {
   } | null;
   workspace?: (string | null) | Workspace;
   session?: (string | null) | Session;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recipes".
+ */
+export interface Recipe {
+  id: string;
+  name?: string | null;
+  area?: (string | null) | Place;
+  categories?: (string | Category)[] | null;
+  author?: Party;
+  authorOrganisationId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  authorPartnershipId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  authorPersonId?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  yieldStatement?: string | null;
+  costCategory?: (string | null) | Category;
+  difficulty?: (string | null) | Category;
+  seasonality?: (string | null) | Category;
+  description?: Description;
+  cookTime?: number | null;
+  prepTime?: number | null;
+  totalTime?: number | null;
+  ingredientList?:
+    | {
+        name?: string | null;
+        quantity?: Quantity;
+        id?: string | null;
+      }[]
+    | null;
+  stepStatement?: Description;
+  mainImage?: string | Media | null;
+  images?: (string | Media)[] | null;
+  allergenList?:
+    | {
+        containmentLevel?: (string | null) | Code;
+        allergen?: (string | null) | Code;
+        id?: string | null;
+      }[]
+    | null;
+  nutrientList?:
+    | {
+        nutrient?: (string | null) | Code;
+        quantity?: {
+          value?: number | null;
+          unit?: (string | null) | Unit;
+        };
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1466,6 +1786,7 @@ export interface KnowledgeElement {
   link?: string | null;
   base?: (string | null) | KnowledgeBase;
   area?: (string | null) | Place;
+  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
