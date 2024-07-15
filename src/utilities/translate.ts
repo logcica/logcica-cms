@@ -352,6 +352,7 @@ const translations = {
         counter: 'Comptoir',
         productCategories: 'Catégories de produits',
         seller: 'Vendeur',
+        gmapsPlaceId: "Place ID",
         operator: 'Opérateur',
         provider: 'Fournisseur',
         subscriber: 'Abonné',
