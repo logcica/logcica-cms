@@ -3,6 +3,7 @@ import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import nameField from "../fields/nameField";
 import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import categoriesField from '../fields/CategoriesField';
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
@@ -54,7 +55,8 @@ const KnowledgeElements: CollectionConfig = {
           hasMany: false,
         },
       ]
-    }
+    },
+    categoriesField,
   ],
 }
 

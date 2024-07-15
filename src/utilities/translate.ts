@@ -1,8 +1,16 @@
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function keyToDefaultTitle(key: string){
+  return capitalizeFirstLetter(key.replaceAll("_",","))
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function getLabelTranslations(key: string) {
   return {
-    en: translations.en.logcica.fields[key] ?? key,
-    fr: translations.fr.logcica.fields[key] ?? key,
+    en: translations.en.logcica.fields[key] ?? keyToDefaultTitle(key),
+    fr: translations.fr.logcica.fields[key] ?? keyToDefaultTitle(key),
   }
 }
 
@@ -344,6 +352,12 @@ const translations = {
         counter: 'Comptoir',
         productCategories: 'Catégories de produits',
         seller: 'Vendeur',
+        operator: 'Opérateur',
+        provider: 'Fournisseur',
+        subscriber: 'Abonné',
+        producer: 'Producteur',
+        customer: 'Client',
+        broker: 'Intermédiaire',
         organisation: 'Organisation',
         partnership: 'Partenariat',
         person: 'Personne',
