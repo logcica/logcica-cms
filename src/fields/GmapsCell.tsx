@@ -15,7 +15,7 @@ const GmapsCell: React.FC<Props> = (props) => {
 
   const id = gmaps.placeId ?? gmaps.id
 
-  if(!id)
+  if(!id || !rowData.center)
     return <span></span>
 
   console.log(rowData)
