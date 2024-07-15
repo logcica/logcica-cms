@@ -560,6 +560,21 @@ export interface Description {
     };
     [k: string]: unknown;
   } | null;
+  long?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -597,6 +612,7 @@ export interface Counter {
   marketplace?: (string | null) | Counter;
   workspace?: (string | null) | Workspace;
   place?: (string | null) | Place;
+  availabilityStatement?: Description;
   catalog?: (string | null) | Catalog;
   availabilities?: (string | Availability)[] | null;
   link?: string | null;
