@@ -49,10 +49,11 @@ const Counters: CollectionConfig = {
           relationTo: 'counters'
         },
         {
-          name: 'workspace',
+          name: 'workspaces',
           type: 'relationship',
-          label: getLabelTranslations('workspace'),
-          relationTo: 'workspaces'
+          label: getLabelTranslations('workspaces'),
+          relationTo: 'workspaces',
+          hasMany: true,
         },
         {
           name: 'place',
