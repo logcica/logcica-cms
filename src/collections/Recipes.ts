@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { CollectionConfig } from 'payload/types'
 
 import descriptionField from '../fields/descriptionField'
+import stepsField from '../fields/stepsField'
 import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import durationField from '../fields/durationField'
@@ -143,7 +144,7 @@ const Recipes: CollectionConfig = {
         }
       ],
     },
-    descriptionField({ name: 'stepStatement' }),
+    stepsField({name: 'stepStatement'}),
     ...uploadImagesField,
     allergenListField,
     nutrientListField,

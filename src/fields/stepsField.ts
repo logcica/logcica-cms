@@ -2,18 +2,19 @@ import { createHeadlessEditor } from '@lexical/headless' // <= make sure this pa
 import { $convertFromMarkdownString, $convertToMarkdownString } from '@lexical/markdown'
 import {
   BoldTextFeature,
-  convertLexicalToHTML,
   defaultEditorConfig,
   getEnabledNodes,
   ItalicTextFeature,
   lexicalEditor,
+  OrderedListFeature,
   sanitizeEditorConfig,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 import type { Field, FieldHook } from 'payload/types'
 
 import deepMerge from '../utilities/deepMerge'
 import { getLabelTranslations } from '../utilities/translate'
-import DescriptionCell from './DescriptionCell'
+import StepsCell from './StepsCell'
 
 type DescriptionType = (options?: {
   name?: string
@@ -24,39 +25,31 @@ type DescriptionType = (options?: {
 const editorConfig = defaultEditorConfig // <= your editor config here
 editorConfig.features.push(BoldTextFeature())
 
-const descriptionField: DescriptionType = ({
-  name = 'description',
-  fields = ['short', 'long'],
+const stepField: DescriptionType = ({
+  name = 'steps',
   overrides = {},
 } = {}) => {
-  const descriptionResult: Field = {
+  const stepResult: Field =
+  {
     type: 'group',
     label: getLabelTranslations(name),
-    interfaceName: 'Description',
+    interfaceName: 'Steps',
     name: name,
     admin: {
       components: {
-        Cell: DescriptionCell,
+        Cell: StepsCell,
       },
     },
-    fields: fields.map(
-      f =>
-        ({
-          name: f,
-          type: 'richText',
-          label: getLabelTranslations(f + '_female'),
-          editor: lexicalEditor({
-            features: f === 'short' ? [BoldTextFeature()] : f === 'long' ? [BoldTextFeature()] : undefined,
-          }),
-          hooks: {
-            beforeChange: [beforeChange],
-            afterRead: [afterRead],
-          },
-        } as Field),
-    ),
+    fields: [{
+      name: 'OrderedList',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: [BoldTextFeature(), OrderedListFeature()],
+      })
+    }],
   }
 
-  return deepMerge(descriptionResult, overrides)
+  return deepMerge(stepResult, overrides)
 }
 
 const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
@@ -70,7 +63,7 @@ const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
     }),
   })
 
-  headlessEditor.setEditorState(headlessEditor.parseEditorState(value)) // This should commit the editor state immediately
+  headlessEditor.setEditorState(headlessEditor.parseEditorState(value))
 
   let markdown: string
   headlessEditor.getEditorState().read(() => {
@@ -105,4 +98,4 @@ const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
   return headlessEditor.getEditorState().toJSON()
 }
 
-export default descriptionField
+export default stepField
