@@ -110,7 +110,6 @@ function markdownToEditorState(editorConfig, markdown: string) {
 
 function markdownFromEditorState(editorConfig, editorState: any) {
 
-  console.log("editor state:" + JSON.stringify(editorState))
   const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
 
   const headlessEditor = createHeadlessEditor({
