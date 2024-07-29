@@ -4,8 +4,11 @@ import {
   BoldTextFeature,
   convertLexicalToHTML,
   defaultEditorConfig,
+  FeatureProvider,
   getEnabledNodes,
+  ItalicTextFeature,
   lexicalEditor,
+  OrderedListFeature,
   sanitizeEditorConfig,
 } from '@payloadcms/richtext-lexical'
 import type { Field, FieldHook } from 'payload/types'
@@ -14,20 +17,44 @@ import deepMerge from '../utilities/deepMerge'
 import { getLabelTranslations } from '../utilities/translate'
 import DescriptionCell from './DescriptionCell'
 
+
 type DescriptionType = (options?: {
   name?: string
   fields?: string[]
+  features?: string[]
   overrides?: Record<string, unknown>
 }) => Field
 
-const editorConfig = defaultEditorConfig // <= your editor config here
-editorConfig.features.push(BoldTextFeature())
+const features_dict = {BoldText : BoldTextFeature(), ItalicText : ItalicTextFeature(), OrderedList: OrderedListFeature() };
 
 const descriptionField: DescriptionType = ({
   name = 'description',
   fields = ['short', 'long'],
+  features = ['BoldText'],
   overrides = {},
 } = {}) => {
+
+  const selectedFeatures = features.map(feature => features_dict[feature]);
+
+  const editorConfig = defaultEditorConfig // <= your editor config here
+  editorConfig.features.push(...selectedFeatures)
+
+  const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
+  
+    const markdown: string = markdownFromEditorState(editorConfig, value)
+
+    if(markdown == "") return null
+  
+    return { markdown: markdown }
+  }
+  
+  const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
+  
+    if (findMany) return value
+  
+    return markdownToEditorState(editorConfig, value?.markdown ?? "")
+  }
+
   const descriptionResult: Field = {
     type: 'group',
     label: getLabelTranslations(name),
@@ -45,7 +72,7 @@ const descriptionField: DescriptionType = ({
           type: 'richText',
           label: getLabelTranslations(f + '_female'),
           editor: lexicalEditor({
-            features: f === 'short' ? [BoldTextFeature()] : undefined,
+            features: selectedFeatures
           }),
           hooks: {
             beforeChange: [beforeChange],
@@ -58,32 +85,9 @@ const descriptionField: DescriptionType = ({
   return deepMerge(descriptionResult, overrides)
 }
 
-const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
-  if (!value) return undefined
+export default descriptionField
 
-  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
-
-  const headlessEditor = createHeadlessEditor({
-    nodes: getEnabledNodes({
-      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-    }),
-  })
-
-  headlessEditor.setEditorState(headlessEditor.parseEditorState(value)) // This should commit the editor state immediately
-
-  let markdown: string
-  headlessEditor.getEditorState().read(() => {
-    markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
-  })
-
-  return { markdown: markdown }
-}
-
-const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
-  if (!value || !value.markdown) return undefined
-
-  if (findMany) return value
-
+function markdownToEditorState(editorConfig, markdown: string) {
   const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
 
   const headlessEditor = createHeadlessEditor({
@@ -95,13 +99,30 @@ const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
   headlessEditor.update(
     () => {
       $convertFromMarkdownString(
-        value?.markdown,
-        yourSanitizedEditorConfig.features.markdownTransformers,
+        markdown,
+        yourSanitizedEditorConfig.features.markdownTransformers
       )
     },
-    { discrete: true },
+    { discrete: true }
   )
   return headlessEditor.getEditorState().toJSON()
 }
 
-export default descriptionField
+function markdownFromEditorState(editorConfig, editorState: any) {
+
+  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
+
+  const headlessEditor = createHeadlessEditor({
+    nodes: getEnabledNodes({
+      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
+    }),
+  })
+
+  headlessEditor.setEditorState(headlessEditor.parseEditorState(editorState)) // This should commit the editor state immediately
+
+  let markdown: string
+  headlessEditor.getEditorState().read(() => {
+    markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
+  })
+  return markdown
+}
