@@ -144,7 +144,7 @@ const Recipes: CollectionConfig = {
         }
       ],
     },
-    descriptionField({name: 'stepStatement',fields: ['short'], features: ['BoldText', 'OrderedList']}),
+    descriptionField({name: 'stepStatement',fields: ['long'], features: ['BoldText', 'OrderedList']}),
     ...uploadImagesField,
     allergenListField,
     nutrientListField,
