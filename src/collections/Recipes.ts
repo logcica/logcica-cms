@@ -12,7 +12,6 @@ import nutrientListField from "../fields/nutrientListField";
 import allergenListField from "../fields/allergenListField";
 import uploadImagesField from "../fields/imageField";
 import nameField from "../fields/nameField";
-import { BoldTextFeature, ItalicTextFeature, OrderedListFeature } from '@payloadcms/richtext-lexical'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
