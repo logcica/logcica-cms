@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import type { CollectionConfig } from 'payload/types'
 
 import descriptionField from '../fields/descriptionField'
-import stepsField from '../fields/stepsField'
 import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import durationField from '../fields/durationField'
@@ -13,6 +12,7 @@ import nutrientListField from "../fields/nutrientListField";
 import allergenListField from "../fields/allergenListField";
 import uploadImagesField from "../fields/imageField";
 import nameField from "../fields/nameField";
+import { BoldTextFeature, ItalicTextFeature, OrderedListFeature } from '@payloadcms/richtext-lexical'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -121,7 +121,7 @@ const Recipes: CollectionConfig = {
         },
       ],
     },
-    descriptionField({ name: 'description' }),
+    descriptionField({ name: 'description', features: ['Bold'] }),
     {
       type: 'row',
       fields: [
@@ -144,7 +144,7 @@ const Recipes: CollectionConfig = {
         }
       ],
     },
-    stepsField({name: 'stepStatement'}),
+    descriptionField({name: 'stepStatement',fields: ['long'], features: ['Bold', 'OrderedList']}),
     ...uploadImagesField,
     allergenListField,
     nutrientListField,
