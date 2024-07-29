@@ -34,7 +34,7 @@ const Catalogs: CollectionConfig = {
         }
       ]
     },
-    descriptionField({name: 'description'}),
+    descriptionField({}),
     ...partyField({
       name: 'seller',
       position: 'sidebar',

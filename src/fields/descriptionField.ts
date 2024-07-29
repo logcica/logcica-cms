@@ -25,12 +25,12 @@ type DescriptionType = (options?: {
   overrides?: Record<string, unknown>
 }) => Field
 
-const features_dict = {Bold : BoldTextFeature(), Italic : ItalicTextFeature(), OrderedList: OrderedListFeature() };
+const features_dict = {BoldText : BoldTextFeature(), ItalicText : ItalicTextFeature(), OrderedList: OrderedListFeature() };
 
 const descriptionField: DescriptionType = ({
   name = 'description',
   fields = ['short', 'long'],
-  features = ['Bold'],
+  features = ['BoldText'],
   overrides = {},
 } = {}) => {
 
@@ -40,49 +40,19 @@ const descriptionField: DescriptionType = ({
   editorConfig.features.push(...selectedFeatures)
 
   const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
-    if (!value) return undefined
   
-    const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
-  
-    const headlessEditor = createHeadlessEditor({
-      nodes: getEnabledNodes({
-        editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-      }),
-    })
-  
-    headlessEditor.setEditorState(headlessEditor.parseEditorState(value)) // This should commit the editor state immediately
-  
-    let markdown: string
-    headlessEditor.getEditorState().read(() => {
-      markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
-    })
+    const markdown: string = markdownFromEditorState(editorConfig, value)
+
+    if(markdown == "") return null
   
     return { markdown: markdown }
   }
   
   const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
-    if (!value || !value.markdown) return undefined
   
     if (findMany) return value
   
-    const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
-  
-    const headlessEditor = createHeadlessEditor({
-      nodes: getEnabledNodes({
-        editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-      }),
-    })
-  
-    headlessEditor.update(
-      () => {
-        $convertFromMarkdownString(
-          value?.markdown,
-          yourSanitizedEditorConfig.features.markdownTransformers,
-        )
-      },
-      { discrete: true },
-    )
-    return headlessEditor.getEditorState().toJSON()
+    return markdownToEditorState(editorConfig, value?.markdown ?? "")
   }
 
   const descriptionResult: Field = {
@@ -116,3 +86,44 @@ const descriptionField: DescriptionType = ({
 }
 
 export default descriptionField
+
+function markdownToEditorState(editorConfig, markdown: string) {
+  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
+
+  const headlessEditor = createHeadlessEditor({
+    nodes: getEnabledNodes({
+      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
+    }),
+  })
+
+  headlessEditor.update(
+    () => {
+      $convertFromMarkdownString(
+        markdown,
+        yourSanitizedEditorConfig.features.markdownTransformers
+      )
+    },
+    { discrete: true }
+  )
+  return headlessEditor.getEditorState().toJSON()
+}
+
+function markdownFromEditorState(editorConfig, editorState: any) {
+
+  console.log("editor state:" + JSON.stringify(editorState))
+  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
+
+  const headlessEditor = createHeadlessEditor({
+    nodes: getEnabledNodes({
+      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
+    }),
+  })
+
+  headlessEditor.setEditorState(headlessEditor.parseEditorState(editorState)) // This should commit the editor state immediately
+
+  let markdown: string
+  headlessEditor.getEditorState().read(() => {
+    markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
+  })
+  return markdown
+}

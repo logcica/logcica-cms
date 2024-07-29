@@ -121,7 +121,7 @@ const Recipes: CollectionConfig = {
         },
       ],
     },
-    descriptionField({ name: 'description', features: ['Bold'] }),
+    descriptionField({}),
     {
       type: 'row',
       fields: [
@@ -144,7 +144,7 @@ const Recipes: CollectionConfig = {
         }
       ],
     },
-    descriptionField({name: 'stepStatement',fields: ['long'], features: ['Bold', 'OrderedList']}),
+    descriptionField({name: 'stepStatement',fields: ['short'], features: ['BoldText', 'OrderedList']}),
     ...uploadImagesField,
     allergenListField,
     nutrientListField,
