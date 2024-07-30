@@ -21,6 +21,13 @@ const Classifications: CollectionConfig = {
       label: getLabelTranslations('key'),
     },
     nameField,
+    {
+      name: 'system',
+      type: 'relationship',
+      label: getLabelTranslations('system'),
+      relationTo: 'information_systems',
+      hasMany: false,
+    }
   ],
 }
 
