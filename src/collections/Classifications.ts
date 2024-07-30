@@ -10,6 +10,7 @@ const Classifications: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Configuration',
     hidden: cannotConfigure,
+    defaultColumns: ['name', 'key', 'system', 'subject'],
   },
   access: {
     read: () => true,
@@ -30,16 +31,16 @@ const Classifications: CollectionConfig = {
       type: 'row',
       fields: [
         {
+          name: 'subject',
+          type: 'text',
+          label: getLabelTranslations('subject'),
+        },
+        {
           name: 'system',
           type: 'relationship',
           label: getLabelTranslations('system'),
           relationTo: 'information_systems',
           hasMany: false,
-        },
-        {
-          name: 'subject',
-          type: 'text',
-          label: getLabelTranslations('subject'),
         },
       ],
     },
