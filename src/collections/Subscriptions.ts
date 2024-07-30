@@ -31,7 +31,6 @@ const Subscriptions: CollectionConfig = {
     {
       type: 'row',
       fields: [
-
         {
           name: 'frequency',
           type: 'group',
@@ -76,10 +75,14 @@ const Subscriptions: CollectionConfig = {
             },
           ],
         },
-      ]
+      ],
     },
     categoriesField,
-    ...partyField({ name: 'provider', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'provider',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     ...partyField({
       name: 'subscriber',
       position: 'sidebar',
@@ -100,7 +103,7 @@ const Subscriptions: CollectionConfig = {
           label: getLabelTranslations('session'),
           relationTo: 'sessions',
         },
-      ]
+      ],
     },
     {
       name: 'note',

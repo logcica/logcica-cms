@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const CodeLists: CollectionConfig = {
   slug: 'code_lists',
@@ -9,7 +9,7 @@ const CodeLists: CollectionConfig = {
   admin: {
     useAsTitle: 'key',
     group: 'Configuration',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
     read: () => true,

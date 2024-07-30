@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead';
-import partyField from '../fields/partyField';
-import numberField from "../fields/numberField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { canManage } from './canRead'
+import partyField from '../fields/partyField'
+import numberField from '../fields/numberField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Fulfilments: CollectionConfig = {
   slug: 'fulfilments',
@@ -10,11 +10,10 @@ const Fulfilments: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
-    defaultColumns: ['number','id','operator','workspace'],
-
+    defaultColumns: ['number', 'id', 'operator', 'workspace'],
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['operator']}),
+    read: canManage({ tenancyInAnyProperty: ['operator'] }),
   },
   fields: [
     {
@@ -26,11 +25,15 @@ const Fulfilments: CollectionConfig = {
           type: 'relationship',
           label: getLabelTranslations('orders'),
           relationTo: 'orders',
-          hasMany: true
+          hasMany: true,
         },
-      ]
+      ],
     },
-    ...partyField({ name: 'operator', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'operator',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       type: 'row',
       fields: [
@@ -38,15 +41,15 @@ const Fulfilments: CollectionConfig = {
           name: 'workspace',
           type: 'relationship',
           label: getLabelTranslations('workspace'),
-          relationTo: 'workspaces'
+          relationTo: 'workspaces',
         },
         {
           name: 'session',
           type: 'relationship',
           label: getLabelTranslations('session'),
-          relationTo: 'sessions'
+          relationTo: 'sessions',
         },
-      ]
+      ],
     },
     {
       name: 'lines',
@@ -60,13 +63,13 @@ const Fulfilments: CollectionConfig = {
               name: 'product',
               type: 'relationship',
               label: getLabelTranslations('product'),
-              relationTo: 'products'
+              relationTo: 'products',
             },
             {
               name: 'batch',
               type: 'relationship',
               label: getLabelTranslations('batch'),
-              relationTo: 'batches'
+              relationTo: 'batches',
             },
             {
               name: 'quantity',
@@ -77,13 +80,13 @@ const Fulfilments: CollectionConfig = {
                   name: 'value',
                   type: 'number',
                   label: getLabelTranslations('value'),
-                }
-              ]
+                },
+              ],
             },
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
   ],
 }
 

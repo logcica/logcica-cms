@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const KnowledgeBases: CollectionConfig = {
   slug: 'knowledge_bases',
@@ -10,10 +10,10 @@ const KnowledgeBases: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Référencement',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     nameField,

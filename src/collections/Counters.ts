@@ -1,22 +1,22 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManageOrContribute } from './canRead';
-import partyField from '../fields/partyField';
-import categoriesField from '../fields/CategoriesField';
-import CustomLinkCell from '../fields/CustomLinkCell';
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
-import descriptionField from '../fields/descriptionField';
+import { canManageOrContribute } from './canRead'
+import partyField from '../fields/partyField'
+import categoriesField from '../fields/CategoriesField'
+import CustomLinkCell from '../fields/CustomLinkCell'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
+import descriptionField from '../fields/descriptionField'
 
 const Counters: CollectionConfig = {
   slug: 'counters',
   labels: getCollectionLabelsTranslations('counters'),
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['id','name','type','manager','place','marketplace','catalog'],
-    group: 'Structure'
+    defaultColumns: ['id', 'name', 'type', 'manager', 'place', 'marketplace', 'catalog'],
+    group: 'Structure',
   },
   access: {
-    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({ tenancyInAnyProperty: ['manager'] }),
   },
 
   fields: [
@@ -25,8 +25,8 @@ const Counters: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('type'),
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       type: 'row',
@@ -37,7 +37,7 @@ const Counters: CollectionConfig = {
           type: 'text',
           label: getLabelTranslations('internalName'),
         },
-      ]
+      ],
     },
     {
       type: 'row',
@@ -46,7 +46,7 @@ const Counters: CollectionConfig = {
           name: 'marketplace',
           type: 'relationship',
           label: getLabelTranslations('marketplace'),
-          relationTo: 'counters'
+          relationTo: 'counters',
         },
         {
           name: 'workspaces',
@@ -61,8 +61,8 @@ const Counters: CollectionConfig = {
           label: getLabelTranslations('place'),
           relationTo: 'places',
           hasMany: false,
-        }
-      ]
+        },
+      ],
     },
     descriptionField({ name: 'availabilityStatement', fields: ['short'] }),
     {
@@ -81,7 +81,7 @@ const Counters: CollectionConfig = {
           relationTo: 'availabilities',
           hasMany: true,
         },
-      ]
+      ],
     },
     {
       name: 'link',
@@ -108,8 +108,12 @@ const Counters: CollectionConfig = {
       hasMany: true,
     },
     categoriesField,
-    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] })
+    ...partyField({
+      name: 'manager',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
   ],
 }
 
-export default Counters;
+export default Counters

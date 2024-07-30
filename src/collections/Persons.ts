@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
 import { ComboField } from '@nouance/payload-better-fields-plugin'
-import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Persons: CollectionConfig = {
   slug: 'persons',
@@ -13,7 +13,7 @@ const Persons: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
-    defaultColumns: ['name','contacts','id','place'],
+    defaultColumns: ['name', 'contacts', 'id', 'place'],
   },
   fields: [
     {

@@ -2,8 +2,8 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import partyField from '../fields/partyField'
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const References: CollectionConfig = {
   slug: 'references',
@@ -11,10 +11,10 @@ const References: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Référencement',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     nameField,
@@ -22,14 +22,18 @@ const References: CollectionConfig = {
       name: 'tags',
       type: 'text',
       label: getLabelTranslations('tags'),
-      hasMany: true
+      hasMany: true,
     },
     {
       name: 'target',
       type: 'text',
       label: getLabelTranslations('target'),
     },
-    ...partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'persons'] }),
+    ...partyField({
+      name: 'holder',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'persons'],
+    }),
     {
       name: 'targetType',
       type: 'text',

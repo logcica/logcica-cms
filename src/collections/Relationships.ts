@@ -1,18 +1,18 @@
 import type { CollectionConfig } from 'payload/types'
-import { canManage } from './canRead';
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { canManage } from './canRead'
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Relationships: CollectionConfig = {
   slug: 'relationships',
   admin: {
     useAsTitle: 'name',
     group: 'Connexions',
-    defaultColumns: ['name','id','type','contacts'],
+    defaultColumns: ['name', 'id', 'type', 'contacts'],
   },
   labels: getCollectionLabelsTranslations('relationships'),
   access: {
-    read: canManage({tenancyInAnyProperty: ['holder']}),
+    read: canManage({ tenancyInAnyProperty: ['holder'] }),
   },
   fields: [
     nameField,
@@ -26,7 +26,7 @@ const Relationships: CollectionConfig = {
       type: 'relationship',
       label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
-      hasMany: true
+      hasMany: true,
     },
     {
       name: 'holder', // required
@@ -47,7 +47,7 @@ const Relationships: CollectionConfig = {
           label: getLabelTranslations('partnership'),
           relationTo: 'partnerships',
           hasMany: false,
-        }
+        },
       ],
     },
   ],
