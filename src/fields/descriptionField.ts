@@ -17,7 +17,6 @@ import deepMerge from '../utilities/deepMerge'
 import { getLabelTranslations } from '../utilities/translate'
 import DescriptionCell from './DescriptionCell'
 
-
 type DescriptionType = (options?: {
   name?: string
   fields?: string[]
@@ -25,7 +24,11 @@ type DescriptionType = (options?: {
   overrides?: Record<string, unknown>
 }) => Field
 
-const features_dict = {BoldText : BoldTextFeature(), ItalicText : ItalicTextFeature(), OrderedList: OrderedListFeature() };
+const features_dict = {
+  BoldText: BoldTextFeature(),
+  ItalicText: ItalicTextFeature(),
+  OrderedList: OrderedListFeature(),
+}
 
 const descriptionField: DescriptionType = ({
   name = 'description',
@@ -33,26 +36,25 @@ const descriptionField: DescriptionType = ({
   features = ['BoldText'],
   overrides = {},
 } = {}) => {
-
-  const selectedFeatures = features.map(feature => features_dict[feature]);
+  const selectedFeatures = features.map(feature => features_dict[feature])
 
   const editorConfig = defaultEditorConfig // <= your editor config here
   editorConfig.features.push(...selectedFeatures)
 
   const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
-  
+    if (!value) return undefined
+
     const markdown: string = markdownFromEditorState(editorConfig, value)
 
-    if(markdown == "") return null
-  
+    if (markdown == '') return null
+
     return { markdown: markdown }
   }
-  
+
   const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
-  
     if (findMany) return value
-  
-    return markdownToEditorState(editorConfig, value?.markdown ?? "")
+
+    return markdownToEditorState(editorConfig, value?.markdown ?? '')
   }
 
   const descriptionResult: Field = {
@@ -72,7 +74,7 @@ const descriptionField: DescriptionType = ({
           type: 'richText',
           label: getLabelTranslations(f + '_female'),
           editor: lexicalEditor({
-            features: selectedFeatures
+            features: selectedFeatures,
           }),
           hooks: {
             beforeChange: [beforeChange],
@@ -98,18 +100,14 @@ function markdownToEditorState(editorConfig, markdown: string) {
 
   headlessEditor.update(
     () => {
-      $convertFromMarkdownString(
-        markdown,
-        yourSanitizedEditorConfig.features.markdownTransformers
-      )
+      $convertFromMarkdownString(markdown, yourSanitizedEditorConfig.features.markdownTransformers)
     },
-    { discrete: true }
+    { discrete: true },
   )
   return headlessEditor.getEditorState().toJSON()
 }
 
 function markdownFromEditorState(editorConfig, editorState: any) {
-
   const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
 
   const headlessEditor = createHeadlessEditor({
