@@ -87,11 +87,7 @@ export const canManageOrContribute =
 
 // TODO : copy paste
 export const canManage =
-  ({
-    tenancyInAnyProperty = [],
-  }: {
-    tenancyInAnyProperty?: string[]
-  }): Access =>
+  ({ tenancyInAnyProperty = [] }: { tenancyInAnyProperty?: string[] }): Access =>
   args => {
     const user = args?.req?.user
     const firstCheck = hasRolesAndIsAdmin(user)
@@ -123,8 +119,7 @@ export const canManage =
       ors = ors.concat(tenancyOrs)
     }
 
-    if(ors.length == 0)
-      return false
+    if (ors.length == 0) return false
 
     return {
       or: ors,

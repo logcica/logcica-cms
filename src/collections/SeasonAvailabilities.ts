@@ -1,15 +1,14 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const SeasonAvailabilities: CollectionConfig = {
   slug: 'season_availabilities',
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name','id','key','year'],
-
+    defaultColumns: ['name', 'id', 'key', 'year'],
   },
   labels: getCollectionLabelsTranslations('season_availabilities'),
   access: {
@@ -85,9 +84,9 @@ const SeasonAvailabilities: CollectionConfig = {
               value: 'Dec',
             },
           ],
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
 }
 

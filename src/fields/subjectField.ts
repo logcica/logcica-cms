@@ -2,7 +2,7 @@ import type { Field } from 'payload/types'
 import { useEffect, useState } from 'react'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
-import {getLabelTranslations} from "../utilities/translate";
+import { getLabelTranslations } from '../utilities/translate'
 
 type SubjectType = (options?: {
   name?: string

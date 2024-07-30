@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { cannotConfigure } from './canRead'
-import {getCollectionLabelsTranslations, getLabelTranslations} from '../utilities/translate'
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Units: CollectionConfig = {
   slug: 'units',
@@ -9,7 +9,7 @@ const Units: CollectionConfig = {
   admin: {
     useAsTitle: 'id',
     group: 'Configuration',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
     read: () => true,
@@ -30,7 +30,7 @@ const Units: CollectionConfig = {
       name: 'key',
       type: 'text',
       label: getLabelTranslations('key'),
-    }
+    },
   ],
 }
 

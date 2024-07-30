@@ -1,9 +1,9 @@
 function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-function keyToDefaultTitle(key: string){
-  return capitalizeFirstLetter(key.replaceAll("_",","))
+function keyToDefaultTitle(key: string) {
+  return capitalizeFirstLetter(key.replaceAll('_', ','))
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -293,7 +293,7 @@ const translations = {
         nutrient: 'Nutriment',
         partnerships: 'Partenariats',
         organisations: 'Organisations',
-        persons: "Personnes",
+        persons: 'Personnes',
         number: 'Numéro',
         legalFormShort: 'Forme juridique abrégée',
         legalForm: 'Forme juridique',
@@ -354,7 +354,7 @@ const translations = {
         counter: 'Comptoir',
         productCategories: 'Catégories de produits',
         seller: 'Vendeur',
-        gmapsPlaceId: "Place ID",
+        gmapsPlaceId: 'Place ID',
         operator: 'Opérateur',
         provider: 'Fournisseur',
         subscriber: 'Abonné',

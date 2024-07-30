@@ -1,8 +1,7 @@
 import { Field, RelationshipField } from 'payload/types'
-import {getLabelTranslations} from "../utilities/translate";
+import { getLabelTranslations } from '../utilities/translate'
 
-export const partyCommonFields : Field[] = [
-
+export const partyCommonFields: Field[] = [
   {
     type: 'row',
     fields: [
@@ -30,5 +29,3 @@ export const partyCommonFields : Field[] = [
     ],
   },
 ]
-
-

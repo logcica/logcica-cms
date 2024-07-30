@@ -2,7 +2,7 @@ import type { Field } from 'payload/types'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
 import { Types } from 'mongoose'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 type PartyType = (options?: {
   name?: string
@@ -31,27 +31,27 @@ const supportedRelations = [
   {
     singural: 'person',
     plural: 'persons',
-  }
+  },
 ]
 
-export function newForeignKeyField(name: string, localName: string): Field{
+export function newForeignKeyField(name: string, localName: string): Field {
   const foreignKeyField: Field = {
-   name: name + capitalizeFirstLetter(localName) + 'Id',
-   type: 'richText',
-   hooks: {
-     beforeChange: [
-       ({ siblingData }) => {
-         if (!siblingData[name][localName]) return siblingData[name][localName]
-         return new Types.ObjectId(siblingData[name][localName])
-       },
-     ],
-   },
-   admin: {
-     hidden: true,
-   },
- }
+    name: name + capitalizeFirstLetter(localName) + 'Id',
+    type: 'richText',
+    hooks: {
+      beforeChange: [
+        ({ siblingData }) => {
+          if (!siblingData[name][localName]) return siblingData[name][localName]
+          return new Types.ObjectId(siblingData[name][localName])
+        },
+      ],
+    },
+    admin: {
+      hidden: true,
+    },
+  }
 
- return foreignKeyField
+  return foreignKeyField
 }
 
 const partyField: PartyType = ({ name, position, relations, overrides = {} } = {}) => {
@@ -98,7 +98,7 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
 }
 
 function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 export default partyField

@@ -3,8 +3,8 @@ import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 type MyImage = {
   url: string
@@ -16,11 +16,11 @@ const Profiles: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Connexions',
-    listSearchableFields: ['key','name','link'],
-    defaultColumns: ['title','key','name','type','link','description'],
+    listSearchableFields: ['key', 'name', 'link'],
+    defaultColumns: ['title', 'key', 'name', 'type', 'link', 'description'],
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area',tenancyInAnyProperty: ['subject']})
+    read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['subject'] }),
   },
   fields: [
     {
@@ -38,19 +38,19 @@ const Profiles: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('title'),
       admin: {
-        hidden: true
+        hidden: true,
       },
       hooks: {
         beforeChange: [
           ({ siblingData }) => {
             delete siblingData['title']
-          }
+          },
         ],
         afterRead: [
           ({ data }) => {
-            const title = [data.key,data.name,data.link, data.id].filter(n => n)[0]
-            return title.replace(/(.{40})..+/, "$1…");
-          }
+            const title = [data.key, data.name, data.link, data.id].filter(n => n)[0]
+            return title.replace(/(.{40})..+/, '$1…')
+          },
         ],
       },
     },
@@ -74,7 +74,7 @@ const Profiles: CollectionConfig = {
       name: 'informationSystem',
       type: 'relationship',
       label: getLabelTranslations('informationSystem'),
-      relationTo: 'information_systems'
+      relationTo: 'information_systems',
     },
     {
       name: 'subject', // required
@@ -95,7 +95,7 @@ const Profiles: CollectionConfig = {
           label: getLabelTranslations('partnership'),
           relationTo: 'partnerships',
           hasMany: false,
-        }
+        },
       ],
     },
     {
@@ -107,12 +107,12 @@ const Profiles: CollectionConfig = {
       filterOptions: () => {
         return {
           type: {
-            exists: true
-          }
+            exists: true,
+          },
         }
       },
     },
-    descriptionField({})
+    descriptionField({}),
   ],
 }
 
