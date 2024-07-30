@@ -5,13 +5,17 @@ import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import durationField from '../fields/durationField'
-import { getCollectionLabelsTranslations, getLabelTranslations, getPlaceholderTranslations } from '../utilities/translate'
+import {
+  getCollectionLabelsTranslations,
+  getLabelTranslations,
+  getPlaceholderTranslations,
+} from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
-import productCategoriesField from "../fields/productCategoriesField";
-import nutrientListField from "../fields/nutrientListField";
-import allergenListField from "../fields/allergenListField";
-import uploadImagesField from "../fields/imageField";
-import nameField from "../fields/nameField";
+import productCategoriesField from '../fields/productCategoriesField'
+import nutrientListField from '../fields/nutrientListField'
+import allergenListField from '../fields/allergenListField'
+import uploadImagesField from '../fields/imageField'
+import nameField from '../fields/nameField'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -23,7 +27,7 @@ const Recipes: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name', 'seasonality', 'difficulty', 'costs'],
+    defaultColumns: ['name', 'seasonality', 'difficulty', 'costCategory'],
   },
   access: {
     read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['author'] }),
@@ -74,7 +78,7 @@ const Recipes: CollectionConfig = {
           label: getLabelTranslations('yieldStatement'),
           admin: {
             placeholder: getPlaceholderTranslations('recipeYieldStatement'),
-          }
+          },
         },
         {
           name: 'costCategory',
@@ -122,6 +126,13 @@ const Recipes: CollectionConfig = {
     },
     descriptionField({}),
     {
+      name: 'profiles',
+      type: 'relationship',
+      label: getLabelTranslations('profiles'),
+      relationTo: 'profiles',
+      hasMany: true,
+    },
+    {
       type: 'row',
       fields: [
         durationField({ name: 'cookTime' }),
@@ -136,14 +147,15 @@ const Recipes: CollectionConfig = {
       fields: [
         {
           type: 'row',
-          fields: [
-            nameField,
-            quantityField({ name: 'quantity' }),
-          ]
-        }
+          fields: [nameField, quantityField({ name: 'quantity' })],
+        },
       ],
     },
-    descriptionField({name: 'stepStatement',fields: ['long'], features: ['BoldText', 'OrderedList']}),
+    descriptionField({
+      name: 'stepStatement',
+      fields: ['long'],
+      features: ['BoldText', 'OrderedList'],
+    }),
     ...uploadImagesField,
     allergenListField,
     nutrientListField,
