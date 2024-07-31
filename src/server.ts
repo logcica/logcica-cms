@@ -1,18 +1,18 @@
-import express from 'express';
-import payload from 'payload';
-import dotenv from 'dotenv';
-import path from 'path';
+import express from 'express'
+import payload from 'payload'
+import dotenv from 'dotenv'
+import path from 'path'
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
-const app = express();
+const app = express()
 
 // Redirect root to Admin panel
 app.get('/', (_, res) => {
-  res.redirect('/admin');
-});
+  res.redirect('/admin')
+})
 
 const start = async () => {
   // Initialize Payload
@@ -26,7 +26,7 @@ const start = async () => {
 
   // Add your own express routes here
 
-  app.listen(process.env.PORT);
+  app.listen(process.env.PORT)
 }
 
-start();
+start()

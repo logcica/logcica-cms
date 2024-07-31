@@ -1,8 +1,7 @@
-import { Field } from 'payload/types';
-import {getLabelTranslations} from "../utilities/translate";
+import { Field } from 'payload/types'
+import { getLabelTranslations } from '../utilities/translate'
 
-const productCategoriesField: Field =
-{
+const productCategoriesField: Field = {
   name: 'productCategories',
   type: 'relationship',
   label: getLabelTranslations('productCategories'),
@@ -13,4 +12,4 @@ const productCategoriesField: Field =
   },
 }
 
-export default productCategoriesField;
+export default productCategoriesField

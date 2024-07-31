@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import GmapsCell from '../fields/GmapsCell'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Places: CollectionConfig = {
   slug: 'places',
@@ -9,11 +9,17 @@ const Places: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Structure',
-    listSearchableFields: ['name', 'address.street', 'address.locality', 'address.postalCode', 'address.municipality'],
-    defaultColumns: ['title','center','within','key','type','gmaps'],
+    listSearchableFields: [
+      'name',
+      'address.street',
+      'address.locality',
+      'address.postalCode',
+      'address.municipality',
+    ],
+    defaultColumns: ['title', 'center', 'within', 'key', 'type', 'gmaps'],
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     {
@@ -22,7 +28,7 @@ const Places: CollectionConfig = {
       label: getLabelTranslations('key'),
       admin: {
         position: 'sidebar',
-      }
+      },
     },
     {
       type: 'row',
@@ -58,9 +64,9 @@ const Places: CollectionConfig = {
               label: getLabelTranslations('country'),
               value: 'country',
             },
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     },
     {
       name: 'center',
@@ -75,7 +81,7 @@ const Places: CollectionConfig = {
       hasMany: true,
       filterOptions: () => {
         return {
-          type: { in: ["region", "country", "province"] },
+          type: { in: ['region', 'country', 'province'] },
         }
       },
     },
@@ -84,27 +90,24 @@ const Places: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('title'),
       admin: {
-        hidden: true
+        hidden: true,
       },
       hooks: {
         afterRead: [
           ({ data }) => {
             const address = data.address
 
-            if(data.type && data.type != 'address')
-              return data.name
+            if (data.type && data.type != 'address') return data.name
 
-            const localityParts = [address?.postalCode,(address?.locality ?? address?.municipality)]
+            const localityParts = [address?.postalCode, address?.locality ?? address?.municipality]
             const list = [address?.street, localityParts.filter(n => n).join(' ')]
 
-            if(!address?.street)
-              list.unshift(data.name)
+            if (!address?.street) list.unshift(data.name)
 
-            if(list.every(n => !n))
-              return data.center
+            if (list.every(n => !n)) return data.center
 
             return list.filter(n => n).join(', ')
-          }
+          },
         ],
       },
     },
@@ -163,9 +166,9 @@ const Places: CollectionConfig = {
               name: 'country',
               type: 'text',
               label: getLabelTranslations('country'),
-            }
-          ]
-        }
+            },
+          ],
+        },
       ],
     },
     {
@@ -180,24 +183,24 @@ const Places: CollectionConfig = {
       interfaceName: 'GmapsPlace',
       admin: {
         components: {
-          Cell: GmapsCell
-        }
+          Cell: GmapsCell,
+        },
       },
-      
+
       fields: [
         {
           name: 'id',
           type: 'text',
           admin: {
-            hidden: true
-          }
+            hidden: true,
+          },
         },
         {
           name: 'placeId',
           type: 'text',
           label: getLabelTranslations('gmapsPlaceId'),
-        }
-      ]
+        },
+      ],
     },
     {
       name: 'categories',

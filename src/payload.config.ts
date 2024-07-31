@@ -1,58 +1,58 @@
-import { webpackBundler } from '@payloadcms/bundler-webpack';
-import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import { payloadCloud } from '@payloadcms/plugin-cloud';
-import type { GenerateTitle } from '@payloadcms/plugin-seo/types';
-import dotenv from 'dotenv';
-import path from 'path';
-import { buildConfig } from 'payload/config';
-import Categories from './collections/Categories';
-import { Media } from './collections/Media';
-import Users from './collections/Users';
-import BeforeDashboard from './components/BeforeDashboard';
-import BeforeLogin from './components/BeforeLogin';
-import Classifications from './collections/Classifications';
-import Organisations from './collections/Organisations';
-import Recipes from './collections/Recipes';
-import Activities from './collections/Activities';
-import Partnerships from './collections/Partnerships';
-import Places from './collections/Places';
-import Profiles from './collections/Profiles';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
-import Contacts from './collections/Contacts';
-import Products from './collections/Products';
-import CodeLists from './collections/CodeLists';
-import Codes from './collections/Codes';
-import Sessions from './collections/Sessions';
-import Counters from './collections/Counters';
-import Availabilities from './collections/Availabilities';
-import WeekAvailabilities from './collections/WeekAvailabilities';
-import SeasonAvailabilities from './collections/SeasonAvailabilities';
-import Units from './collections/Units';
-import Orders from './collections/Orders';
-import Subscriptions from './collections/Subscriptions';
-import Workspaces from './collections/Workspaces';
-import Fulfilments from './collections/Fulfilments';
-import Batches from './collections/Batches';
-import KnowledgeBases from './collections/KnowledgeBases';
-import KnowledgeElements from './collections/KnowledgeElements';
-import Relationships from './collections/Relationships';
-import Contributions from './collections/Contributions';
-import Catalogs from './collections/Catalogs';
-import CatalogItems from './collections/CatalogItems';
-import Actions from './collections/Actions';
-import InformationSystems from './collections/InformationSystems';
-import References from './collections/References';
-import Persons from './collections/Persons';
-import Sectors from './collections/Sectors';
-import ProductGroup from './collections/ProductGroup';
+import { webpackBundler } from '@payloadcms/bundler-webpack'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { payloadCloud } from '@payloadcms/plugin-cloud'
+import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
+import dotenv from 'dotenv'
+import path from 'path'
+import { buildConfig } from 'payload/config'
+import Categories from './collections/Categories'
+import { Media } from './collections/Media'
+import Users from './collections/Users'
+import BeforeDashboard from './components/BeforeDashboard'
+import BeforeLogin from './components/BeforeLogin'
+import Classifications from './collections/Classifications'
+import Organisations from './collections/Organisations'
+import Recipes from './collections/Recipes'
+import Activities from './collections/Activities'
+import Partnerships from './collections/Partnerships'
+import Places from './collections/Places'
+import Profiles from './collections/Profiles'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import Contacts from './collections/Contacts'
+import Products from './collections/Products'
+import CodeLists from './collections/CodeLists'
+import Codes from './collections/Codes'
+import Sessions from './collections/Sessions'
+import Counters from './collections/Counters'
+import Availabilities from './collections/Availabilities'
+import WeekAvailabilities from './collections/WeekAvailabilities'
+import SeasonAvailabilities from './collections/SeasonAvailabilities'
+import Units from './collections/Units'
+import Orders from './collections/Orders'
+import Subscriptions from './collections/Subscriptions'
+import Workspaces from './collections/Workspaces'
+import Fulfilments from './collections/Fulfilments'
+import Batches from './collections/Batches'
+import KnowledgeBases from './collections/KnowledgeBases'
+import KnowledgeElements from './collections/KnowledgeElements'
+import Relationships from './collections/Relationships'
+import Contributions from './collections/Contributions'
+import Catalogs from './collections/Catalogs'
+import CatalogItems from './collections/CatalogItems'
+import Actions from './collections/Actions'
+import InformationSystems from './collections/InformationSystems'
+import References from './collections/References'
+import Persons from './collections/Persons'
+import Sectors from './collections/Sectors'
+import ProductGroup from './collections/ProductGroup'
 
 const generateTitle: GenerateTitle = () => {
-  return 'My Website';
-};
+  return 'My Website'
+}
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
-});
+})
 
 export default buildConfig({
   admin: {
@@ -116,7 +116,7 @@ export default buildConfig({
     InformationSystems,
     References,
     Users,
-    Sectors
+    Sectors,
   ],
   /*
   globals: [Settings, Header, Footer],
@@ -186,4 +186,4 @@ export default buildConfig({
       },
     }),*/
   ],
-});
+})

@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManage, canManageOrContribute } from './canRead'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Actions: CollectionConfig = {
   slug: 'actions',
@@ -10,11 +10,10 @@ const Actions: CollectionConfig = {
   admin: {
     useAsTitle: 'key',
     group: 'Connexions',
-    defaultColumns: ['key','id','name','type'],
-
+    defaultColumns: ['key', 'id', 'name', 'type'],
   },
   access: {
-    read: canManageOrContribute({tenancyInAnyProperty: ['subject'], placeInProperty: 'area'})
+    read: canManageOrContribute({ tenancyInAnyProperty: ['subject'], placeInProperty: 'area' }),
   },
   fields: [
     {
@@ -64,7 +63,7 @@ const Actions: CollectionConfig = {
           label: getLabelTranslations('counter'),
           relationTo: 'counters',
           hasMany: false,
-        }
+        },
       ],
     },
     {

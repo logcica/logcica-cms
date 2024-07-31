@@ -2,8 +2,8 @@ import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -11,10 +11,10 @@ const Workspaces: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
-    defaultColumns: ['name','number','place','manager','internalName','categories'],
+    defaultColumns: ['name', 'number', 'place', 'manager', 'internalName', 'categories'],
   },
   access: {
-    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({ tenancyInAnyProperty: ['manager'] }),
   },
   fields: [
     {
@@ -36,7 +36,7 @@ const Workspaces: CollectionConfig = {
           type: 'text',
           label: getLabelTranslations('internalName'),
         },
-      ]
+      ],
     },
     {
       name: 'categories',
@@ -45,16 +45,24 @@ const Workspaces: CollectionConfig = {
       relationTo: 'categories',
       hasMany: true,
       admin: {
-        position: 'sidebar'
+        position: 'sidebar',
       },
       filterOptions: () => {
         return {
           classification: { equals: '663bad09a08a8050428fd1e8' },
         }
-      }
+      },
     },
-    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
-    ...partyField({ name: 'owner', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'manager',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
+    ...partyField({
+      name: 'owner',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       name: 'place',
       type: 'relationship',

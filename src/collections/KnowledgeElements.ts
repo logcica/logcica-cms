@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import categoriesField from '../fields/CategoriesField';
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import categoriesField from '../fields/CategoriesField'
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
@@ -11,10 +11,10 @@ const KnowledgeElements: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Référencement',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     {
@@ -26,7 +26,7 @@ const KnowledgeElements: CollectionConfig = {
           type: 'text',
           label: getLabelTranslations('type'),
         },
-      ]
+      ],
     },
     {
       name: 'link',
@@ -45,7 +45,7 @@ const KnowledgeElements: CollectionConfig = {
           name: 'base',
           type: 'relationship',
           label: getLabelTranslations('base'),
-          relationTo: 'knowledge_bases'
+          relationTo: 'knowledge_bases',
         },
         {
           name: 'area',
@@ -54,7 +54,7 @@ const KnowledgeElements: CollectionConfig = {
           relationTo: 'places',
           hasMany: false,
         },
-      ]
+      ],
     },
     categoriesField,
   ],

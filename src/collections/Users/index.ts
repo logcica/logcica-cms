@@ -25,7 +25,7 @@ const tenancyFields: Field[] = [
         relationTo: 'sectors',
         hasMany: false,
       },
-    ]
+    ],
   },
   {
     type: 'row',
@@ -87,7 +87,7 @@ const Users: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email'],
     group: 'Admin',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
     read: adminsAndUser,
@@ -111,16 +111,15 @@ const Users: CollectionConfig = {
       admin: {
         components: {
           RowLabel: ({ data, index, path }): string => {
-            const getTypeLabel = type =>{
-              if(!type)
-                return 'Role ' + index
+            const getTypeLabel = type => {
+              if (!type) return 'Role ' + index
               return roleTypeOptions.find(o => o.value == type)?.label
             }
 
             const [label, setLabel] = useState(getTypeLabel(data.type))
 
             useEffect(() => {
-              if (!data?.tenancy){
+              if (!data?.tenancy) {
                 setLabel(getTypeLabel(data.type))
                 return
               }
@@ -145,7 +144,6 @@ const Users: CollectionConfig = {
                   setLabel(getTypeLabel(data.type) + ' -> ' + (await res.json()).name)
                 })
               }
-
             }, [data.tenancy.area, data.tenancy.sector, data.tenancy.organisation, data.type])
 
             return label

@@ -9,8 +9,8 @@ import partyField from '../fields/partyField'
 import quantityField from '../fields/quantityField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
-import uploadImagesField from "../fields/imageField";
-import nameField from "../fields/nameField";
+import uploadImagesField from '../fields/imageField'
+import nameField from '../fields/nameField'
 
 const Products: CollectionConfig = {
   slug: 'products',

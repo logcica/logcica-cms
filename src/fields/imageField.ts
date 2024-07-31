@@ -1,5 +1,5 @@
 import { Field } from 'payload/types'
-import {getLabelTranslations} from "../utilities/translate";
+import { getLabelTranslations } from '../utilities/translate'
 
 const imageField = [
   {
