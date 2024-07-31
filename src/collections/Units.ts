@@ -7,9 +7,10 @@ const Units: CollectionConfig = {
   slug: 'units',
   labels: getCollectionLabelsTranslations('units'),
   admin: {
-    useAsTitle: 'id',
+    useAsTitle: 'name',
     group: 'Configuration',
     hidden: cannotConfigure,
+    listSearchableFields: ['id', 'key', 'symbol', 'name'],
   },
   access: {
     read: () => true,
