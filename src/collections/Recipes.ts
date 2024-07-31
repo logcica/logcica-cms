@@ -16,6 +16,7 @@ import nutrientListField from '../fields/nutrientListField'
 import allergenListField from '../fields/allergenListField'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
+import useEffectAsync from '../utilities/useEffectAsync'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -144,10 +145,50 @@ const Recipes: CollectionConfig = {
       name: 'ingredientList',
       type: 'array',
       label: getLabelTranslations('ingredientList'),
+      admin: {
+        components: {
+          RowLabel: ({ data, index, path }) => {
+            const [label, setLabel] = useState(`Ingrédient ${String(index).padStart(2, '0')}`)
+
+            async function fetchUnit(id: string) {
+              if (id == null) return
+              try {
+                const response = await fetch(
+                  `${process.env.PAYLOAD_PUBLIC_API}/units/${data.quantity.unit}`,
+                )
+                return await response.json()
+              } catch (e) {
+                return null
+              }
+            }
+
+            useEffectAsync(async () => {
+              if (data.title) {
+                setLabel(data.title)
+                return
+              }
+
+              const labelParts = [
+                data.quantity?.value,
+                (await fetchUnit(data.quantity?.unit))?.name,
+                data.name,
+              ]
+              setLabel(labelParts.filter(p => p != null).join(' '))
+            }, [data.title, data.name, data.quantity.value, data.quantity.unit])
+
+            return label
+          },
+        },
+      },
       fields: [
         {
           type: 'row',
           fields: [nameField, quantityField({ name: 'quantity' })],
+        },
+        {
+          name: 'title',
+          label: getLabelTranslations('title'),
+          type: 'text',
         },
       ],
     },
