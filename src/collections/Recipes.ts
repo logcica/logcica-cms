@@ -168,12 +168,14 @@ const Recipes: CollectionConfig = {
                 return
               }
 
-              const labelParts = [
-                data.quantity?.value,
-                (await fetchUnit(data.quantity?.unit))?.name,
-                data.name,
-              ]
-              setLabel(labelParts.filter(p => p != null).join(' '))
+              if (data.quantity?.unit == null) {
+                setLabel([data.quantity?.value, data.name].filter(p => p != null).join(' '))
+                return
+              }
+
+              const unitName = (await fetchUnit(data.quantity?.unit))?.name
+
+              setLabel(data.name + ' - ' + data.quantity?.value + ' ' + unitName)
             }, [data.title, data.name, data.quantity.value, data.quantity.unit])
 
             return label
