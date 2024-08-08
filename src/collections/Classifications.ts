@@ -40,13 +40,6 @@ const Classifications: CollectionConfig = {
           name: 'system',
           relationTo: 'information_systems',
         }),
-        // {
-        //   name: 'system',
-        //   type: 'relationship',
-        //   label: getLabelTranslations('system'),
-        //   relationTo: 'information_systems',
-        //   hasMany: false,
-        // },
       ],
     },
   ],
