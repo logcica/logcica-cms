@@ -47,13 +47,10 @@ const Activities: CollectionConfig = {
           name: 'mainWorkspace',
           relationTo: 'workspaces',
         }),
-        {
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     ...partyField({

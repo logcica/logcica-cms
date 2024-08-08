@@ -43,12 +43,10 @@ const Counters: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'marketplace',
-          type: 'relationship',
-          label: getLabelTranslations('marketplace'),
           relationTo: 'counters',
-        },
+        }),
         ...logcicaRelationshipField({
           name: 'workspaces',
           relationTo: 'workspaces',
