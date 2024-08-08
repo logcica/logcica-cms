@@ -17,6 +17,7 @@ import allergenListField from '../fields/allergenListField'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
 import useEffectAsync from '../utilities/useEffectAsync'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -111,18 +112,15 @@ const Recipes: CollectionConfig = {
             }
           },
         },
-        {
+        ...logcicaRelationshipField({
           name: 'seasonality',
-          type: 'relationship',
-          label: getLabelTranslations('seasonality'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '668279309f105cb961f5583c' },
             }
           },
-        },
+        }),
       ],
     },
     descriptionField({}),

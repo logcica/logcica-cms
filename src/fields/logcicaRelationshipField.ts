@@ -1,4 +1,4 @@
-import type { Field } from 'payload/types'
+import type { Field, FilterOptions } from 'payload/types'
 import deepMerge from '../utilities/deepMerge'
 import { Types } from 'mongoose'
 import { getLabelTranslations } from '../utilities/translate'
@@ -7,6 +7,7 @@ type LogcicaRelationshipType = (options?: {
   name?: string
   relationTo?: string
   position?: 'sidebar'
+  filterOptions?: FilterOptions
   overrides?: Record<string, unknown>
 }) => Field[]
 
@@ -34,6 +35,7 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
   name,
   relationTo,
   position,
+  filterOptions,
   overrides = {},
 } = {}) => {
   const foreignKeyField = newForeignKeyField(name)
@@ -43,6 +45,7 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
     type: 'relationship',
     label: getLabelTranslations(name),
     relationTo: relationTo,
+    filterOptions: filterOptions,
     admin: {
       position: position,
     },
