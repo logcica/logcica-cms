@@ -39,16 +39,11 @@ const Recipes: CollectionConfig = {
       type: 'row',
       fields: [
         nameField,
-        {
+        ...logcicaRelationshipField({
           name: 'area',
-          type: 'relationship',
-          label: getLabelTranslations('area'),
           relationTo: 'places',
-          hasMany: false,
-          admin: {
-            position: 'sidebar',
-          },
-        },
+          position: 'sidebar',
+        }),
       ],
     },
     {
@@ -82,36 +77,30 @@ const Recipes: CollectionConfig = {
             placeholder: getPlaceholderTranslations('recipeYieldStatement'),
           },
         },
-        {
+        ...logcicaRelationshipField({
           name: 'costCategory',
-          type: 'relationship',
-          label: getLabelTranslations('costCategory'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '6682a6309f105cb961f55862' },
             }
           },
-        },
+        }),
       ],
     },
 
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'difficulty',
-          type: 'relationship',
-          label: getLabelTranslations('difficulty'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '66828eed9f105cb961f55844' },
             }
           },
-        },
+        }),
         ...logcicaRelationshipField({
           name: 'seasonality',
           relationTo: 'categories',

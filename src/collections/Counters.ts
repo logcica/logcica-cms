@@ -6,6 +6,7 @@ import CustomLinkCell from '../fields/CustomLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import descriptionField from '../fields/descriptionField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -48,32 +49,24 @@ const Counters: CollectionConfig = {
           label: getLabelTranslations('marketplace'),
           relationTo: 'counters',
         },
-        {
+        ...logcicaRelationshipField({
           name: 'workspaces',
-          type: 'relationship',
-          label: getLabelTranslations('workspaces'),
           relationTo: 'workspaces',
-          hasMany: true,
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     descriptionField({ name: 'availabilityStatement', fields: ['short'] }),
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'catalog',
-          type: 'relationship',
-          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-        },
+        }),
         {
           name: 'availabilities',
           type: 'relationship',

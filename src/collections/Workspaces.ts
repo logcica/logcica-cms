@@ -4,6 +4,7 @@ import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -63,13 +64,10 @@ const Workspaces: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    {
+    ...logcicaRelationshipField({
       name: 'place',
-      type: 'relationship',
-      label: getLabelTranslations('place'),
       relationTo: 'places',
-      hasMany: false,
-    },
+    }),
   ],
 }
 
