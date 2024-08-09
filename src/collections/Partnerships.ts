@@ -32,21 +32,25 @@ const Partnerships: CollectionConfig = {
         }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'contacts',
-      type: 'relationship',
-      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
-    },
-    {
+      nameSingular: 'contact',
+    }),
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
-    categoriesField,
+      nameSingular: 'profile',
+    }),
+    ...logcicaRelationshipField({
+      name: 'categories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'category',
+    }),
   ],
 }
 

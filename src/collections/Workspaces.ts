@@ -39,21 +39,18 @@ const Workspaces: CollectionConfig = {
         },
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'categories',
-      type: 'relationship',
-      label: getLabelTranslations('categories'),
       relationTo: 'categories',
+      position: 'sidebar',
       hasMany: true,
-      admin: {
-        position: 'sidebar',
-      },
+      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '663bad09a08a8050428fd1e8' },
         }
       },
-    },
+    }),
     ...partyField({
       name: 'manager',
       position: 'sidebar',

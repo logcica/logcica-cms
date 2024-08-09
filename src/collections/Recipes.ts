@@ -46,21 +46,18 @@ const Recipes: CollectionConfig = {
         }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'categories',
-      type: 'relationship',
-      label: getLabelTranslations('categories'),
       relationTo: 'categories',
+      position: 'sidebar',
       hasMany: true,
-      admin: {
-        position: 'sidebar',
-      },
+      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '668267f39f105cb961f55831' },
         }
       },
-    },
+    }),
     ...partyField({
       name: 'author',
       position: 'sidebar',

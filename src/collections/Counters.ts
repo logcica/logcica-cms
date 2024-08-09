@@ -65,13 +65,12 @@ const Counters: CollectionConfig = {
           name: 'catalog',
           relationTo: 'catalogs',
         }),
-        {
+        ...logcicaRelationshipField({
           name: 'availabilities',
-          type: 'relationship',
-          label: getLabelTranslations('availabilities'),
           relationTo: 'availabilities',
           hasMany: true,
-        },
+          nameSingular: 'availability',
+        }),
       ],
     },
     {
@@ -84,20 +83,19 @@ const Counters: CollectionConfig = {
         },
       },
     },
-    {
+    ...logcicaRelationshipField({
       name: 'contacts',
-      type: 'relationship',
-      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
+      position: 'sidebar',
       hasMany: true,
-    },
-    {
+      nameSingular: 'contact',
+    }),
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
+      nameSingular: 'profile',
+    }),
     categoriesField,
     ...partyField({
       name: 'manager',
