@@ -3,14 +3,15 @@ import { getLabelTranslations } from '../utilities/translate'
 import logcicaRelationshipField from './logcicaRelationshipField'
 
 const imageField = [
-  ...logcicaRelationshipField({
-    name: 'mainImage',
-    relationTo: 'media',
-    position: 'sidebar',
+  {
+    name: 'mainImage', // required
+    type: 'relationship', // required
+    label: getLabelTranslations('mainImage'),
+    relationTo: 'media', // required
     filterOptions: {
       mimeType: { contains: 'image' },
     },
-  }),
+  },
   {
     name: 'images', // required
     type: 'relationship', // required
