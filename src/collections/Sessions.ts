@@ -58,7 +58,13 @@ const Sessions: CollectionConfig = {
       ],
     },
     descriptionField({}),
-    categoriesField,
+    ...logcicaRelationshipField({
+      name: 'categories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'category',
+    }),
     ...partyField({
       name: 'manager',
       position: 'sidebar',
@@ -71,34 +77,27 @@ const Sessions: CollectionConfig = {
           name: 'place',
           relationTo: 'places',
         }),
-        {
+        ...logcicaRelationshipField({
           name: 'catalog',
-          type: 'relationship',
-          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-          hasMany: false,
-        },
+        }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
+      nameSingular: 'profile',
+    }),
     {
       name: 'subject',
       type: 'group',
       label: getLabelTranslations('subject'),
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'counter',
-          type: 'relationship',
-          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-          hasMany: false,
-        },
+        }),
       ],
     },
   ],

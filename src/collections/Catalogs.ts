@@ -44,7 +44,13 @@ const Catalogs: CollectionConfig = {
       name: 'area',
       relationTo: 'places',
     }),
-    productCategoriesField,
+    ...logcicaRelationshipField({
+      name: 'productCategories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'productCategory',
+    }),
   ],
 }
 
