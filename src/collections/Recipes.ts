@@ -113,13 +113,12 @@ const Recipes: CollectionConfig = {
       ],
     },
     descriptionField({}),
-    {
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
+      nameSingular: 'profile',
       relationTo: 'profiles',
       hasMany: true,
-    },
+    }),
     {
       type: 'row',
       fields: [
