@@ -46,13 +46,10 @@ const KnowledgeElements: CollectionConfig = {
           name: 'base',
           relationTo: 'knowledge_bases',
         }),
-        {
+        ...logcicaRelationshipField({
           name: 'area',
-          type: 'relationship',
-          label: getLabelTranslations('area'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     categoriesField,

@@ -37,12 +37,10 @@ const Fulfilments: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'workspace',
-          type: 'relationship',
-          label: getLabelTranslations('workspace'),
           relationTo: 'workspaces',
-        },
+        }),
         ...logcicaRelationshipField({
           name: 'session',
           relationTo: 'sessions',
