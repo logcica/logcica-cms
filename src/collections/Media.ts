@@ -22,5 +22,24 @@ export const Media: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('alt'),
     },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'profiles',
+          type: 'relationship',
+          label: getLabelTranslations('profiles'),
+          relationTo: 'profiles',
+          hasMany: true,
+        },
+        {
+          name: 'authorProfiles',
+          type: 'relationship',
+          label: getLabelTranslations('authorProfiles'),
+          relationTo: 'profiles',
+          hasMany: true,
+        },
+      ],
+    },
   ],
 }
