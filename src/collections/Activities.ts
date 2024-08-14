@@ -47,13 +47,10 @@ const Activities: CollectionConfig = {
           name: 'mainWorkspace',
           relationTo: 'workspaces',
         }),
-        {
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     ...partyField({
@@ -61,47 +58,40 @@ const Activities: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    {
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
-    {
+      nameSingular: 'profile',
+    }),
+    ...logcicaRelationshipField({
       name: 'contacts',
-      type: 'relationship',
-      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
-    },
-    {
+      nameSingular: 'contact',
+    }),
+    ...logcicaRelationshipField({
       name: 'categories',
-      type: 'relationship',
-      label: getLabelTranslations('categories'),
       relationTo: 'categories',
+      position: 'sidebar',
       hasMany: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
+      nameSingular: 'category',
+    }),
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'productionCategories',
-          type: 'relationship',
-          label: getLabelTranslations('productionCategories'),
           relationTo: 'categories',
           hasMany: true,
-        },
-        {
+          nameSingular: 'productionCategory',
+        }),
+        ...logcicaRelationshipField({
           name: 'otherCategories',
-          type: 'relationship',
-          label: getLabelTranslations('otherCategories'),
           relationTo: 'categories',
           hasMany: true,
-        },
+          nameSingular: 'otherCategory',
+        }),
       ],
     },
     descriptionField({}),

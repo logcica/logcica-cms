@@ -4,6 +4,7 @@ import { canManage } from './canRead'
 import partyField from '../fields/partyField'
 import numberField from '../fields/numberField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -24,7 +25,13 @@ const Orders: CollectionConfig = {
       name: 'customer',
       relations: ['organisations', 'partnerships', 'activities', 'persons'],
     }),
-    categoriesField,
+    ...logcicaRelationshipField({
+      name: 'categories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'category',
+    }),
     ...partyField({
       name: 'broker',
       position: 'sidebar',
@@ -33,18 +40,14 @@ const Orders: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'counter',
-          type: 'relationship',
-          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'session',
-          type: 'relationship',
-          label: getLabelTranslations('session'),
           relationTo: 'sessions',
-        },
+        }),
       ],
     },
     {

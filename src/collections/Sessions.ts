@@ -5,6 +5,7 @@ import partyField from '../fields/partyField'
 import descriptionField from '../fields/descriptionField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -19,16 +20,11 @@ const Sessions: CollectionConfig = {
   },
   fields: [
     nameField,
-    {
+    ...logcicaRelationshipField({
       name: 'parent',
-      type: 'relationship',
-      label: getLabelTranslations('parent'),
       relationTo: 'sessions',
-      hasMany: false,
-      admin: {
-        position: 'sidebar',
-      },
-    },
+      position: 'sidebar',
+    }),
     {
       name: 'timeRange',
       type: 'group',
@@ -62,7 +58,13 @@ const Sessions: CollectionConfig = {
       ],
     },
     descriptionField({}),
-    categoriesField,
+    ...logcicaRelationshipField({
+      name: 'categories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'category',
+    }),
     ...partyField({
       name: 'manager',
       position: 'sidebar',
@@ -71,41 +73,31 @@ const Sessions: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'catalog',
-          type: 'relationship',
-          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-          hasMany: false,
-        },
+        }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
+      nameSingular: 'profile',
+    }),
     {
       name: 'subject',
       type: 'group',
       label: getLabelTranslations('subject'),
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'counter',
-          type: 'relationship',
-          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-          hasMany: false,
-        },
+        }),
       ],
     },
   ],

@@ -1,10 +1,11 @@
 import { Field } from 'payload/types'
 import { getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from './logcicaRelationshipField'
 
 const imageField = [
   {
     name: 'mainImage', // required
-    type: 'upload', // required
+    type: 'relationship', // required
     label: getLabelTranslations('mainImage'),
     relationTo: 'media', // required
     filterOptions: {

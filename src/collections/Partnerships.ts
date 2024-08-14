@@ -4,6 +4,7 @@ import categoriesField from '../fields/CategoriesField'
 import { group } from 'console'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -21,37 +22,35 @@ const Partnerships: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'area',
-          type: 'relationship',
-          label: getLabelTranslations('area'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'contacts',
-      type: 'relationship',
-      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
-    },
-    {
+      nameSingular: 'contact',
+    }),
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
-    categoriesField,
+      nameSingular: 'profile',
+    }),
+    ...logcicaRelationshipField({
+      name: 'categories',
+      relationTo: 'categories',
+      position: 'sidebar',
+      hasMany: true,
+      nameSingular: 'category',
+    }),
   ],
 }
 

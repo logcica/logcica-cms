@@ -4,6 +4,7 @@ import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import categoriesField from '../fields/CategoriesField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
@@ -41,19 +42,14 @@ const KnowledgeElements: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'base',
-          type: 'relationship',
-          label: getLabelTranslations('base'),
           relationTo: 'knowledge_bases',
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'area',
-          type: 'relationship',
-          label: getLabelTranslations('area'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     categoriesField,
