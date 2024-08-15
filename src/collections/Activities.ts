@@ -73,7 +73,6 @@ const Activities: CollectionConfig = {
     ...logcicaRelationshipField({
       name: 'categories',
       relationTo: 'categories',
-      position: 'sidebar',
       hasMany: true,
       nameSingular: 'category',
     }),
