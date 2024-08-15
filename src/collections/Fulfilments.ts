@@ -3,6 +3,7 @@ import { canManage } from './canRead'
 import partyField from '../fields/partyField'
 import numberField from '../fields/numberField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Fulfilments: CollectionConfig = {
   slug: 'fulfilments',
@@ -20,13 +21,12 @@ const Fulfilments: CollectionConfig = {
       type: 'row',
       fields: [
         numberField,
-        {
+        ...logcicaRelationshipField({
           name: 'orders',
-          type: 'relationship',
-          label: getLabelTranslations('orders'),
           relationTo: 'orders',
           hasMany: true,
-        },
+          nameSingular: 'order',
+        }),
       ],
     },
     ...partyField({
@@ -37,18 +37,14 @@ const Fulfilments: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'workspace',
-          type: 'relationship',
-          label: getLabelTranslations('workspace'),
           relationTo: 'workspaces',
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'session',
-          type: 'relationship',
-          label: getLabelTranslations('session'),
           relationTo: 'sessions',
-        },
+        }),
       ],
     },
     {

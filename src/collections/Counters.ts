@@ -6,6 +6,7 @@ import CustomLinkCell from '../fields/CustomLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import descriptionField from '../fields/descriptionField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -42,45 +43,34 @@ const Counters: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'marketplace',
-          type: 'relationship',
-          label: getLabelTranslations('marketplace'),
           relationTo: 'counters',
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'workspaces',
-          type: 'relationship',
-          label: getLabelTranslations('workspaces'),
           relationTo: 'workspaces',
-          hasMany: true,
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'place',
-          type: 'relationship',
-          label: getLabelTranslations('place'),
           relationTo: 'places',
-          hasMany: false,
-        },
+        }),
       ],
     },
     descriptionField({ name: 'availabilityStatement', fields: ['short'] }),
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'catalog',
-          type: 'relationship',
-          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'availabilities',
-          type: 'relationship',
-          label: getLabelTranslations('availabilities'),
           relationTo: 'availabilities',
           hasMany: true,
-        },
+          nameSingular: 'availability',
+        }),
       ],
     },
     {
@@ -93,21 +83,20 @@ const Counters: CollectionConfig = {
         },
       },
     },
-    {
+    ...logcicaRelationshipField({
       name: 'contacts',
-      type: 'relationship',
-      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
+      position: 'sidebar',
       hasMany: true,
-    },
-    {
+      nameSingular: 'contact',
+    }),
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    },
-    categoriesField,
+      nameSingular: 'profile',
+    }),
+    ...categoriesField,
     ...partyField({
       name: 'manager',
       position: 'sidebar',

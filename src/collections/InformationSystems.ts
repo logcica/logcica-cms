@@ -3,6 +3,7 @@ import CustomLinkCell from '../fields/CustomLinkCell'
 import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const InformationSystems: CollectionConfig = {
   slug: 'information_systems',
@@ -37,13 +38,10 @@ const InformationSystems: CollectionConfig = {
         },
       },
     },
-    {
+    ...logcicaRelationshipField({
       name: 'area',
-      type: 'relationship',
-      label: getLabelTranslations('area'),
       relationTo: 'places',
-      hasMany: false,
-    },
+    }),
   ],
 }
 

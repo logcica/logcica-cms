@@ -3,6 +3,7 @@ import { anyone } from '../access/anyone'
 import { cannotConfigure } from './canRead'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import { Classification, InformationSystem } from 'payload/generated-types'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Categories: CollectionConfig = {
   slug: 'categories',
@@ -40,13 +41,10 @@ const Categories: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('subject'),
     },
-    {
+    ...logcicaRelationshipField({
       name: 'classification',
-      type: 'relationship',
-      label: getLabelTranslations('classification'),
       relationTo: 'classifications',
-      hasMany: false,
-    },
+    }),
     {
       name: 'title',
       type: 'text',
