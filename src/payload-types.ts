@@ -72,25 +72,20 @@ export interface Organisation {
   legalFormShort?: string | null;
   legalForm?: (string | null) | Code;
   registeredAt?: string | null;
-  mainActivityId?: {
-    root: {
-      children: {
-        type: string;
-        version: number;
+  mainActivityId?:
+    | {
         [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      type: string;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   mainActivity?: (string | null) | Activity;
   owner?: Party;
   ownerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -99,13 +94,13 @@ export interface Organisation {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   ownerPersonId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -114,26 +109,19 @@ export interface Organisation {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
-  placeId?: {
-    root: {
-      children: {
-        type: string;
-        version: number;
+  placeId?:
+    | {
         [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      type: string;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
   workspaces?: (string | Workspace)[] | null;
   mainImage?: Image;
@@ -152,6 +140,15 @@ export interface Code {
   key?: string | null;
   rank?: number | null;
   skip?: boolean | null;
+  listId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   list?: (string | null) | CodeList;
   updatedAt: string;
   createdAt: string;
@@ -176,26 +173,30 @@ export interface Activity {
   isMain?: boolean | null;
   name?: string | null;
   internalName?: string | null;
-  mainWorkspaceId?: {
-    root: {
-      children: {
-        type: string;
-        version: number;
+  mainWorkspaceId?:
+    | {
         [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      type: string;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   mainWorkspace?: (string | null) | Workspace;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
   manager?: Party;
   managerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -204,13 +205,13 @@ export interface Activity {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -219,13 +220,13 @@ export interface Activity {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -234,15 +235,59 @@ export interface Activity {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  profileIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   profiles?: (string | Profile)[] | null;
+  contactIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   contacts?: (string | Contact)[] | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
+  productionCategoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   productionCategories?: (string | Category)[] | null;
+  otherCategoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   otherCategories?: (string | Category)[] | null;
   description?: Description;
   updatedAt: string;
@@ -257,10 +302,20 @@ export interface Workspace {
   number?: string | null;
   name?: string | null;
   internalName?: string | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   manager?: Party;
   managerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -269,13 +324,13 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -284,13 +339,13 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -299,7 +354,6 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -307,6 +361,7 @@ export interface Workspace {
   owner?: Party;
   ownerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -315,13 +370,13 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   ownerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -330,13 +385,13 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   ownerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -345,11 +400,19 @@ export interface Workspace {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
@@ -363,7 +426,17 @@ export interface Category {
   key?: string | null;
   name?: string | null;
   subject?: string | null;
+  classificationId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   classification?: (string | null) | Classification;
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -375,6 +448,16 @@ export interface Classification {
   id: string;
   key?: string | null;
   name?: string | null;
+  subject?: string | null;
+  systemId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   system?: (string | null) | InformationSystem;
   updatedAt: string;
   createdAt: string;
@@ -389,6 +472,15 @@ export interface InformationSystem {
   name?: string | null;
   type?: string | null;
   link?: string | null;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
@@ -451,10 +543,55 @@ export interface Party {
 export interface Partnership {
   id: string;
   name?: string | null;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
+  contactIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   contacts?: (string | Contact)[] | null;
+  profileIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   profiles?: (string | Profile)[] | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -475,6 +612,7 @@ export interface Contact {
   holder?: Party;
   holderOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -483,13 +621,13 @@ export interface Contact {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   holderPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -498,13 +636,13 @@ export interface Contact {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   holderActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -513,7 +651,6 @@ export interface Contact {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -548,6 +685,7 @@ export interface Profile {
 export interface Description {
   short?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -556,13 +694,13 @@ export interface Description {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   long?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -571,7 +709,6 @@ export interface Description {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -590,6 +727,15 @@ export interface Person {
   area?: (string | null) | Place;
   contacts?: (string | Contact)[] | null;
   profiles?: (string | Profile)[] | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -610,19 +756,92 @@ export interface Counter {
   type?: string | null;
   name?: string | null;
   internalName?: string | null;
+  marketplaceId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   marketplace?: (string | null) | Counter;
-  workspaces?: (string | Workspace)[] | null;
+  workspacesId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  workspaces?: (string | null) | Workspace;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
   availabilityStatement?: Description;
+  catalogId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   catalog?: (string | null) | Catalog;
+  availabilityIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   availabilities?: (string | Availability)[] | null;
   link?: string | null;
+  contactIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   contacts?: (string | Contact)[] | null;
+  profileIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   profiles?: (string | Profile)[] | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   manager?: Party;
   managerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -631,13 +850,13 @@ export interface Counter {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -646,13 +865,13 @@ export interface Counter {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -661,7 +880,6 @@ export interface Counter {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -681,6 +899,7 @@ export interface Catalog {
   seller?: Party;
   sellerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -689,13 +908,13 @@ export interface Catalog {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   sellerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -704,13 +923,13 @@ export interface Catalog {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   sellerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -719,12 +938,29 @@ export interface Catalog {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
+  productCategoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   productCategories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -737,7 +973,25 @@ export interface Availability {
   id: string;
   key?: string | null;
   name?: string | null;
+  seasonId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   season?: (string | null) | SeasonAvailability;
+  weekId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   week?: (string | null) | WeekAvailability;
   updatedAt: string;
   createdAt: string;
@@ -781,6 +1035,7 @@ export interface Order {
   seller?: Party;
   sellerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -789,13 +1044,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   sellerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -804,13 +1059,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   sellerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -819,7 +1074,6 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -827,6 +1081,7 @@ export interface Order {
   customer?: Party;
   customerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -835,13 +1090,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   customerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -850,13 +1105,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   customerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -865,13 +1120,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   customerPersonId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -880,15 +1135,24 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   broker?: Party;
   brokerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -897,13 +1161,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   brokerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -912,13 +1176,13 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   brokerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -927,12 +1191,29 @@ export interface Order {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  counterId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   counter?: (string | null) | Counter;
+  sessionId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   session?: (string | null) | Session;
   lines?:
     | {
@@ -953,16 +1234,35 @@ export interface Order {
 export interface Session {
   id: string;
   name?: string | null;
+  parentId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   parent?: (string | null) | Session;
   timeRange?: {
     from?: string | null;
     to?: string | null;
   };
   description?: Description;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   manager?: Party;
   managerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -971,13 +1271,13 @@ export interface Session {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -986,13 +1286,13 @@ export interface Session {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   managerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1001,15 +1301,50 @@ export interface Session {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
+  catalogId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   catalog?: (string | null) | Catalog;
+  profileIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   profiles?: (string | Profile)[] | null;
   subject?: {
+    counterId?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
     counter?: (string | null) | Counter;
   };
   updatedAt: string;
@@ -1024,10 +1359,20 @@ export interface Product {
   name?: string | null;
   productGroup?: (string | null) | ProductGroup;
   ingredientStatement?: Description;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   producer?: Party;
   producerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1036,13 +1381,13 @@ export interface Product {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   producerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1051,13 +1396,13 @@ export interface Product {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   producerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1066,7 +1411,6 @@ export interface Product {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1074,6 +1418,7 @@ export interface Product {
   owner?: Party;
   ownerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1082,13 +1427,13 @@ export interface Product {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   ownerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1097,7 +1442,6 @@ export interface Product {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1109,7 +1453,25 @@ export interface Product {
     height?: Quantity;
     volume?: Quantity;
   };
+  mainImageId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   mainImage?: string | Media | null;
+  imageIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   images?: (string | Media)[] | null;
   allergenList?:
     | {
@@ -1139,10 +1501,20 @@ export interface Product {
 export interface ProductGroup {
   id: string;
   name: string;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   producer?: Party;
   producerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1151,13 +1523,13 @@ export interface ProductGroup {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   producerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1166,13 +1538,13 @@ export interface ProductGroup {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   producerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1181,7 +1553,6 @@ export interface ProductGroup {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1189,6 +1560,7 @@ export interface ProductGroup {
   owner?: Party;
   ownerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1197,13 +1569,13 @@ export interface ProductGroup {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   ownerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1212,7 +1584,6 @@ export interface ProductGroup {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1263,6 +1634,8 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1280,10 +1653,20 @@ export interface Subscription {
     from?: string | null;
     to?: string | null;
   };
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   provider?: Party;
   providerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1292,13 +1675,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   providerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1307,13 +1690,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   providerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1322,7 +1705,6 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1330,6 +1712,7 @@ export interface Subscription {
   subscriber?: Party;
   subscriberOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1338,13 +1721,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   subscriberPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1353,13 +1736,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   subscriberActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1368,7 +1751,6 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1379,6 +1761,7 @@ export interface Subscription {
   broker?: Party;
   brokerOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1387,13 +1770,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   brokerPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1402,13 +1785,13 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   brokerActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1417,7 +1800,6 @@ export interface Subscription {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1441,10 +1823,20 @@ export interface Subscription {
 export interface Fulfilment {
   id: string;
   number?: string | null;
+  orderIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   orders?: (string | Order)[] | null;
   operator?: Party;
   operatorOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1453,13 +1845,13 @@ export interface Fulfilment {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   operatorPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1468,13 +1860,13 @@ export interface Fulfilment {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   operatorActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1483,12 +1875,29 @@ export interface Fulfilment {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  workspaceId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   workspace?: (string | null) | Workspace;
+  sessionId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   session?: (string | null) | Session;
   lines?:
     | {
@@ -1513,6 +1922,7 @@ export interface Batch {
   operator?: Party;
   operatorOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1521,13 +1931,13 @@ export interface Batch {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   operatorPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1536,13 +1946,13 @@ export interface Batch {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   operatorActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1551,12 +1961,29 @@ export interface Batch {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
+  workspaceId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   workspace?: (string | null) | Workspace;
+  sessionId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   session?: (string | null) | Session;
   updatedAt: string;
   createdAt: string;
@@ -1568,11 +1995,30 @@ export interface Batch {
 export interface Recipe {
   id: string;
   name?: string | null;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   author?: Party;
   authorOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1581,13 +2027,13 @@ export interface Recipe {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   authorPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1596,13 +2042,13 @@ export interface Recipe {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   authorPersonId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1611,16 +2057,52 @@ export interface Recipe {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   yieldStatement?: string | null;
+  costCategoryId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   costCategory?: (string | null) | Category;
+  difficultyId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   difficulty?: (string | null) | Category;
+  seasonalityId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   seasonality?: (string | null) | Category;
   description?: Description;
+  profileIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  profiles?: (string | Profile)[] | null;
   cookTime?: number | null;
   prepTime?: number | null;
   totalTime?: number | null;
@@ -1628,11 +2110,30 @@ export interface Recipe {
     | {
         name?: string | null;
         quantity?: Quantity;
+        title?: string | null;
         id?: string | null;
       }[]
     | null;
-  stepStatement?: Steps;
+  stepStatement?: Description;
+  mainImageId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   mainImage?: string | Media | null;
+  imageIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   images?: (string | Media)[] | null;
   allergenList?:
     | {
@@ -1656,33 +2157,30 @@ export interface Recipe {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Steps".
- */
-export interface Steps {
-  OrderedList?: {
-    root: {
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      type: string;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "catalog_items".
  */
 export interface CatalogItem {
   id: string;
   name?: string | null;
+  catalogId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   catalog?: (string | null) | Catalog;
+  productId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   product?: (string | null) | Product;
   updatedAt: string;
   createdAt: string;
@@ -1710,6 +2208,7 @@ export interface Contribution {
   contributor?: Party;
   contributorOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1718,13 +2217,13 @@ export interface Contribution {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   contributorPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1733,13 +2232,13 @@ export interface Contribution {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   contributorActivityId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1748,13 +2247,13 @@ export interface Contribution {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   contributorPersonId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1763,7 +2262,6 @@ export interface Contribution {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1809,6 +2307,15 @@ export interface KnowledgeBase {
   name?: string | null;
   type?: string | null;
   link?: string | null;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
@@ -1822,8 +2329,35 @@ export interface KnowledgeElement {
   name?: string | null;
   type?: string | null;
   link?: string | null;
+  baseId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   base?: (string | null) | KnowledgeBase;
+  areaId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   area?: (string | null) | Place;
+  categoryIds?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -1840,6 +2374,7 @@ export interface Reference {
   holder?: Party;
   holderOrganisationId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1848,13 +2383,13 @@ export interface Reference {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   holderPartnershipId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1863,13 +2398,13 @@ export interface Reference {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
   } | null;
   holderPersonId?: {
     root: {
+      type: string;
       children: {
         type: string;
         version: number;
@@ -1878,7 +2413,6 @@ export interface Reference {
       direction: ('ltr' | 'rtl') | null;
       format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
-      type: string;
       version: number;
     };
     [k: string]: unknown;
@@ -1928,6 +2462,15 @@ export interface User {
 export interface Sector {
   id: string;
   name?: string | null;
+  placeId?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   place?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
