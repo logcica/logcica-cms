@@ -3,6 +3,7 @@ import { canManage } from './canRead'
 import partyField from '../fields/partyField'
 import numberField from '../fields/numberField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Batches: CollectionConfig = {
   slug: 'batches',
@@ -22,18 +23,14 @@ const Batches: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    {
+    ...logcicaRelationshipField({
       name: 'workspace',
-      type: 'relationship',
-      label: getLabelTranslations('workspace'),
       relationTo: 'workspaces',
-    },
-    {
+    }),
+    ...logcicaRelationshipField({
       name: 'session',
-      type: 'relationship',
-      label: getLabelTranslations('session'),
       relationTo: 'sessions',
-    },
+    }),
   ],
 }
 

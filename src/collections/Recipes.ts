@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { CollectionConfig } from 'payload/types'
 
 import descriptionField from '../fields/descriptionField'
@@ -11,12 +11,12 @@ import {
   getPlaceholderTranslations,
 } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
-import productCategoriesField from '../fields/productCategoriesField'
 import nutrientListField from '../fields/nutrientListField'
 import allergenListField from '../fields/allergenListField'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
 import useEffectAsync from '../utilities/useEffectAsync'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -38,33 +38,25 @@ const Recipes: CollectionConfig = {
       type: 'row',
       fields: [
         nameField,
-        {
+        ...logcicaRelationshipField({
           name: 'area',
-          type: 'relationship',
-          label: getLabelTranslations('area'),
           relationTo: 'places',
-          hasMany: false,
-          admin: {
-            position: 'sidebar',
-          },
-        },
+          position: 'sidebar',
+        }),
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'categories',
-      type: 'relationship',
-      label: getLabelTranslations('categories'),
       relationTo: 'categories',
+      position: 'sidebar',
       hasMany: true,
-      admin: {
-        position: 'sidebar',
-      },
+      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '668267f39f105cb961f55831' },
         }
       },
-    },
+    }),
     ...partyField({
       name: 'author',
       position: 'sidebar',
@@ -81,58 +73,48 @@ const Recipes: CollectionConfig = {
             placeholder: getPlaceholderTranslations('recipeYieldStatement'),
           },
         },
-        {
+        ...logcicaRelationshipField({
           name: 'costCategory',
-          type: 'relationship',
-          label: getLabelTranslations('costCategory'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '6682a6309f105cb961f55862' },
             }
           },
-        },
+        }),
       ],
     },
 
     {
       type: 'row',
       fields: [
-        {
+        ...logcicaRelationshipField({
           name: 'difficulty',
-          type: 'relationship',
-          label: getLabelTranslations('difficulty'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '66828eed9f105cb961f55844' },
             }
           },
-        },
-        {
+        }),
+        ...logcicaRelationshipField({
           name: 'seasonality',
-          type: 'relationship',
-          label: getLabelTranslations('seasonality'),
           relationTo: 'categories',
-          hasMany: false,
           filterOptions: () => {
             return {
               classification: { equals: '668279309f105cb961f5583c' },
             }
           },
-        },
+        }),
       ],
     },
     descriptionField({}),
-    {
+    ...logcicaRelationshipField({
       name: 'profiles',
-      type: 'relationship',
-      label: getLabelTranslations('profiles'),
+      nameSingular: 'profile',
       relationTo: 'profiles',
       hasMany: true,
-    },
+    }),
     {
       type: 'row',
       fields: [

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Catalogs: CollectionConfig = {
   slug: 'catalog_items',
@@ -14,18 +15,14 @@ const Catalogs: CollectionConfig = {
   },
   fields: [
     nameField,
-    {
+    ...logcicaRelationshipField({
       name: 'catalog',
-      type: 'relationship',
-      label: getLabelTranslations('catalog'),
       relationTo: 'catalogs',
-    },
-    {
+    }),
+    ...logcicaRelationshipField({
       name: 'product',
-      type: 'relationship',
-      label: getLabelTranslations('product'),
       relationTo: 'products',
-    },
+    }),
   ],
 }
 

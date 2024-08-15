@@ -4,6 +4,7 @@ import partyField from '../fields/partyField'
 import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -38,21 +39,18 @@ const Workspaces: CollectionConfig = {
         },
       ],
     },
-    {
+    ...logcicaRelationshipField({
       name: 'categories',
-      type: 'relationship',
-      label: getLabelTranslations('categories'),
       relationTo: 'categories',
+      position: 'sidebar',
       hasMany: true,
-      admin: {
-        position: 'sidebar',
-      },
+      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '663bad09a08a8050428fd1e8' },
         }
       },
-    },
+    }),
     ...partyField({
       name: 'manager',
       position: 'sidebar',
@@ -63,13 +61,10 @@ const Workspaces: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    {
+    ...logcicaRelationshipField({
       name: 'place',
-      type: 'relationship',
-      label: getLabelTranslations('place'),
       relationTo: 'places',
-      hasMany: false,
-    },
+    }),
   ],
 }
 
