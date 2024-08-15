@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload/types'
 import categoriesField from '../fields/CategoriesField'
-import { canManage } from './canRead';
+import { canManage } from './canRead'
 import partyField from '../fields/partyField'
-import numberField from "../fields/numberField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import numberField from '../fields/numberField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -11,18 +11,25 @@ const Orders: CollectionConfig = {
   admin: {
     useAsTitle: 'number',
     group: 'Transactions',
-    defaultColumns: ['number','id','seller','customer','session'],
+    defaultColumns: ['number', 'id', 'seller', 'customer', 'session'],
   },
   access: {
-    read: canManage({tenancyInAnyProperty: ['seller','customer','broker']}),
+    read: canManage({ tenancyInAnyProperty: ['seller', 'customer', 'broker'] }),
   },
   fields: [
     numberField,
 
     ...partyField({ name: 'seller', relations: ['organisations', 'partnerships', 'activities'] }),
-    ...partyField({ name: 'customer', relations: ['organisations', 'partnerships', 'activities', 'persons'] }),
+    ...partyField({
+      name: 'customer',
+      relations: ['organisations', 'partnerships', 'activities', 'persons'],
+    }),
     categoriesField,
-    ...partyField({ name: 'broker', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'broker',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       type: 'row',
       fields: [
@@ -30,15 +37,15 @@ const Orders: CollectionConfig = {
           name: 'counter',
           type: 'relationship',
           label: getLabelTranslations('counter'),
-          relationTo: 'counters'
+          relationTo: 'counters',
         },
         {
           name: 'session',
           type: 'relationship',
           label: getLabelTranslations('session'),
-          relationTo: 'sessions'
+          relationTo: 'sessions',
         },
-      ]
+      ],
     },
     {
       name: 'lines',
@@ -63,13 +70,13 @@ const Orders: CollectionConfig = {
                   name: 'value',
                   type: 'number',
                   label: getLabelTranslations('value'),
-                }
-              ]
+                },
+              ],
             },
-          ]
-        }
-      ]
-    }
+          ],
+        },
+      ],
+    },
   ],
 }
 

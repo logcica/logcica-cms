@@ -4,8 +4,8 @@ import payload from 'payload'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -14,10 +14,10 @@ const Activities: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Structure',
     listSearchableFields: ['name'],
-    defaultColumns: ['name','place','contacts','categories','manager'],
+    defaultColumns: ['name', 'place', 'contacts', 'categories', 'manager'],
   },
   access: {
-    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({ tenancyInAnyProperty: ['manager'] }),
   },
   fields: [
     {
@@ -26,20 +26,19 @@ const Activities: CollectionConfig = {
       label: getLabelTranslations('isMain_female'),
       defaultValue: false,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       type: 'row',
       fields: [
-
         nameField,
         {
           name: 'internalName',
           type: 'text',
           label: getLabelTranslations('internalName'),
-        }
-      ]
+        },
+      ],
     },
     {
       type: 'row',
@@ -55,9 +54,13 @@ const Activities: CollectionConfig = {
           relationTo: 'places',
           hasMany: false,
         },
-      ]
+      ],
     },
-    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'manager',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       name: 'profiles',
       type: 'relationship',
@@ -79,8 +82,8 @@ const Activities: CollectionConfig = {
       relationTo: 'categories',
       hasMany: true,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       type: 'row',
@@ -99,9 +102,9 @@ const Activities: CollectionConfig = {
           relationTo: 'categories',
           hasMany: true,
         },
-      ]
+      ],
     },
-    descriptionField({})
+    descriptionField({}),
   ],
 }
 

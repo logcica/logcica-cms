@@ -1,8 +1,8 @@
 import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
 import type { CollectionConfig } from 'payload/types'
-import { canManageOrContribute } from './canRead';
-import partyField from '../fields/partyField';
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { canManageOrContribute } from './canRead'
+import partyField from '../fields/partyField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Contacts: CollectionConfig = {
   slug: 'contacts',
@@ -10,26 +10,25 @@ const Contacts: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     group: 'Connexions',
-    listSearchableFields: ['name', 'givenName', 'familyName','mainPhoneNumber','mainEmail'],
-    defaultColumns: ['title','id','type','givenName','holder'],
+    listSearchableFields: ['name', 'givenName', 'familyName', 'mainPhoneNumber', 'mainEmail'],
+    defaultColumns: ['title', 'id', 'type', 'givenName', 'holder'],
   },
   access: {
-    read: canManageOrContribute({placeInProperty: 'area', tenancyInAnyProperty: ['holder']}),
+    read: canManageOrContribute({ placeInProperty: 'area', tenancyInAnyProperty: ['holder'] }),
   },
   hooks: {
     beforeValidate: [
-      (args) => {
+      args => {
         const data = args.data
-        if(data.type == 'person')
-          data.name = undefined //[data.givenName, data.familyName].join(' ').trim()
-        if(data.type == 'organisation'){
+        if (data.type == 'person') data.name = undefined //[data.givenName, data.familyName].join(' ').trim()
+        if (data.type == 'organisation') {
           data.givenName = undefined
           data.familyName = undefined
         }
         console.log(JSON.stringify(data))
         return data
-      }
-    ]
+      },
+    ],
   },
   fields: [
     {
@@ -50,25 +49,25 @@ const Contacts: CollectionConfig = {
       defaultValue: 'person', // The first value in options.
       admin: {
         layout: 'horizontal',
-        readOnly: true
+        readOnly: true,
       },
       hooks: {
-        beforeChange: [({ siblingData, value }) => {
-          if(value == 'person')
-            delete siblingData.name;
+        beforeChange: [
+          ({ siblingData, value }) => {
+            if (value == 'person') delete siblingData.name
 
-          if(value == 'organisation'){
-            delete siblingData.givenName;
-            delete siblingData.familyName;
-          }
-        }],
-      }
+            if (value == 'organisation') {
+              delete siblingData.givenName
+              delete siblingData.familyName
+            }
+          },
+        ],
+      },
     },
     {
       type: 'row',
       fields: [
         {
-
           name: 'givenName',
           type: 'text',
           label: getLabelTranslations('givenName'),
@@ -80,7 +79,7 @@ const Contacts: CollectionConfig = {
         },
       ],
       admin: {
-        condition: (data, siblingData, { user }) => data.type == "person",
+        condition: (data, siblingData, { user }) => data.type == 'person',
       },
     },
     {
@@ -88,7 +87,7 @@ const Contacts: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('name'),
       admin: {
-        condition: (data, siblingData, { user }) => data.type == "organisation",
+        condition: (data, siblingData, { user }) => data.type == 'organisation',
       },
     },
     {
@@ -96,39 +95,46 @@ const Contacts: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('title'),
       admin: {
-        hidden: true
+        hidden: true,
       },
       hooks: {
         beforeChange: [
           ({ siblingData }) => {
             delete siblingData['title']
-          }
+          },
         ],
         afterRead: [
           ({ data }) => {
-            const list = [data.mainPhoneNumber,data.mainEmail]
-            if(list.every(n => !n)) return data.name ?? data.id
-            return list.filter(n => n).join(" | ")
-          }
+            const list = [data.mainPhoneNumber, data.mainEmail]
+            if (list.every(n => !n)) return data.name ?? data.id
+            return list.filter(n => n).join(' | ')
+          },
         ],
       },
     },
-    ...TelephoneField({
-      name: 'mainPhoneNumber',
-      label: getLabelTranslations('mainPhoneNumber'),
-      admin: {
-        placeholder: '099 99 99 99',
+    ...TelephoneField(
+      {
+        name: 'mainPhoneNumber',
+        label: getLabelTranslations('mainPhoneNumber'),
+        admin: {
+          placeholder: '099 99 99 99',
+        },
       },
-    },{
-      international: false,
-      defaultCountry: 'BE'
-    }),
+      {
+        international: false,
+        defaultCountry: 'BE',
+      },
+    ),
     {
       name: 'mainEmail',
       type: 'email',
       label: getLabelTranslations('mainEmail'),
     },
-    ...partyField({ name: 'holder', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'holder',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       name: 'area',
       type: 'relationship',

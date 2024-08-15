@@ -375,30 +375,21 @@ export interface Classification {
   id: string;
   key?: string | null;
   name?: string | null;
+  system?: (string | null) | InformationSystem;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Party".
+ * via the `definition` "information_systems".
  */
-export interface Party {
-  organisation?: (string | null) | Organisation;
-  partnership?: (string | null) | Partnership;
-  person?: (string | null) | Person;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partnerships".
- */
-export interface Partnership {
+export interface InformationSystem {
   id: string;
+  key?: string | null;
   name?: string | null;
-  place?: (string | null) | Place;
+  type?: string | null;
+  link?: string | null;
   area?: (string | null) | Place;
-  contacts?: (string | Contact)[] | null;
-  profiles?: (string | Profile)[] | null;
-  categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -443,6 +434,30 @@ export interface Address {
 export interface GmapsPlace {
   id?: string | null;
   placeId?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Party".
+ */
+export interface Party {
+  organisation?: (string | null) | Organisation;
+  partnership?: (string | null) | Partnership;
+  person?: (string | null) | Person;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnerships".
+ */
+export interface Partnership {
+  id: string;
+  name?: string | null;
+  place?: (string | null) | Place;
+  area?: (string | null) | Place;
+  contacts?: (string | Contact)[] | null;
+  profiles?: (string | Profile)[] | null;
+  categories?: (string | Category)[] | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -528,20 +543,6 @@ export interface Profile {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "information_systems".
- */
-export interface InformationSystem {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  type?: string | null;
-  link?: string | null;
-  area?: (string | null) | Place;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Description".
  */
 export interface Description {
@@ -610,7 +611,7 @@ export interface Counter {
   name?: string | null;
   internalName?: string | null;
   marketplace?: (string | null) | Counter;
-  workspace?: (string | null) | Workspace;
+  workspaces?: (string | Workspace)[] | null;
   place?: (string | null) | Place;
   availabilityStatement?: Description;
   catalog?: (string | null) | Catalog;
@@ -1630,7 +1631,7 @@ export interface Recipe {
         id?: string | null;
       }[]
     | null;
-  stepStatement?: Description;
+  stepStatement?: Steps;
   mainImage?: string | Media | null;
   images?: (string | Media)[] | null;
   allergenList?:
@@ -1652,6 +1653,27 @@ export interface Recipe {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Steps".
+ */
+export interface Steps {
+  OrderedList?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

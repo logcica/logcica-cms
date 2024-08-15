@@ -3,7 +3,7 @@ import { canManage, canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import subjectField from '../fields/subjectField'
 import descriptionField from '../fields/descriptionField'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Contributions: CollectionConfig = {
   slug: 'contributions',
@@ -11,7 +11,7 @@ const Contributions: CollectionConfig = {
   admin: {
     useAsTitle: 'id',
     group: 'Connexions',
-    defaultColumns: ['id','roles','contributor','subject'],
+    defaultColumns: ['id', 'roles', 'contributor', 'subject'],
     listSearchableFields: [
       'id',
       'contributor.organisation.name',
@@ -22,7 +22,7 @@ const Contributions: CollectionConfig = {
       'subject.organisation.name',
       'subject.partnership.name',
       'subject.activity.name',
-      'subject.counter.name'
+      'subject.counter.name',
     ],
   },
   access: {
@@ -42,7 +42,9 @@ const Contributions: CollectionConfig = {
       name: 'contributor',
       relations: ['organisations', 'partnerships', 'activities', 'persons'],
     }),
-    subjectField({relations: ['organisations', 'partnerships', 'activities', 'counters', 'products']}),
+    subjectField({
+      relations: ['organisations', 'partnerships', 'activities', 'counters', 'products'],
+    }),
     {
       name: 'area',
       type: 'relationship',

@@ -1,15 +1,15 @@
 import type { CollectionConfig } from 'payload/types'
 import CustomImageCell from '../fields/CustomImageCell'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Availabilities: CollectionConfig = {
   slug: 'availabilities',
   labels: getCollectionLabelsTranslations('availabilities'),
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ["name", "place"],
-    group: 'Gestion'
+    defaultColumns: ['name', 'place'],
+    group: 'Gestion',
   },
   access: {
     read: () => true,
@@ -35,7 +35,7 @@ const Availabilities: CollectionConfig = {
       label: getLabelTranslations('week'),
       relationTo: 'week_availabilities',
       hasMany: false,
-    }
+    },
   ],
 }
 

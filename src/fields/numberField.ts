@@ -1,11 +1,10 @@
-import { Field } from 'payload/types';
-import { getLabelTranslations } from '../utilities/translate';
+import { Field } from 'payload/types'
+import { getLabelTranslations } from '../utilities/translate'
 
-const numberField: Field =
-  {
-    name: 'number',
-    type: 'text',
-    label: getLabelTranslations('number'),
-  }
+const numberField: Field = {
+  name: 'number',
+  type: 'text',
+  label: getLabelTranslations('number'),
+}
 
-export default numberField;
+export default numberField

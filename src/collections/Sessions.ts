@@ -3,8 +3,8 @@ import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import descriptionField from '../fields/descriptionField'
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
-import nameField from "../fields/nameField";
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import nameField from '../fields/nameField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -12,10 +12,10 @@ const Sessions: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Gestion',
-    defaultColumns: ['name','place','manager','parent','categories','timeRange'],
+    defaultColumns: ['name', 'place', 'manager', 'parent', 'categories', 'timeRange'],
   },
   access: {
-    read: canManageOrContribute({tenancyInAnyProperty: ['manager']}),
+    read: canManageOrContribute({ tenancyInAnyProperty: ['manager'] }),
   },
   fields: [
     nameField,
@@ -26,8 +26,8 @@ const Sessions: CollectionConfig = {
       relationTo: 'sessions',
       hasMany: false,
       admin: {
-        position: 'sidebar'
-      }
+        position: 'sidebar',
+      },
     },
     {
       name: 'timeRange',
@@ -43,9 +43,9 @@ const Sessions: CollectionConfig = {
               label: getLabelTranslations('from'),
               admin: {
                 date: {
-                  pickerAppearance: 'dayAndTime'
-                }
-              }
+                  pickerAppearance: 'dayAndTime',
+                },
+              },
             },
             {
               name: 'to',
@@ -53,17 +53,21 @@ const Sessions: CollectionConfig = {
               label: getLabelTranslations('to'),
               admin: {
                 date: {
-                  pickerAppearance: 'dayAndTime'
-                }
-              }
-            }
-          ]
-        }
-      ]
+                  pickerAppearance: 'dayAndTime',
+                },
+              },
+            },
+          ],
+        },
+      ],
     },
     descriptionField({}),
     categoriesField,
-    ...partyField({ name: 'manager', position: 'sidebar', relations: ['organisations', 'partnerships', 'activities'] }),
+    ...partyField({
+      name: 'manager',
+      position: 'sidebar',
+      relations: ['organisations', 'partnerships', 'activities'],
+    }),
     {
       type: 'row',
       fields: [
@@ -81,7 +85,7 @@ const Sessions: CollectionConfig = {
           relationTo: 'catalogs',
           hasMany: false,
         },
-      ]
+      ],
     },
     {
       name: 'profiles',
@@ -101,8 +105,8 @@ const Sessions: CollectionConfig = {
           label: getLabelTranslations('counter'),
           relationTo: 'counters',
           hasMany: false,
-        }
-      ]
+        },
+      ],
     },
   ],
 }

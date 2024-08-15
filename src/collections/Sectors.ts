@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
-import { cannotConfigure } from './canRead';
-import nameField from "../fields/nameField";
-import {getCollectionLabelsTranslations, getLabelTranslations} from "../utilities/translate";
+import { cannotConfigure } from './canRead'
+import nameField from '../fields/nameField'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Sectors: CollectionConfig = {
   slug: 'sectors',
@@ -9,7 +9,7 @@ const Sectors: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Configuration',
-    hidden: cannotConfigure
+    hidden: cannotConfigure,
   },
   access: {
     read: () => true,
@@ -24,7 +24,7 @@ const Sectors: CollectionConfig = {
       hasMany: false,
       filterOptions: () => {
         return {
-          type: { in: ["region", "country", "province"] },
+          type: { in: ['region', 'country', 'province'] },
         }
       },
     },
