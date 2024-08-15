@@ -10,7 +10,7 @@ type LogcicaRelationshipType = (options?: {
   position?: 'sidebar'
   filterOptions?: FilterOptions
   hasMany?: boolean
-  type?: string
+  type?: 'relationship' | 'upload'
   overrides?: Record<string, unknown>
 }) => Field[]
 
@@ -71,7 +71,6 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
 
   const relationshipBaseField = {
     name: name,
-    type: type ?? 'relationship',
     label: getLabelTranslations(name),
     relationTo: relationTo,
     filterOptions: filterOptions,
@@ -80,7 +79,18 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
     },
   }
 
-  const relationshipField = { ...relationshipBaseField, hasMany: hasMany ? true : false } as Field
+  let relationshipField = {
+    ...relationshipBaseField,
+    hasMany: hasMany ? true : false,
+    type: 'relationship',
+  } as Field
+
+  if (type == 'upload') {
+    relationshipField = {
+      ...relationshipBaseField,
+      type: 'upload',
+    } as Field
+  }
 
   return [deepMerge(foreignKeyField, overrides), deepMerge(relationshipField, overrides)]
 }
