@@ -10,6 +10,7 @@ type LogcicaRelationshipType = (options?: {
   position?: 'sidebar'
   filterOptions?: FilterOptions
   hasMany?: boolean
+  type?: string
   overrides?: Record<string, unknown>
 }) => Field[]
 
@@ -60,6 +61,7 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
   position,
   filterOptions,
   hasMany,
+  type,
   overrides = {},
 }) => {
   let foreignKeyField = {} as Field
@@ -69,7 +71,7 @@ const logcicaRelationshipField: LogcicaRelationshipType = ({
 
   const relationshipBaseField = {
     name: name,
-    type: 'relationship',
+    type: type ?? 'relationship',
     label: getLabelTranslations(name),
     relationTo: relationTo,
     filterOptions: filterOptions,
