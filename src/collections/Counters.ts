@@ -96,13 +96,7 @@ const Counters: CollectionConfig = {
       hasMany: true,
       nameSingular: 'profile',
     }),
-    ...logcicaRelationshipField({
-      name: 'categories',
-      relationTo: 'categories',
-      position: 'sidebar',
-      hasMany: true,
-      nameSingular: 'category',
-    }),
+    ...categoriesField,
     ...partyField({
       name: 'manager',
       position: 'sidebar',
