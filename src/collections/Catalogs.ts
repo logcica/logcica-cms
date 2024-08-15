@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
-import productCategoriesField from '../fields/productCategoriesField'
 import descriptionField from '../fields/descriptionField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import partyField from '../fields/partyField'

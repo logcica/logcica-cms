@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { CollectionConfig } from 'payload/types'
 
 import descriptionField from '../fields/descriptionField'
@@ -11,7 +11,6 @@ import {
   getPlaceholderTranslations,
 } from '../utilities/translate'
 import { canManageOrContribute } from './canRead'
-import productCategoriesField from '../fields/productCategoriesField'
 import nutrientListField from '../fields/nutrientListField'
 import allergenListField from '../fields/allergenListField'
 import uploadImagesField from '../fields/imageField'
