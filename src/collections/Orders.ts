@@ -25,13 +25,7 @@ const Orders: CollectionConfig = {
       name: 'customer',
       relations: ['organisations', 'partnerships', 'activities', 'persons'],
     }),
-    ...logcicaRelationshipField({
-      name: 'categories',
-      relationTo: 'categories',
-      position: 'sidebar',
-      hasMany: true,
-      nameSingular: 'category',
-    }),
+    ...categoriesField,
     ...partyField({
       name: 'broker',
       position: 'sidebar',

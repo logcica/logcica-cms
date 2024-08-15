@@ -52,7 +52,7 @@ const KnowledgeElements: CollectionConfig = {
         }),
       ],
     },
-    categoriesField,
+    ...categoriesField,
   ],
 }
 

@@ -1,8 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
-import { group } from 'console'
-import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import { getCollectionLabelsTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
@@ -44,13 +43,7 @@ const Partnerships: CollectionConfig = {
       hasMany: true,
       nameSingular: 'profile',
     }),
-    ...logcicaRelationshipField({
-      name: 'categories',
-      relationTo: 'categories',
-      position: 'sidebar',
-      hasMany: true,
-      nameSingular: 'category',
-    }),
+    ...categoriesField,
   ],
 }
 
