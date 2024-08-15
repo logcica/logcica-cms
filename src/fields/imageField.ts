@@ -5,7 +5,7 @@ import logcicaRelationshipField from './logcicaRelationshipField'
 const imageField = [
   {
     name: 'mainImage', // required
-    type: 'relationship', // required
+    type: 'upload', // required
     label: getLabelTranslations('mainImage'),
     relationTo: 'media', // required
     filterOptions: {
