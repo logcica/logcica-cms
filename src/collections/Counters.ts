@@ -7,6 +7,7 @@ import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilit
 import nameField from '../fields/nameField'
 import descriptionField from '../fields/descriptionField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import uploadImagesField from '../fields/imageField'
 
 const Counters: CollectionConfig = {
   slug: 'counters',
@@ -102,6 +103,8 @@ const Counters: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
+
+    ...uploadImagesField,
   ],
 }
 

@@ -6,6 +6,7 @@ import descriptionField from '../fields/descriptionField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import uploadImagesField from '../fields/imageField'
 
 const Sessions: CollectionConfig = {
   slug: 'sessions',
@@ -94,6 +95,7 @@ const Sessions: CollectionConfig = {
         }),
       ],
     },
+    ...uploadImagesField,
   ],
 }
 
