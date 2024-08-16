@@ -6,6 +6,7 @@ import partyField from '../fields/partyField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import uploadImagesField from '../fields/imageField'
 
 const Activities: CollectionConfig = {
   slug: 'activities',
@@ -94,6 +95,7 @@ const Activities: CollectionConfig = {
       ],
     },
     descriptionField({}),
+    ...uploadImagesField,
   ],
 }
 
