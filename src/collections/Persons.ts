@@ -79,7 +79,7 @@ const Persons: CollectionConfig = {
       relationTo: 'profiles',
       hasMany: true,
     },
-    categoriesField,
+    ...categoriesField,
   ],
 }
 

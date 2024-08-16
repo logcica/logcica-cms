@@ -29,7 +29,7 @@ const ProductGroup: CollectionConfig = {
       required: true,
     },
 
-    categoriesField,
+    ...categoriesField,
     ...partyField({
       name: 'producer',
       position: 'sidebar',

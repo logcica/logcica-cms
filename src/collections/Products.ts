@@ -51,7 +51,7 @@ const Products: CollectionConfig = {
       ],
     },
     descriptionField({ name: 'ingredientStatement', fields: ['short'] }),
-    categoriesField,
+    ...categoriesField,
     ...partyField({
       name: 'producer',
       position: 'sidebar',
