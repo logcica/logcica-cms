@@ -184,6 +184,7 @@ const translations = {
         interval: 'interval',
         note: 'note',
         symbol: 'symbol',
+        license: 'license'
       },
       collections: {
         recipes_one: 'Recipe',
@@ -419,6 +420,7 @@ const translations = {
         interval: 'Intervalle',
         note: 'Note',
         symbol: 'Symbole',
+        license: 'Licence'
       },
       collections: {
         recipes_one: 'Recette',
