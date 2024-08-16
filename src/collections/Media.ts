@@ -1,6 +1,8 @@
 import path from 'path'
 import type { CollectionConfig } from 'payload/types'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import partyField from '../fields/partyField'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -20,6 +22,23 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       label: getLabelTranslations('alt'),
+    },
+    ...logcicaRelationshipField({
+      name: 'source',
+      relationTo: 'knowledge_element',
+    }),
+    ...partyField({ name: 'author', relations: ['persons', 'profiles'] }),
+    {
+      name: 'license',
+      type: 'relationship',
+      label: getLabelTranslations('license'),
+      relationTo: 'codes',
+      hasMany: false,
+      filterOptions: () => {
+        return {
+          list: { equals: '66bf056a197a3ff36f0e1a88' },
+        }
+      },
     },
   ],
 }

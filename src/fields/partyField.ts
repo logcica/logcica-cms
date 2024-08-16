@@ -32,6 +32,10 @@ const supportedRelations = [
     singural: 'person',
     plural: 'persons',
   },
+  {
+    singural: 'profile',
+    plural: 'profiles',
+  },
 ]
 
 export function newForeignKeyField(name: string, localName: string): Field {
