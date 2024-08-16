@@ -4,6 +4,7 @@ import categoriesField from '../fields/CategoriesField'
 import { getCollectionLabelsTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import uploadImagesField from '../fields/imageField'
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -44,6 +45,7 @@ const Partnerships: CollectionConfig = {
       nameSingular: 'profile',
     }),
     ...categoriesField,
+    ...uploadImagesField,
   ],
 }
 
