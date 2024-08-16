@@ -27,7 +27,7 @@ export const Media: CollectionConfig = {
       name: 'source',
       relationTo: 'knowledge_element',
     }),
-    ...partyField({ name: 'author', relations: ['persons', 'profiles'] }),
+    ...partyField({ name: 'author', relations: ['persons', 'profiles', 'organisations'] }),
     {
       name: 'license',
       type: 'relationship',
