@@ -11,6 +11,7 @@ import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilit
 import { canManageOrContribute } from './canRead'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -50,6 +51,13 @@ const Products: CollectionConfig = {
         },
       ],
     },
+    ...logcicaRelationshipField({
+      name: 'references',
+      nameSingular: 'reference',
+      relationTo: 'references',
+      hasMany: true,
+    }),
+    descriptionField({ fields: ['short'] }),
     descriptionField({ name: 'ingredientStatement', fields: ['short'] }),
     ...categoriesField,
     ...partyField({
@@ -62,7 +70,13 @@ const Products: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships'],
     }),
-
+    {
+      type: 'relationship',
+      name: 'claims',
+      label: getLabelTranslations('claims'),
+      hasMany: true,
+      relationTo: 'codes',
+    },
     quantityField({ name: 'netWeight' }),
     {
       name: 'dimensions',
@@ -87,6 +101,8 @@ const Products: CollectionConfig = {
     ...uploadImagesField,
     allergenListField,
     nutrientListField,
+    descriptionField({ name: 'usageInstructions', fields: ['short'] }),
+    descriptionField({ name: 'storageInstructions', fields: ['short'] }),
     {
       name: 'area',
       type: 'relationship',

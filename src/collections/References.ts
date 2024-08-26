@@ -4,12 +4,13 @@ import { cannotConfigure } from './canRead'
 import partyField from '../fields/partyField'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const References: CollectionConfig = {
   slug: 'references',
   labels: getCollectionLabelsTranslations('references'),
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'number',
     group: 'Référencement',
     hidden: cannotConfigure,
   },
@@ -17,7 +18,21 @@ const References: CollectionConfig = {
     read: () => true,
   },
   fields: [
-    nameField,
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'number',
+          type: 'text',
+          label: getLabelTranslations('number'),
+        },
+        nameField,
+      ],
+    },
+    ...logcicaRelationshipField({
+      name: 'system',
+      relationTo: 'information_systems',
+    }),
     {
       name: 'tags',
       type: 'text',

@@ -63,6 +63,7 @@ const translations = {
         costCategory: 'Cost',
         nutrientList: 'Nutrients',
         mainImage: 'Main image',
+        mainVideo: 'Main video',
         images: 'Images',
         nutrient: 'Nutrient',
         partnerships: 'Partnerships',
@@ -183,7 +184,12 @@ const translations = {
         interval: 'interval',
         note: 'note',
         symbol: 'symbol',
-        license: 'license'
+        license: 'license',
+        claims: 'Claims',
+        storageInstructions: 'Storage instructions',
+        usageInstructions: 'Usage instructions',
+        references: 'References',
+        system: 'System',
       },
       collections: {
         recipes_one: 'Recipe',
@@ -290,6 +296,7 @@ const translations = {
         costCategory: 'Coût',
         nutrientList: 'Valeurs nutritionnelles',
         mainImage: 'Image principale',
+        mainVideo: 'Video principale',
         images: 'Images',
         nutrient: 'Nutriment',
         partnerships: 'Partenariats',
@@ -418,7 +425,12 @@ const translations = {
         interval: 'Intervalle',
         note: 'Note',
         symbol: 'Symbole',
-        license: 'Licence'
+        license: 'Licence',
+        claims: 'Allégations',
+        storageInstructions: 'Instructions de stockage',
+        usageInstructions: "Instructions d'utilisation",
+        references: 'Références',
+        system: 'Système',
       },
       collections: {
         recipes_one: 'Recette',

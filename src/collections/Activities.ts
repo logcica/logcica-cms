@@ -96,6 +96,14 @@ const Activities: CollectionConfig = {
     },
     descriptionField({}),
     ...uploadImagesField,
+    ...logcicaRelationshipField({
+      name: 'mainVideo',
+      type: 'upload',
+      relationTo: 'media', // required
+      filterOptions: {
+        mimeType: { contains: 'video' },
+      },
+    }),
   ],
 }
 
