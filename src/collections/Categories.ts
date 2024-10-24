@@ -56,7 +56,7 @@ const Categories: CollectionConfig = {
           async ({ data, req }) => {
             if (!data.classification) return data.name
 
-            const classification: Classification = await req.payload.findByID({
+            const classification = await req.payload.findByID({
               collection: 'classifications',
               id: data.classification,
             })
