@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import GmapsCell from '../fields/GmapsCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Places: CollectionConfig = {
   slug: 'places',
@@ -73,10 +74,9 @@ const Places: CollectionConfig = {
       type: 'point',
       label: getLabelTranslations('center'),
     },
-    {
+    ...logcicaRelationshipField({
       name: 'within',
-      type: 'relationship',
-      label: getLabelTranslations('within'),
+      nameSingular: 'within',
       relationTo: 'places',
       hasMany: true,
       filterOptions: () => {
@@ -84,7 +84,7 @@ const Places: CollectionConfig = {
           type: { in: ['region', 'country', 'province'] },
         }
       },
-    },
+    }),
     {
       name: 'title',
       type: 'text',

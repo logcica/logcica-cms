@@ -77,6 +77,12 @@ const Products: CollectionConfig = {
       hasMany: true,
       relationTo: 'codes',
     },
+    ...logcicaRelationshipField({
+      name: 'availabilities',
+      relationTo: 'availabilities',
+      hasMany: true,
+      nameSingular: 'availability',
+    }),
     quantityField({ name: 'netWeight' }),
     {
       name: 'dimensions',
