@@ -46,6 +46,23 @@ const Categories: CollectionConfig = {
       relationTo: 'classifications',
     }),
     {
+      name: 'color',
+      type: 'text',
+      label: getLabelTranslations('color'),
+    },
+    {
+      name: 'icon',
+      type: 'group',
+      label: getLabelTranslations('icon'),
+      fields: [
+        {
+          name: 'fa',
+          type: 'text',
+          label: getLabelTranslations('font_awesome'),
+        },
+      ],
+    },
+    {
       name: 'title',
       type: 'text',
       admin: {

@@ -80,7 +80,7 @@ export default buildConfig({
   }),
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   rateLimit: {
-    max: 1000,
+    max: 2000,
   },
   collections: [
     Organisations,

@@ -190,6 +190,9 @@ const translations = {
         usageInstructions: 'Usage instructions',
         references: 'References',
         system: 'System',
+        color: 'Color',
+        icon: 'Icon',
+        font_awesome: 'Font Awesome',
       },
       collections: {
         recipes_one: 'Recipe',
@@ -431,6 +434,9 @@ const translations = {
         usageInstructions: "Instructions d'utilisation",
         references: 'Références',
         system: 'Système',
+        color: 'Couleur',
+        icon: 'Icône',
+        font_awesome: 'Font Awesome',
       },
       collections: {
         recipes_one: 'Recette',
