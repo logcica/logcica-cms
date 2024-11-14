@@ -11,6 +11,8 @@ const Sectors: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Configuration',
     hidden: cannotConfigure,
+    listSearchableFields: ['name', 'within.name'],
+    defaultColumns: ['name', 'within'],
   },
   access: {
     read: () => true,
@@ -18,13 +20,10 @@ const Sectors: CollectionConfig = {
   fields: [
     nameField,
     ...logcicaRelationshipField({
-      name: 'place',
-      relationTo: 'places',
-      filterOptions: () => {
-        return {
-          type: { in: ['region', 'country', 'province'] },
-        }
-      },
+      name: 'within',
+      nameSingular: 'within',
+      relationTo: 'sectors',
+      hasMany: true,
     }),
   ],
 }

@@ -177,32 +177,6 @@ const Places: CollectionConfig = {
       label: getLabelTranslations('description'),
     },
     {
-      name: 'gmaps',
-      type: 'group',
-      label: getLabelTranslations('gmaps'),
-      interfaceName: 'GmapsPlace',
-      admin: {
-        components: {
-          Cell: GmapsCell,
-        },
-      },
-
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-          admin: {
-            hidden: true,
-          },
-        },
-        {
-          name: 'placeId',
-          type: 'text',
-          label: getLabelTranslations('gmapsPlaceId'),
-        },
-      ],
-    },
-    {
       name: 'categories',
       type: 'relationship',
       label: getLabelTranslations('categories'),

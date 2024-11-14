@@ -193,6 +193,8 @@ const translations = {
         color: 'Color',
         icon: 'Icon',
         font_awesome: 'Font Awesome',
+        sectors: 'Sectors',
+        shortName: 'Name (short)',
       },
       collections: {
         recipes_one: 'Recipe',
@@ -437,6 +439,8 @@ const translations = {
         color: 'Couleur',
         icon: 'Icône',
         font_awesome: 'Font Awesome',
+        sectors: 'Secteurs',
+        shortName: 'Nom (court)',
       },
       collections: {
         recipes_one: 'Recette',

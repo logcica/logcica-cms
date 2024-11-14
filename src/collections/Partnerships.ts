@@ -5,6 +5,7 @@ import { getCollectionLabelsTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import uploadImagesField from '../fields/imageField'
+import shortNameField from '../fields/shortNameField'
 
 const Partnerships: CollectionConfig = {
   slug: 'partnerships',
@@ -12,13 +13,16 @@ const Partnerships: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     group: 'Structure',
-    defaultColumns: ['name', 'area', 'categories', 'contacts', 'profiles'],
+    defaultColumns: ['name', 'area', 'sectors', 'categories', 'contacts', 'profiles'],
   },
   access: {
     read: canManageOrContribute({ placeInProperty: 'area' }),
   },
   fields: [
-    nameField,
+    {
+      type: 'row',
+      fields: [nameField, shortNameField],
+    },
     {
       type: 'row',
       fields: [
@@ -43,6 +47,13 @@ const Partnerships: CollectionConfig = {
       relationTo: 'profiles',
       hasMany: true,
       nameSingular: 'profile',
+    }),
+    ...logcicaRelationshipField({
+      name: 'sectors',
+      nameSingular: 'sector',
+      relationTo: 'sectors',
+      hasMany: true,
+      position: 'sidebar',
     }),
     ...categoriesField,
     ...uploadImagesField,

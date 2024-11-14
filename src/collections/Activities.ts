@@ -30,6 +30,13 @@ const Activities: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    ...logcicaRelationshipField({
+      name: 'sectors',
+      nameSingular: 'sector',
+      relationTo: 'sectors',
+      hasMany: true,
+      position: 'sidebar',
+    }),
     {
       type: 'row',
       fields: [
