@@ -30,6 +30,13 @@ const Counters: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    ...logcicaRelationshipField({
+      name: 'sectors',
+      nameSingular: 'sector',
+      relationTo: 'sectors',
+      hasMany: true,
+      position: 'sidebar',
+    }),
     {
       type: 'row',
       fields: [
@@ -87,7 +94,6 @@ const Counters: CollectionConfig = {
     ...logcicaRelationshipField({
       name: 'contacts',
       relationTo: 'contacts',
-      position: 'sidebar',
       hasMany: true,
       nameSingular: 'contact',
     }),

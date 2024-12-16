@@ -9,7 +9,7 @@ const Sectors: CollectionConfig = {
   labels: getCollectionLabelsTranslations('sectors'),
   admin: {
     useAsTitle: 'name',
-    group: 'Configuration',
+    group: 'Structure',
     hidden: cannotConfigure,
     listSearchableFields: ['name', 'within.name'],
     defaultColumns: ['name', 'within'],
