@@ -33,6 +33,11 @@ const Partnerships: CollectionConfig = {
         ...logcicaRelationshipField({
           name: 'area',
           relationTo: 'places',
+          filterOptions: () => {
+            return {
+              type: { in: ['region', 'country', 'province'] },
+            }
+          },
         }),
       ],
     },
