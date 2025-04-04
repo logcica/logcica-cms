@@ -11,8 +11,8 @@ Create a .env (see .env.local.example)
 then
 
 ```
-npm install
-npm run start
+pnpm install
+pnpm run start
 ```
 
 ## Deploying
