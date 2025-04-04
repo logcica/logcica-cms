@@ -1,9 +1,10 @@
+'use client'
 import React from 'react'
-import type { Props } from 'payload/components/views/Cell'
+import type { DefaultCellComponentProps } from 'payload'
 
 const baseClass = 'custom-cell'
 
-const BCELinkCell: React.FC<Props> = props => {
+export default function BCELinkCell(props: DefaultCellComponentProps) {
   const { cellData } = props
 
   if (!cellData) return <span></span>
@@ -20,5 +21,3 @@ const BCELinkCell: React.FC<Props> = props => {
     </span>
   )
 }
-
-export default BCELinkCell

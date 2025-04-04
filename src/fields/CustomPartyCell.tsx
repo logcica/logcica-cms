@@ -1,5 +1,6 @@
+'use client'
 import React, { useEffect, useState } from 'react'
-import type { Props } from 'payload/components/views/Cell'
+import type { DefaultCellComponentProps } from 'payload'
 import { Activity, Organisation, Partnership, Person } from '../payload-types'
 //import './index.scss' ?? how to make this work
 
@@ -12,8 +13,10 @@ export interface Party {
   person?: (string | null) | Person
 }
 
-const CustomPartyCell: React.FC<Props> = props => {
+export default function CustomPartyCell(props: DefaultCellComponentProps) {
   const cellData: Party = props.cellData
+
+  console.log(cellData)
 
   const [label, setLabel] = useState('')
 
@@ -39,7 +42,7 @@ const CustomPartyCell: React.FC<Props> = props => {
       url = `${process.env.PAYLOAD_PUBLIC_API}/activities/${cellData.activity as string}`
     }
 
-    fetch(url).then(async res => {
+    fetch(url).then(async (res) => {
       const response = await res.json()
       setLabel(response.title ?? response.name)
     })
@@ -47,5 +50,3 @@ const CustomPartyCell: React.FC<Props> = props => {
 
   return <span className={baseClass}>{label}</span>
 }
-
-export default CustomPartyCell

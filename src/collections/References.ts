@@ -1,10 +1,8 @@
-import type { CollectionConfig } from 'payload/types'
-import CustomLinkCell from '../fields/CustomLinkCell'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import partyField from '../fields/partyField'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const References: CollectionConfig = {
   slug: 'references',
@@ -29,10 +27,12 @@ const References: CollectionConfig = {
         nameField,
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'system',
+      label: getLabelTranslations('system'),
       relationTo: 'information_systems',
-    }),
+    },
     {
       name: 'tags',
       type: 'text',
@@ -60,11 +60,10 @@ const References: CollectionConfig = {
       label: getLabelTranslations('targetCollection'),
     },
     {
-      name: 'area',
       type: 'relationship',
+      name: 'area',
       label: getLabelTranslations('area'),
       relationTo: 'places',
-      hasMany: false,
     },
   ],
 }

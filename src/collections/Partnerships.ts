@@ -1,9 +1,8 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
-import { getCollectionLabelsTranslations } from '../utilities/translate'
+import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import uploadImagesField from '../fields/imageField'
 import shortNameField from '../fields/shortNameField'
 
@@ -26,40 +25,49 @@ const Partnerships: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'place',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'area',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
           filterOptions: () => {
             return {
               type: { in: ['region', 'country', 'province'] },
             }
           },
-        }),
+        },
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'contacts',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
-      nameSingular: 'contact',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'profiles',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-      nameSingular: 'profile',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'sectors',
-      nameSingular: 'sector',
+      label: getLabelTranslations('sectors'),
       relationTo: 'sectors',
       hasMany: true,
-      position: 'sidebar',
-    }),
+      admin: {
+        position: 'sidebar',
+      },
+    },
     ...categoriesField,
     ...uploadImagesField,
   ],

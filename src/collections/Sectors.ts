@@ -1,8 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Sectors: CollectionConfig = {
   slug: 'sectors',
@@ -19,12 +18,13 @@ const Sectors: CollectionConfig = {
   },
   fields: [
     nameField,
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'within',
-      nameSingular: 'within',
+      label: getLabelTranslations('within'),
       relationTo: 'sectors',
       hasMany: true,
-    }),
+    },
   ],
 }
 

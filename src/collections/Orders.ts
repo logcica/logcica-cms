@@ -1,10 +1,9 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import categoriesField from '../fields/CategoriesField'
 import { canManage } from './canRead'
 import partyField from '../fields/partyField'
 import numberField from '../fields/numberField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Orders: CollectionConfig = {
   slug: 'orders',
@@ -34,14 +33,18 @@ const Orders: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'counter',
+          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'session',
+          label: getLabelTranslations('session'),
           relationTo: 'sessions',
-        }),
+        },
       ],
     },
     {

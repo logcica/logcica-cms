@@ -1,10 +1,10 @@
+'use client'
 import React from 'react'
-import type { Props } from 'payload/components/views/Cell'
-//import './index.scss' ?? how to make this work
+import { DefaultCellComponentProps } from 'payload'
 
 const baseClass = 'custom-cell'
 
-const CustomLinkCell: React.FC<Props> = props => {
+export default function CustomLinkCell(props: DefaultCellComponentProps) {
   const { cellData } = props
 
   return (
@@ -15,5 +15,3 @@ const CustomLinkCell: React.FC<Props> = props => {
     </span>
   )
 }
-
-export default CustomLinkCell

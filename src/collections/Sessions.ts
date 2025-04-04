@@ -1,11 +1,10 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import categoriesField from '../fields/CategoriesField'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import descriptionField from '../fields/descriptionField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import uploadImagesField from '../fields/imageField'
 
 const Sessions: CollectionConfig = {
@@ -21,11 +20,15 @@ const Sessions: CollectionConfig = {
   },
   fields: [
     nameField,
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'parent',
+      label: getLabelTranslations('parent'),
       relationTo: 'sessions',
-      position: 'sidebar',
-    }),
+      admin: {
+        position: 'sidebar',
+      },
+    },
     {
       name: 'timeRange',
       type: 'group',
@@ -68,31 +71,38 @@ const Sessions: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'place',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'catalog',
+          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-        }),
+        },
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'profiles',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-      nameSingular: 'profile',
-    }),
+    },
     {
       name: 'subject',
       type: 'group',
       label: getLabelTranslations('subject'),
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'counter',
+          label: getLabelTranslations('counter'),
           relationTo: 'counters',
-        }),
+        },
       ],
     },
     ...uploadImagesField,

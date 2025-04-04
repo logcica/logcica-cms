@@ -1,10 +1,8 @@
-import type { CollectionConfig } from 'payload/types'
-import CustomLinkCell from '../fields/CustomLinkCell'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import categoriesField from '../fields/CategoriesField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const KnowledgeElements: CollectionConfig = {
   slug: 'knowledge_element',
@@ -35,21 +33,25 @@ const KnowledgeElements: CollectionConfig = {
       label: getLabelTranslations('link'),
       admin: {
         components: {
-          Cell: CustomLinkCell,
+          Cell: 'src/fields/CustomLinkCell',
         },
       },
     },
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'base',
+          label: getLabelTranslations('base'),
           relationTo: 'knowledge_bases',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'area',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
-        }),
+        },
       ],
     },
     ...categoriesField,

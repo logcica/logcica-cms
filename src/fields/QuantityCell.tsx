@@ -1,11 +1,11 @@
 import React from 'react'
-import type { Props } from 'payload/components/views/Cell'
 import { Quantity } from '../payload-types'
+import { DefaultCellComponentProps } from 'payload'
 //import './index.scss' ?? how to make this work
 
 const baseClass = 'custom-cell'
 
-const QuantityCell: React.FC<Props> = props => {
+export default function QuantityCell(props: DefaultCellComponentProps) {
   const { cellData } = props
 
   return (
@@ -14,5 +14,3 @@ const QuantityCell: React.FC<Props> = props => {
     </span>
   )
 }
-
-export default QuantityCell

@@ -1,9 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
-import { anyone } from '../access/anyone'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import { Classification, InformationSystem } from 'payload/generated-types'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
+import { InformationSystem } from '@/payload-types'
 
 const Categories: CollectionConfig = {
   slug: 'categories',
@@ -16,7 +14,6 @@ const Categories: CollectionConfig = {
   },
   access: {
     read: () => true,
-    update: anyone,
   },
   fields: [
     {
@@ -41,10 +38,12 @@ const Categories: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('subject'),
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'classification',
+      label: getLabelTranslations('classification'),
       relationTo: 'classifications',
-    }),
+    },
     {
       name: 'color',
       type: 'text',
@@ -70,7 +69,7 @@ const Categories: CollectionConfig = {
       },
       hooks: {
         afterRead: [
-          async ({ data, req }) => {
+          async ({ data, req }: any) => {
             if (!data.classification) return data.name
 
             const classification = await req.payload.findByID({

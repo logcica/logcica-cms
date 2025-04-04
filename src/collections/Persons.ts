@@ -1,7 +1,6 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import categoriesField from '../fields/CategoriesField'
-import { ComboField } from '@nouance/payload-better-fields-plugin'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 
 const Persons: CollectionConfig = {
@@ -35,13 +34,13 @@ const Persons: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ data }) => {
-            return [data.givenName, data.familyName].filter(n => n).join(' ')
+          ({ data }: any) => {
+            return [data.givenName, data.familyName].filter((n) => n).join(' ')
           },
         ],
         afterRead: [
-          ({ data }) => {
-            return data.name ?? [data.givenName, data.familyName].filter(n => n).join(' ')
+          ({ data }: any) => {
+            return data.name ?? [data.givenName, data.familyName].filter((n) => n).join(' ')
           },
         ],
       },

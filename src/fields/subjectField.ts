@@ -1,4 +1,4 @@
-import type { Field } from 'payload/types'
+import type { CollectionSlug, Field } from 'payload'
 import { useEffect, useState } from 'react'
 import deepMerge from '../utilities/deepMerge'
 import CustomPartyCell from './CustomPartyCell'
@@ -9,6 +9,11 @@ type SubjectType = (options?: {
   relations?: string[]
   overrides?: Record<string, unknown>
 }) => Field
+
+type SupportedRelations = {
+  singural: string
+  plural: string
+}
 
 const supportedRelations = [
   {
@@ -42,6 +47,9 @@ const supportedRelations = [
 ]
 
 const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {} } = {}) => {
+  if (!name) throw new Error('name is empty')
+  if (!relations) throw new Error('relations is empty')
+
   const partyResult: Field = {
     name: name,
     type: 'group',
@@ -50,12 +58,12 @@ const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {}
     fields: [
       {
         type: 'row',
-        fields: relations.map(r => {
+        fields: relations.map((r) => {
           const f: Field = {
-            name: supportedRelations.find(sr => sr.plural == r).singural,
+            name: supportedRelations.find((sr) => sr.plural == r)?.singural as CollectionSlug,
             type: 'relationship',
             label: getLabelTranslations(r),
-            relationTo: supportedRelations.find(sr => sr.plural == r).plural,
+            relationTo: supportedRelations.find((sr) => sr.plural == r)?.plural as CollectionSlug,
           }
           return f
         }),
@@ -63,7 +71,7 @@ const subjectField: SubjectType = ({ name = 'subject', relations, overrides = {}
     ],
     admin: {
       components: {
-        Cell: CustomPartyCell,
+        Cell: 'src/fields/CustomPartyCell',
       },
     },
   }

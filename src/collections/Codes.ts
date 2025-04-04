@@ -1,8 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Codes: CollectionConfig = {
   slug: 'codes',
@@ -19,6 +18,7 @@ const Codes: CollectionConfig = {
     {
       name: 'id',
       type: 'text',
+      required: true,
       label: getLabelTranslations('id'),
     },
     nameField,
@@ -42,10 +42,11 @@ const Codes: CollectionConfig = {
       type: 'checkbox',
       label: getLabelTranslations('skip'),
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'list',
       relationTo: 'code_lists',
-    }),
+    },
   ],
 }
 
