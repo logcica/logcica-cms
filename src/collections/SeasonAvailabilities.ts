@@ -1,5 +1,4 @@
-import type { CollectionConfig } from 'payload/types'
-import CustomImageCell from '../fields/CustomImageCell'
+import type { CollectionConfig } from 'payload'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 

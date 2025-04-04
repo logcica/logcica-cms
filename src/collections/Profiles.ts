@@ -1,5 +1,5 @@
 import { HTMLConverterFeature, lexicalEditor, lexicalHTML } from '@payloadcms/richtext-lexical'
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
@@ -47,8 +47,8 @@ const Profiles: CollectionConfig = {
           },
         ],
         afterRead: [
-          ({ data }) => {
-            const title = [data.key, data.name, data.link, data.id].filter(n => n)[0]
+          ({ data }: any) => {
+            const title = [data.key, data.name, data.link, data.id].filter((n) => n)[0]
             return title.replace(/(.{40})..+/, '$1…')
           },
         ],
@@ -66,7 +66,7 @@ const Profiles: CollectionConfig = {
       label: getLabelTranslations('link'),
       admin: {
         components: {
-          Cell: CustomLinkCell,
+          Cell: 'src/fields/CustomLinkCell',
         },
       },
     },

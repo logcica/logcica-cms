@@ -1,10 +1,13 @@
+/* TODO
+
+'use client'
 import React from 'react'
-import type { Props } from 'payload/components/views/Cell'
 import { GmapsPlace } from '../payload-types'
+import { DefaultCellComponentProps } from 'payload'
 
 const baseClass = 'custom-cell'
 
-const GmapsCell: React.FC<Props> = props => {
+export default function GmapsCell(props: DefaultCellComponentProps) {
   const { cellData, rowData } = props
 
   if (!cellData || !(cellData as GmapsPlace)) return <span></span>
@@ -27,5 +30,4 @@ const GmapsCell: React.FC<Props> = props => {
     </span>
   )
 }
-
-export default GmapsCell
+*/

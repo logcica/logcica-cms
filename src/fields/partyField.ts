@@ -1,8 +1,5 @@
-import type { Field } from 'payload/types'
-import deepMerge from '../utilities/deepMerge'
-import CustomPartyCell from './CustomPartyCell'
-import { Types } from 'mongoose'
-import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
+import type { CollectionSlug, Field } from 'payload'
+import { getLabelTranslations } from '../utilities/translate'
 
 type PartyType = (options?: {
   name?: string
@@ -11,7 +8,12 @@ type PartyType = (options?: {
   overrides?: Record<string, unknown>
 }) => Field[]
 
-const supportedRelations = [
+type SupportedRelations = {
+  singural: string
+  plural: string
+}
+
+const supportedRelations: SupportedRelations[] = [
   {
     singural: 'organisation',
     plural: 'organisations',
@@ -21,12 +23,12 @@ const supportedRelations = [
     plural: 'partnerships',
   },
   {
-    singural: 'workspace',
-    plural: 'workspaces',
-  },
-  {
     singural: 'activity',
     plural: 'activities',
+  },
+  {
+    singural: 'workspace',
+    plural: 'workspaces',
   },
   {
     singural: 'person',
@@ -38,27 +40,9 @@ const supportedRelations = [
   },
 ]
 
-export function newForeignKeyField(name: string, localName: string): Field {
-  const foreignKeyField: Field = {
-    name: name + capitalizeFirstLetter(localName) + 'Id',
-    type: 'richText',
-    hooks: {
-      beforeChange: [
-        ({ siblingData }) => {
-          if (!siblingData[name][localName]) return siblingData[name][localName]
-          return new Types.ObjectId(siblingData[name][localName])
-        },
-      ],
-    },
-    admin: {
-      hidden: true,
-    },
-  }
-
-  return foreignKeyField
-}
-
 const partyField: PartyType = ({ name, position, relations, overrides = {} } = {}) => {
+  if (!name) throw new Error('name is empty')
+  if (!relations) throw new Error('relations is empty')
   const partyResult: Field = {
     name: name,
     type: 'group',
@@ -67,16 +51,19 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     fields: [
       {
         type: 'row',
-        fields: relations.map(r => {
-          const localName = supportedRelations.find(sr => sr.plural == r).singural
+        fields: relations.map((r) => {
+          const localName = supportedRelations.find((sr) => sr.plural == r)?.singural
           /*const localName = getCollectionLabelsTranslations(r)*/
-          const relationTo = supportedRelations.find(sr => sr.plural == r).plural
+          const relationTo = supportedRelations.find((sr) => sr.plural == r)?.plural
+
+          if (!localName) throw new Error('localName is empty')
+          if (!relationTo) throw new Error('relationTo is empty')
 
           const relationshipField: Field = {
             name: localName,
             type: 'relationship',
             label: getLabelTranslations(localName),
-            relationTo: relationTo,
+            relationTo: relationTo as CollectionSlug,
           }
 
           return relationshipField
@@ -86,22 +73,15 @@ const partyField: PartyType = ({ name, position, relations, overrides = {} } = {
     admin: {
       position: position,
       components: {
-        Cell: CustomPartyCell,
+        Cell: 'src/fields/CustomPartyCell',
       },
     },
   }
 
-  const foreignKeys = relations.map(r => {
-    const localName = supportedRelations.find(sr => sr.plural == r).singural
-
-    const foreignKeyField = newForeignKeyField(name, localName)
-    return deepMerge(foreignKeyField, overrides)
-  })
-
-  return [deepMerge(partyResult, overrides), ...foreignKeys]
+  return [partyResult]
 }
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 

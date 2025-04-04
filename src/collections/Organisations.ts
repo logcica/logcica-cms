@@ -1,9 +1,6 @@
-import type { CollectionConfig } from 'payload/types'
-import CustomImageCell from '../fields/CustomImageCell'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
-import BCELinkCell from '../fields/BCELinkCell'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 
@@ -29,7 +26,7 @@ const Organisations: CollectionConfig = {
           label: getLabelTranslations('number'),
           admin: {
             components: {
-              Cell: BCELinkCell,
+              Cell: 'src/fields/BCELinkCell',
             },
           },
         },
@@ -62,20 +59,28 @@ const Organisations: CollectionConfig = {
       type: 'date',
       label: getLabelTranslations('registeredAt'),
     },
-    ...logcicaRelationshipField({
-      name: 'mainActivity',
-      relationTo: 'activities',
-      position: 'sidebar',
-    }),
-    ...partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
-    ...logcicaRelationshipField({
-      name: 'place',
-      relationTo: 'places',
-      position: 'sidebar',
-    }),
     {
-      name: 'workspaces',
       type: 'relationship',
+      name: 'mainActivity',
+      label: getLabelTranslations('mainActivity'),
+      relationTo: 'activities',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    ...partyField({ name: 'owner', position: 'sidebar', relations: ['partnerships', 'persons'] }),
+    {
+      type: 'relationship',
+      name: 'place',
+      label: getLabelTranslations('place'),
+      relationTo: 'places',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      type: 'relationship',
+      name: 'workspaces',
       label: getLabelTranslations('workspaces'),
       relationTo: 'workspaces',
       hasMany: true,
@@ -87,7 +92,7 @@ const Organisations: CollectionConfig = {
       interfaceName: 'Image',
       admin: {
         components: {
-          Cell: CustomImageCell,
+          Cell: 'src/fields/CustomImageCell',
         },
       },
       fields: [

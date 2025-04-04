@@ -1,8 +1,6 @@
-import type { CollectionConfig } from 'payload/types'
-import GmapsCell from '../fields/GmapsCell'
+import type { CollectionConfig } from 'payload'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Places: CollectionConfig = {
   slug: 'places',
@@ -74,9 +72,10 @@ const Places: CollectionConfig = {
       type: 'point',
       label: getLabelTranslations('center'),
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'within',
-      nameSingular: 'within',
+      label: getLabelTranslations('within'),
       relationTo: 'places',
       hasMany: true,
       filterOptions: () => {
@@ -84,7 +83,7 @@ const Places: CollectionConfig = {
           type: { in: ['region', 'country', 'province'] },
         }
       },
-    }),
+    },
     {
       name: 'title',
       type: 'text',
@@ -95,18 +94,19 @@ const Places: CollectionConfig = {
       hooks: {
         afterRead: [
           ({ data }) => {
+            if (!data) return
             const address = data.address
 
             if (data.type && data.type != 'address') return data.name
 
             const localityParts = [address?.postalCode, address?.locality ?? address?.municipality]
-            const list = [address?.street, localityParts.filter(n => n).join(' ')]
+            const list = [address?.street, localityParts.filter((n) => n).join(' ')]
 
             if (!address?.street) list.unshift(data.name)
 
-            if (list.every(n => !n)) return data.center
+            if (list.every((n) => !n)) return data.center
 
-            return list.filter(n => n).join(', ')
+            return list.filter((n) => n).join(', ')
           },
         ],
       },
@@ -175,32 +175,6 @@ const Places: CollectionConfig = {
       name: 'description',
       type: 'text',
       label: getLabelTranslations('description'),
-    },
-    {
-      name: 'gmaps',
-      type: 'group',
-      label: getLabelTranslations('gmaps'),
-      interfaceName: 'GmapsPlace',
-      admin: {
-        components: {
-          Cell: GmapsCell,
-        },
-      },
-
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-          admin: {
-            hidden: true,
-          },
-        },
-        {
-          name: 'placeId',
-          type: 'text',
-          label: getLabelTranslations('gmapsPlaceId'),
-        },
-      ],
     },
     {
       name: 'categories',

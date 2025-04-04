@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
@@ -15,8 +14,6 @@ import nutrientListField from '../fields/nutrientListField'
 import allergenListField from '../fields/allergenListField'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
-import useEffectAsync from '../utilities/useEffectAsync'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Recipes: CollectionConfig = {
   slug: 'recipes',
@@ -38,25 +35,32 @@ const Recipes: CollectionConfig = {
       type: 'row',
       fields: [
         nameField,
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'area',
+          label: getLabelTranslations('area'),
           relationTo: 'places',
-          position: 'sidebar',
-        }),
+          admin: {
+            position: 'sidebar',
+          },
+        },
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'categories',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
-      position: 'sidebar',
+      admin: {
+        position: 'sidebar',
+      },
       hasMany: true,
-      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '668267f39f105cb961f55831' },
         }
       },
-    }),
+    },
     ...partyField({
       name: 'author',
       position: 'sidebar',
@@ -73,48 +77,56 @@ const Recipes: CollectionConfig = {
             placeholder: getPlaceholderTranslations('recipeYieldStatement'),
           },
         },
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'costCategory',
+          label: getLabelTranslations('costCategory'),
           relationTo: 'categories',
           filterOptions: () => {
             return {
               classification: { equals: '6682a6309f105cb961f55862' },
             }
           },
-        }),
+        },
       ],
     },
-
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'difficulty',
+          label: getLabelTranslations('difficulty'),
           relationTo: 'categories',
           filterOptions: () => {
             return {
               classification: { equals: '66828eed9f105cb961f55844' },
             }
           },
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'seasonality',
+          label: getLabelTranslations('seasonality'),
           relationTo: 'categories',
           filterOptions: () => {
             return {
               classification: { equals: '668279309f105cb961f5583c' },
             }
           },
-        }),
+        },
       ],
     },
+
     descriptionField({}),
-    ...logcicaRelationshipField({
+
+    {
+      type: 'relationship',
       name: 'profiles',
-      nameSingular: 'profile',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-    }),
+    },
     {
       type: 'row',
       fields: [
@@ -127,9 +139,10 @@ const Recipes: CollectionConfig = {
       name: 'ingredientList',
       type: 'array',
       label: getLabelTranslations('ingredientList'),
+      /* TODO
       admin: {
         components: {
-          RowLabel: ({ data, index, path }) => {
+          RowLabel: ({ data, index, path }: any) => {
             const [label, setLabel] = useState(`Ingrédient ${String(index).padStart(2, '0')}`)
 
             async function fetchUnit(id: string) {
@@ -151,7 +164,7 @@ const Recipes: CollectionConfig = {
               }
 
               if (data.quantity?.unit == null) {
-                setLabel([data.quantity?.value, data.name].filter(p => p != null).join(' '))
+                setLabel([data.quantity?.value, data.name].filter((p) => p != null).join(' '))
                 return
               }
 
@@ -163,7 +176,8 @@ const Recipes: CollectionConfig = {
             return label
           },
         },
-      },
+      },*/
+
       fields: [
         {
           type: 'row',
@@ -176,11 +190,13 @@ const Recipes: CollectionConfig = {
         },
       ],
     },
+
     descriptionField({
       name: 'stepStatement',
       fields: ['long'],
-      features: ['BoldText', 'OrderedList'],
+      features: ['BoldText', 'OrderedList', 'ItalicText', 'InlineToolbarFeature'],
     }),
+
     ...uploadImagesField,
     allergenListField,
     nutrientListField,

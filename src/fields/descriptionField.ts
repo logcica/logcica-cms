@@ -1,21 +1,18 @@
-import { createHeadlessEditor } from '@lexical/headless' // <= make sure this package is installed
-import { $convertFromMarkdownString, $convertToMarkdownString } from '@lexical/markdown'
 import {
-  BoldTextFeature,
-  convertLexicalToHTML,
-  defaultEditorConfig,
-  FeatureProvider,
-  getEnabledNodes,
-  ItalicTextFeature,
-  lexicalEditor,
+  BoldFeature,
+  ItalicFeature,
   OrderedListFeature,
-  sanitizeEditorConfig,
+  convertMarkdownToLexical,
+  InlineToolbarFeature,
+  convertLexicalToMarkdown,
+  DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
-import type { Field, FieldHook } from 'payload/types'
+import type { Field, SanitizedConfig } from 'payload'
+
+import { editorConfigFactory, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import deepMerge from '../utilities/deepMerge'
 import { getLabelTranslations } from '../utilities/translate'
-import DescriptionCell from './DescriptionCell'
 
 type DescriptionType = (options?: {
   name?: string
@@ -24,38 +21,22 @@ type DescriptionType = (options?: {
   overrides?: Record<string, unknown>
 }) => Field
 
-const features_dict = {
-  BoldText: BoldTextFeature(),
-  ItalicText: ItalicTextFeature(),
+const features_dict: Record<string, any> = {
+  BoldText: BoldFeature(),
+  ItalicText: ItalicFeature(),
   OrderedList: OrderedListFeature(),
+  InlineToolbarFeature: InlineToolbarFeature(),
 }
 
 const descriptionField: DescriptionType = ({
   name = 'description',
   fields = ['short', 'long'],
-  features = ['BoldText'],
+  features = ['BoldText', 'ItalicText', 'InlineToolbarFeature'],
   overrides = {},
 } = {}) => {
-  const selectedFeatures = features.map(feature => features_dict[feature])
+  const selectedFeatures = features.map((feature) => features_dict[feature])
 
-  const editorConfig = defaultEditorConfig // <= your editor config here
-  editorConfig.features.push(...selectedFeatures)
-
-  const beforeChange: FieldHook<any, any, any> = async ({ value }) => {
-    if (!value) return undefined
-
-    const markdown: string = markdownFromEditorState(editorConfig, value)
-
-    if (markdown == '') return null
-
-    return { markdown: markdown }
-  }
-
-  const afterRead: FieldHook<any, any, any> = async ({ value, findMany }) => {
-    if (findMany) return value
-
-    return markdownToEditorState(editorConfig, value?.markdown ?? '')
-  }
+  const config: SanitizedConfig = {} as SanitizedConfig
 
   const descriptionResult: Field = {
     type: 'group',
@@ -64,11 +45,11 @@ const descriptionField: DescriptionType = ({
     name: name,
     admin: {
       components: {
-        Cell: DescriptionCell,
+        Cell: 'src/fields/DescriptionCell',
       },
     },
     fields: fields.map(
-      f =>
+      (f) =>
         ({
           name: f,
           type: 'richText',
@@ -77,10 +58,34 @@ const descriptionField: DescriptionType = ({
             features: selectedFeatures,
           }),
           hooks: {
-            beforeChange: [beforeChange],
-            afterRead: [afterRead],
+            beforeChange: [
+              async ({ value }) => {
+                if (!value) return undefined
+                const markdown = convertLexicalToMarkdown({
+                  editorConfig: await editorConfigFactory.fromFeatures({
+                    config,
+                    features: selectedFeatures,
+                  }),
+                  data: value,
+                })
+
+                return { markdown: markdown }
+              },
+            ],
+            afterRead: [
+              async ({ value }) => {
+                if (!value?.markdown) return undefined
+                return convertMarkdownToLexical({
+                  editorConfig: await editorConfigFactory.fromFeatures({
+                    config,
+                    features: selectedFeatures,
+                  }),
+                  markdown: value.markdown,
+                })
+              },
+            ],
           },
-        } as Field),
+        }) as Field,
     ),
   }
 
@@ -88,39 +93,3 @@ const descriptionField: DescriptionType = ({
 }
 
 export default descriptionField
-
-function markdownToEditorState(editorConfig, markdown: string) {
-  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
-
-  const headlessEditor = createHeadlessEditor({
-    nodes: getEnabledNodes({
-      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-    }),
-  })
-
-  headlessEditor.update(
-    () => {
-      $convertFromMarkdownString(markdown, yourSanitizedEditorConfig.features.markdownTransformers)
-    },
-    { discrete: true },
-  )
-  return headlessEditor.getEditorState().toJSON()
-}
-
-function markdownFromEditorState(editorConfig, editorState: any) {
-  const yourSanitizedEditorConfig = sanitizeEditorConfig(editorConfig)
-
-  const headlessEditor = createHeadlessEditor({
-    nodes: getEnabledNodes({
-      editorConfig: sanitizeEditorConfig(defaultEditorConfig),
-    }),
-  })
-
-  headlessEditor.setEditorState(headlessEditor.parseEditorState(editorState)) // This should commit the editor state immediately
-
-  let markdown: string
-  headlessEditor.getEditorState().read(() => {
-    markdown = $convertToMarkdownString(yourSanitizedEditorConfig?.features?.markdownTransformers)
-  })
-  return markdown
-}

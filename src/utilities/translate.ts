@@ -1,4 +1,4 @@
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
@@ -9,15 +9,15 @@ function keyToDefaultTitle(key: string) {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function getLabelTranslations(key: string) {
   return {
-    en: translations.en.logcica.fields[key] ?? keyToDefaultTitle(key),
-    fr: translations.fr.logcica.fields[key] ?? keyToDefaultTitle(key),
+    en: (translations.en.logcica.fields as any)[key] ?? keyToDefaultTitle(key),
+    fr: (translations.fr.logcica.fields as any)[key] ?? keyToDefaultTitle(key),
   }
 }
 
 export function getPlaceholderTranslations(key: string) {
   return {
-    en: translations.en.logcica.placeholder[key] ?? key + ' placeholder',
-    fr: translations.fr.logcica.placeholder[key] ?? key + ' placeholder',
+    en: (translations.en.logcica.placeholder as any)[key] ?? key + ' placeholder',
+    fr: (translations.fr.logcica.placeholder as any)[key] ?? key + ' placeholder',
   }
 }
 
@@ -25,12 +25,12 @@ export function getPlaceholderTranslations(key: string) {
 export function getCollectionLabelsTranslations(collectionSlug: string) {
   return {
     singular: {
-      en: translations.en.logcica.collections[collectionSlug + '_one'] ?? collectionSlug,
-      fr: translations.fr.logcica.collections[collectionSlug + '_one'] ?? collectionSlug,
+      en: (translations.en.logcica.collections as any)[collectionSlug + '_one'] ?? collectionSlug,
+      fr: (translations.fr.logcica.collections as any)[collectionSlug + '_one'] ?? collectionSlug,
     },
     plural: {
-      en: translations.en.logcica.collections[collectionSlug + '_other'] ?? collectionSlug,
-      fr: translations.fr.logcica.collections[collectionSlug + '_other'] ?? collectionSlug,
+      en: (translations.en.logcica.collections as any)[collectionSlug + '_other'] ?? collectionSlug,
+      fr: (translations.fr.logcica.collections as any)[collectionSlug + '_other'] ?? collectionSlug,
     },
   }
 }
@@ -95,7 +95,7 @@ const translations = {
         catalog: 'catalog',
         availabilities: 'availabilities',
         link: 'link',
-        key: 'key',
+        key: 'Key',
         address: 'address',
         locality: 'locality',
         municipality: 'municipality',
@@ -190,6 +190,11 @@ const translations = {
         usageInstructions: 'Usage instructions',
         references: 'References',
         system: 'System',
+        color: 'Color',
+        icon: 'Icon',
+        font_awesome: 'Font Awesome',
+        sectors: 'Sectors',
+        shortName: 'Name (short)',
       },
       collections: {
         recipes_one: 'Recipe',
@@ -431,6 +436,11 @@ const translations = {
         usageInstructions: "Instructions d'utilisation",
         references: 'Références',
         system: 'Système',
+        color: 'Couleur',
+        icon: 'Icône',
+        font_awesome: 'Font Awesome',
+        sectors: 'Secteurs',
+        shortName: 'Nom (court)',
       },
       collections: {
         recipes_one: 'Recette',
@@ -501,8 +511,8 @@ const translations = {
         orders_other: 'Commandes',
         relationships_one: 'Relation',
         relationships_other: 'Relations',
-        sectors_one: 'Filière',
-        sectors_other: 'Filières',
+        sectors_one: 'Secteur',
+        sectors_other: 'Secteurs',
         subscriptions_one: 'Abonnement',
         subscriptions_other: 'Abonnements',
       },

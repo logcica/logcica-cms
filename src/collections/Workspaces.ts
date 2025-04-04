@@ -1,10 +1,8 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
-import BCEEstablishmentLinkCell from '../fields/BCEEstablishmentLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -27,7 +25,7 @@ const Workspaces: CollectionConfig = {
           label: getLabelTranslations('number'),
           admin: {
             components: {
-              Cell: BCEEstablishmentLinkCell,
+              Cell: 'src/fields/BCEEstablishmentLinkCell',
             },
           },
         },
@@ -39,18 +37,21 @@ const Workspaces: CollectionConfig = {
         },
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'categories',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
-      position: 'sidebar',
+      admin: {
+        position: 'sidebar',
+      },
       hasMany: true,
-      nameSingular: 'category',
       filterOptions: () => {
         return {
           classification: { equals: '663bad09a08a8050428fd1e8' },
         }
       },
-    }),
+    },
     ...partyField({
       name: 'manager',
       position: 'sidebar',
@@ -61,10 +62,12 @@ const Workspaces: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'place',
+      label: getLabelTranslations('place'),
       relationTo: 'places',
-    }),
+    },
   ],
 }
 

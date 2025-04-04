@@ -1,25 +1,26 @@
-import { Field } from 'payload/types'
-import logcicaRelationshipField from './logcicaRelationshipField'
+import { getLabelTranslations } from '../utilities/translate'
+import { Field } from 'payload'
 
 const imageField = [
-  ...logcicaRelationshipField({
+  {
     name: 'mainImage',
+    label: getLabelTranslations('mainImage'),
     type: 'upload',
     relationTo: 'media', // required
     filterOptions: {
       mimeType: { contains: 'image' },
     },
-  }),
-  ...logcicaRelationshipField({
+  },
+  {
     name: 'images',
-    nameSingular: 'image',
+    label: getLabelTranslations('images'),
     type: 'relationship',
     hasMany: true,
     relationTo: 'media', // required
     filterOptions: {
       mimeType: { contains: 'image' },
     },
-  }),
+  },
 ] as Field[]
 
 export default imageField

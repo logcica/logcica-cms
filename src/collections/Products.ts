@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 import allergenListField from '../fields/allergenListField'
 import categoriesField from '../fields/CategoriesField'
@@ -11,7 +11,6 @@ import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilit
 import { canManageOrContribute } from './canRead'
 import uploadImagesField from '../fields/imageField'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -51,12 +50,13 @@ const Products: CollectionConfig = {
         },
       ],
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'references',
-      nameSingular: 'reference',
+      label: getLabelTranslations('references'),
       relationTo: 'references',
       hasMany: true,
-    }),
+    },
     descriptionField({ fields: ['short'] }),
     descriptionField({ name: 'ingredientStatement', fields: ['short'] }),
     ...categoriesField,
@@ -77,12 +77,12 @@ const Products: CollectionConfig = {
       hasMany: true,
       relationTo: 'codes',
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'availabilities',
       relationTo: 'availabilities',
       hasMany: true,
-      nameSingular: 'availability',
-    }),
+    },
     quantityField({ name: 'netWeight' }),
     {
       name: 'dimensions',
@@ -91,9 +91,9 @@ const Products: CollectionConfig = {
       fields: [
         {
           type: 'collapsible',
-          label: data =>
+          label: (data: any) =>
             [data?.data?.length?.value, data?.data?.width?.value, data?.data?.height?.value]
-              .filter(d => d)
+              .filter((d) => d)
               .join(' x '),
           fields: [
             quantityField({ name: 'length' }),

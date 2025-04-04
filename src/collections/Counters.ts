@@ -1,12 +1,10 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import categoriesField from '../fields/CategoriesField'
-import CustomLinkCell from '../fields/CustomLinkCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import descriptionField from '../fields/descriptionField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import uploadImagesField from '../fields/imageField'
 
 const Counters: CollectionConfig = {
@@ -31,6 +29,16 @@ const Counters: CollectionConfig = {
       },
     },
     {
+      type: 'relationship',
+      name: 'sectors',
+      label: getLabelTranslations('sectors'),
+      relationTo: 'sectors',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       type: 'row',
       fields: [
         nameField,
@@ -44,34 +52,43 @@ const Counters: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'marketplace',
+          label: getLabelTranslations('marketplace'),
           relationTo: 'counters',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'workspaces',
+          label: getLabelTranslations('workspaces'),
           relationTo: 'workspaces',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'place',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
-        }),
+        },
       ],
     },
     descriptionField({ name: 'availabilityStatement', fields: ['short'] }),
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'catalog',
+          label: getLabelTranslations('catalog'),
           relationTo: 'catalogs',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'availabilities',
+          label: getLabelTranslations('availabilities'),
           relationTo: 'availabilities',
           hasMany: true,
-          nameSingular: 'availability',
-        }),
+        },
       ],
     },
     {
@@ -80,23 +97,24 @@ const Counters: CollectionConfig = {
       label: getLabelTranslations('link'),
       admin: {
         components: {
-          Cell: CustomLinkCell,
+          Cell: 'src/fields/CustomLinkCell',
         },
       },
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'contacts',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
-      position: 'sidebar',
       hasMany: true,
-      nameSingular: 'contact',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'profiles',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-      nameSingular: 'profile',
-    }),
+    },
     ...categoriesField,
     ...partyField({
       name: 'manager',

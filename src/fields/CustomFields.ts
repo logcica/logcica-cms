@@ -1,4 +1,4 @@
-import { Field, RelationshipField } from 'payload/types'
+import { Field, RelationshipField } from 'payload'
 import { getLabelTranslations } from '../utilities/translate'
 
 export const partyCommonFields: Field[] = [

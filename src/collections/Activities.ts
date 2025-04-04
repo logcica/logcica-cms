@@ -1,9 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
-import payload from 'payload'
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import uploadImagesField from '../fields/imageField'
@@ -31,6 +29,16 @@ const Activities: CollectionConfig = {
       },
     },
     {
+      type: 'relationship',
+      name: 'sectors',
+      label: getLabelTranslations('sectors'),
+      relationTo: 'sectors',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       type: 'row',
       fields: [
         nameField,
@@ -44,66 +52,76 @@ const Activities: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'mainWorkspace',
+          label: getLabelTranslations('mainWorkspace'),
           relationTo: 'workspaces',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'place',
+          label: getLabelTranslations('place'),
           relationTo: 'places',
-        }),
+        },
       ],
     },
+
     ...partyField({
       name: 'manager',
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'profiles',
+      label: getLabelTranslations('profiles'),
       relationTo: 'profiles',
       hasMany: true,
-      nameSingular: 'profile',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'contacts',
+      label: getLabelTranslations('contacts'),
       relationTo: 'contacts',
       hasMany: true,
-      nameSingular: 'contact',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'categories',
+      label: getLabelTranslations('categories'),
       relationTo: 'categories',
       hasMany: true,
-      nameSingular: 'category',
-    }),
+    },
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'productionCategories',
+          label: getLabelTranslations('productionCategories'),
           relationTo: 'categories',
           hasMany: true,
-          nameSingular: 'productionCategory',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'otherCategories',
+          label: getLabelTranslations('otherCategories'),
           relationTo: 'categories',
           hasMany: true,
-          nameSingular: 'otherCategory',
-        }),
+        },
       ],
     },
     descriptionField({}),
     ...uploadImagesField,
-    ...logcicaRelationshipField({
+    {
       name: 'mainVideo',
       type: 'upload',
       relationTo: 'media', // required
       filterOptions: {
         mimeType: { contains: 'video' },
       },
-    }),
+    },
   ],
 }
 

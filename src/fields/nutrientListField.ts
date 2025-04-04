@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Field } from 'payload/types'
+import type { Field } from 'payload'
 
 import { getLabelTranslations } from '../utilities/translate'
 
@@ -9,19 +9,7 @@ const nutrientListField: Field = {
   label: getLabelTranslations('nutrientList'),
   admin: {
     components: {
-      RowLabel: ({ data, index, path }) => {
-        const [label, setLabel] = useState(`Nutriment ${String(index).padStart(2, '0')}`)
-
-        useEffect(() => {
-          const url = `${process.env.PAYLOAD_PUBLIC_API}/codes/${data.nutrient}`
-          /*console.log(url)*/
-          fetch(url).then(async res => {
-            setLabel((await res.json()).name)
-          })
-        }, [data.name])
-
-        return label
-      },
+      RowLabel: 'src/fields/NutrientRowLabel',
     },
   },
   fields: [

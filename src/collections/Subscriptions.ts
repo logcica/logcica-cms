@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import categoriesField from '../fields/CategoriesField'
 import { canManage } from './canRead'
 import partyField from '../fields/partyField'

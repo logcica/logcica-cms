@@ -1,9 +1,8 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManage } from './canRead'
 import partyField from '../fields/partyField'
 import numberField from '../fields/numberField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Fulfilments: CollectionConfig = {
   slug: 'fulfilments',
@@ -21,12 +20,13 @@ const Fulfilments: CollectionConfig = {
       type: 'row',
       fields: [
         numberField,
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'orders',
+          label: getLabelTranslations('orders'),
           relationTo: 'orders',
           hasMany: true,
-          nameSingular: 'order',
-        }),
+        },
       ],
     },
     ...partyField({
@@ -37,14 +37,18 @@ const Fulfilments: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'workspace',
+          label: getLabelTranslations('workspace'),
           relationTo: 'workspaces',
-        }),
-        ...logcicaRelationshipField({
+        },
+        {
+          type: 'relationship',
           name: 'session',
+          label: getLabelTranslations('session'),
           relationTo: 'sessions',
-        }),
+        },
       ],
     },
     {
