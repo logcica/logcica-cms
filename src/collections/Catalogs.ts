@@ -1,10 +1,9 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import descriptionField from '../fields/descriptionField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import partyField from '../fields/partyField'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Catalogs: CollectionConfig = {
   slug: 'catalogs',
@@ -14,7 +13,7 @@ const Catalogs: CollectionConfig = {
     maxPerDoc: 10,
   },
   admin: {
-    useAsTitle: 'description.short.markdown',
+    useAsTitle: 'name',
     group: 'Gestion',
     defaultColumns: ['id', 'type', 'productCategories', 'description', 'name'],
   },
@@ -39,17 +38,22 @@ const Catalogs: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships', 'activities'],
     }),
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'area',
+      label: getLabelTranslations('area'),
       relationTo: 'places',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'productCategories',
+      label: getLabelTranslations('productCategories'),
       relationTo: 'categories',
-      position: 'sidebar',
+      admin: {
+        position: 'sidebar',
+      },
       hasMany: true,
-      nameSingular: 'productCategory',
-    }),
+    },
   ],
 }
 

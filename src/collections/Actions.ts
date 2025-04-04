@@ -1,4 +1,9 @@
-import type { CollectionConfig } from 'payload/types'
+import type {
+  CollectionConfig,
+  DefaultCellComponentProps,
+  DefaultServerCellComponentProps,
+  PayloadComponent,
+} from 'payload'
 import CustomLinkCell from '../fields/CustomLinkCell'
 import { canManage, canManageOrContribute } from './canRead'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
@@ -31,9 +36,10 @@ const Actions: CollectionConfig = {
       name: 'link',
       type: 'text',
       label: getLabelTranslations('link'),
+
       admin: {
         components: {
-          Cell: CustomLinkCell,
+          Cell: 'src/fields/CustomLinkCell',
         },
       },
     },

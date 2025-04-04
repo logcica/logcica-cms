@@ -1,5 +1,5 @@
-import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
-import type { CollectionConfig } from 'payload/types'
+// TODO import { SlugField, TelephoneField } from '@nouance/payload-better-fields-plugin'
+import type { CollectionConfig } from 'payload'
 import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
@@ -18,7 +18,7 @@ const Contacts: CollectionConfig = {
   },
   hooks: {
     beforeValidate: [
-      args => {
+      (args: any) => {
         const data = args.data
         if (data.type == 'person') data.name = undefined //[data.givenName, data.familyName].join(' ').trim()
         if (data.type == 'organisation') {
@@ -104,14 +104,15 @@ const Contacts: CollectionConfig = {
           },
         ],
         afterRead: [
-          ({ data }) => {
+          ({ data }: any) => {
             const list = [data.mainPhoneNumber, data.mainEmail]
-            if (list.every(n => !n)) return data.name ?? data.id
-            return list.filter(n => n).join(' | ')
+            if (list.every((n) => !n)) return data.name ?? data.id
+            return list.filter((n) => n).join(' | ')
           },
         ],
       },
     },
+    /* TODO
     ...TelephoneField(
       {
         name: 'mainPhoneNumber',
@@ -125,6 +126,7 @@ const Contacts: CollectionConfig = {
         defaultCountry: 'BE',
       },
     ),
+    */
     {
       name: 'mainEmail',
       type: 'email',

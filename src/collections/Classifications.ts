@@ -1,8 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { cannotConfigure } from './canRead'
 import nameField from '../fields/nameField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Classifications: CollectionConfig = {
   slug: 'classifications',
@@ -36,10 +35,12 @@ const Classifications: CollectionConfig = {
           type: 'text',
           label: getLabelTranslations('subject'),
         },
-        ...logcicaRelationshipField({
+        {
+          type: 'relationship',
           name: 'system',
+          label: getLabelTranslations('system'),
           relationTo: 'information_systems',
-        }),
+        },
       ],
     },
   ],

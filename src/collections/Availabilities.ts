@@ -1,8 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import CustomImageCell from '../fields/CustomImageCell'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 
 const Availabilities: CollectionConfig = {
   slug: 'availabilities',
@@ -23,14 +22,18 @@ const Availabilities: CollectionConfig = {
       label: getLabelTranslations('key'),
     },
     nameField,
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'season',
+      label: getLabelTranslations('season'),
       relationTo: 'season_availabilities',
-    }),
-    ...logcicaRelationshipField({
+    },
+    {
+      type: 'relationship',
       name: 'week',
+      label: getLabelTranslations('week'),
       relationTo: 'week_availabilities',
-    }),
+    },
   ],
 }
 

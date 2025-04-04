@@ -1,7 +1,5 @@
-import type { CollectionConfig, Field } from 'payload/types'
+import type { CollectionConfig, Field } from 'payload'
 
-import { admins } from '../../access/admins'
-import { anyone } from '../../access/anyone'
 import adminsAndUser from './access/adminsAndUser'
 import { checkRole } from './checkRole'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
@@ -89,17 +87,19 @@ const Users: CollectionConfig = {
     group: 'Admin',
     hidden: cannotConfigure,
   },
+  auth: {
+    useAPIKey: true,
+  },
   access: {
     read: adminsAndUser,
-    create: anyone,
+    create: adminsAndUser,
     update: adminsAndUser,
-    delete: admins,
-    admin: ({ req: { user } }) => checkRole(['admin', 'contributor'], user),
+    delete: adminsAndUser,
+    admin: ({ req: { user } }: any) => checkRole(['admin', 'contributor'], user),
   },
   hooks: {
     afterChange: [loginAfterCreate],
   },
-  auth: true,
   fields: [
     {
       name: 'name',
@@ -108,12 +108,13 @@ const Users: CollectionConfig = {
     {
       name: 'tenancyRoles',
       type: 'array',
+      /* TODO
       admin: {
         components: {
           RowLabel: ({ data, index, path }): string => {
-            const getTypeLabel = type => {
+            const getTypeLabel = (type) => {
               if (!type) return 'Role ' + index
-              return roleTypeOptions.find(o => o.value == type)?.label
+              return roleTypeOptions.find((o) => o.value == type)?.label
             }
 
             const [label, setLabel] = useState(getTypeLabel(data.type))
@@ -126,21 +127,21 @@ const Users: CollectionConfig = {
 
               if (data.tenancy.area) {
                 const url = `${process.env.PAYLOAD_PUBLIC_API}/places/${data?.tenancy?.area}`
-                fetch(url).then(async res => {
+                fetch(url).then(async (res) => {
                   setLabel(getTypeLabel(data.type) + ' -> ' + (await res.json()).name)
                 })
               }
 
               if (data.tenancy.sector) {
                 const url = `${process.env.PAYLOAD_PUBLIC_API}/sectors/${data?.tenancy?.sector}`
-                fetch(url).then(async res => {
+                fetch(url).then(async (res) => {
                   setLabel(getTypeLabel(data.type) + ' -> ' + (await res.json()).name)
                 })
               }
 
               if (data.tenancy.organisation) {
                 const url = `${process.env.PAYLOAD_PUBLIC_API}/organisations/${data?.tenancy?.organisation}`
-                fetch(url).then(async res => {
+                fetch(url).then(async (res) => {
                   setLabel(getTypeLabel(data.type) + ' -> ' + (await res.json()).name)
                 })
               }
@@ -150,6 +151,7 @@ const Users: CollectionConfig = {
           },
         },
       },
+      */
       fields: [
         {
           name: 'type',
@@ -186,11 +188,6 @@ const Users: CollectionConfig = {
       ],
       hooks: {
         beforeChange: [ensureFirstUserIsAdmin],
-      },
-      access: {
-        read: admins,
-        create: admins,
-        update: admins,
       },
     },
   ],

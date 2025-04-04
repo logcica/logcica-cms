@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 import allergenListField from '../fields/allergenListField'
 import categoriesField from '../fields/CategoriesField'
@@ -28,7 +28,6 @@ const ProductGroup: CollectionConfig = {
       label: getLabelTranslations('name'),
       required: true,
     },
-
     ...categoriesField,
     ...partyField({
       name: 'producer',
@@ -40,7 +39,6 @@ const ProductGroup: CollectionConfig = {
       position: 'sidebar',
       relations: ['organisations', 'partnerships'],
     }),
-
     allergenListField,
     {
       name: 'area',

@@ -16,16 +16,80 @@ export type Images =
       id?: string | null;
     }[]
   | null;
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
+  auth: {
+    users: UserAuthOperations;
+  };
+  blocks: {};
   collections: {
-    organisations: Organisation;
+    sectors: Sector;
     partnerships: Partnership;
-    workspaces: Workspace;
+    organisations: Organisation;
     activities: Activity;
+    workspaces: Workspace;
     counters: Counter;
     places: Place;
     persons: Person;
+    contributions: Contribution;
+    relationships: Relationship;
+    profiles: Profile;
+    contacts: Contact;
+    actions: Action;
     orders: Order;
     subscriptions: Subscription;
     fulfilments: Fulfilment;
@@ -39,11 +103,6 @@ export interface Config {
     availabilities: Availability;
     week_availabilities: WeekAvailability;
     season_availabilities: SeasonAvailability;
-    relationships: Relationship;
-    contributions: Contribution;
-    profiles: Profile;
-    contacts: Contact;
-    actions: Action;
     categories: Category;
     classifications: Classification;
     codes: Code;
@@ -55,11 +114,218 @@ export interface Config {
     information_systems: InformationSystem;
     references: Reference;
     users: User;
-    sectors: Sector;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
+  collectionsJoins: {};
+  collectionsSelect: {
+    sectors: SectorsSelect<false> | SectorsSelect<true>;
+    partnerships: PartnershipsSelect<false> | PartnershipsSelect<true>;
+    organisations: OrganisationsSelect<false> | OrganisationsSelect<true>;
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
+    workspaces: WorkspacesSelect<false> | WorkspacesSelect<true>;
+    counters: CountersSelect<false> | CountersSelect<true>;
+    places: PlacesSelect<false> | PlacesSelect<true>;
+    persons: PersonsSelect<false> | PersonsSelect<true>;
+    contributions: ContributionsSelect<false> | ContributionsSelect<true>;
+    relationships: RelationshipsSelect<false> | RelationshipsSelect<true>;
+    profiles: ProfilesSelect<false> | ProfilesSelect<true>;
+    contacts: ContactsSelect<false> | ContactsSelect<true>;
+    actions: ActionsSelect<false> | ActionsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
+    subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
+    fulfilments: FulfilmentsSelect<false> | FulfilmentsSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    product_groups: ProductGroupsSelect<false> | ProductGroupsSelect<true>;
+    recipes: RecipesSelect<false> | RecipesSelect<true>;
+    batches: BatchesSelect<false> | BatchesSelect<true>;
+    sessions: SessionsSelect<false> | SessionsSelect<true>;
+    catalogs: CatalogsSelect<false> | CatalogsSelect<true>;
+    catalog_items: CatalogItemsSelect<false> | CatalogItemsSelect<true>;
+    availabilities: AvailabilitiesSelect<false> | AvailabilitiesSelect<true>;
+    week_availabilities: WeekAvailabilitiesSelect<false> | WeekAvailabilitiesSelect<true>;
+    season_availabilities: SeasonAvailabilitiesSelect<false> | SeasonAvailabilitiesSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    classifications: ClassificationsSelect<false> | ClassificationsSelect<true>;
+    codes: CodesSelect<false> | CodesSelect<true>;
+    code_lists: CodeListsSelect<false> | CodeListsSelect<true>;
+    units: UnitsSelect<false> | UnitsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    knowledge_bases: KnowledgeBasesSelect<false> | KnowledgeBasesSelect<true>;
+    knowledge_element: KnowledgeElementSelect<false> | KnowledgeElementSelect<true>;
+    information_systems: InformationSystemsSelect<false> | InformationSystemsSelect<true>;
+    references: ReferencesSelect<false> | ReferencesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: string;
+  };
   globals: {};
+  globalsSelect: {};
+  locale: null;
+  user: User & {
+    collection: 'users';
+  };
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
+  };
+}
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sectors".
+ */
+export interface Sector {
+  id: string;
+  name?: string | null;
+  within?: (string | Sector)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnerships".
+ */
+export interface Partnership {
+  id: string;
+  name?: string | null;
+  shortName?: string | null;
+  place?: (string | null) | Place;
+  area?: (string | null) | Place;
+  contacts?: (string | Contact)[] | null;
+  profiles?: (string | Profile)[] | null;
+  sectors?: (string | Sector)[] | null;
+  categories?: (string | Category)[] | null;
+  mainImage?: (string | null) | Media;
+  images?: (string | Media)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "places".
+ */
+export interface Place {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: ('address' | 'locality' | 'municipality' | 'region' | 'country') | null;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  center?: [number, number] | null;
+  within?: (string | Place)[] | null;
+  title?: string | null;
+  address?: Address;
+  description?: string | null;
+  categories?: (string | Category)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Address".
+ */
+export interface Address {
+  street?: string | null;
+  postalCode?: string | null;
+  locality?: string | null;
+  municipality?: string | null;
+  country?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  subject?: string | null;
+  classification?: (string | null) | Classification;
+  color?: string | null;
+  icon?: {
+    fa?: string | null;
+  };
+  title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classifications".
+ */
+export interface Classification {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  subject?: string | null;
+  system?: (string | null) | InformationSystem;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information_systems".
+ */
+export interface InformationSystem {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: string;
+  type?: ('person' | 'organisation') | null;
+  givenName?: string | null;
+  familyName?: string | null;
+  name?: string | null;
+  title?: string | null;
+  mainEmail?: string | null;
+  holder?: Party;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Party".
+ */
+export interface Party {
+  organisation?: (string | null) | Organisation;
+  partnership?: (string | null) | Partnership;
+  person?: (string | null) | Person;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -72,56 +338,8 @@ export interface Organisation {
   legalFormShort?: string | null;
   legalForm?: (string | null) | Code;
   registeredAt?: string | null;
-  mainActivityId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   mainActivity?: (string | null) | Activity;
   owner?: Party;
-  ownerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ownerPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   place?: (string | null) | Place;
   workspaces?: (string | Workspace)[] | null;
   mainImage?: Image;
@@ -140,15 +358,6 @@ export interface Code {
   key?: string | null;
   rank?: number | null;
   skip?: boolean | null;
-  listId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   list?: (string | null) | CodeList;
   updatedAt: string;
   createdAt: string;
@@ -171,155 +380,20 @@ export interface CodeList {
 export interface Activity {
   id: string;
   isMain?: boolean | null;
+  sectors?: (string | Sector)[] | null;
   name?: string | null;
   internalName?: string | null;
-  mainWorkspaceId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   mainWorkspace?: (string | null) | Workspace;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   place?: (string | null) | Place;
   manager?: Party;
-  managerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  profileIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   profiles?: (string | Profile)[] | null;
-  contactIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   contacts?: (string | Contact)[] | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
-  productionCategoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   productionCategories?: (string | Category)[] | null;
-  otherCategoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   otherCategories?: (string | Category)[] | null;
-  description?: Description;
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  mainImage?: (string | null) | Media;
   images?: (string | Media)[] | null;
-  mainVideoId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainVideo?: string | Media | null;
+  mainVideo?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -332,389 +406,10 @@ export interface Workspace {
   number?: string | null;
   name?: string | null;
   internalName?: string | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   manager?: Party;
-  managerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   owner?: Party;
-  ownerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ownerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ownerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   place?: (string | null) | Place;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  subject?: string | null;
-  classificationId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  classification?: (string | null) | Classification;
-  title?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "classifications".
- */
-export interface Classification {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  subject?: string | null;
-  systemId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  system?: (string | null) | InformationSystem;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "information_systems".
- */
-export interface InformationSystem {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  type?: string | null;
-  link?: string | null;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  area?: (string | null) | Place;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "places".
- */
-export interface Place {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  type?: ('address' | 'locality' | 'municipality' | 'region' | 'country') | null;
-  /**
-   * @minItems 2
-   * @maxItems 2
-   */
-  center?: [number, number] | null;
-  withinIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  within?: (string | Place)[] | null;
-  title?: string | null;
-  address?: Address;
-  description?: string | null;
-  gmaps?: GmapsPlace;
-  categories?: (string | Category)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Address".
- */
-export interface Address {
-  street?: string | null;
-  postalCode?: string | null;
-  locality?: string | null;
-  municipality?: string | null;
-  country?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GmapsPlace".
- */
-export interface GmapsPlace {
-  id?: string | null;
-  placeId?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Party".
- */
-export interface Party {
-  organisation?: (string | null) | Organisation;
-  partnership?: (string | null) | Partnership;
-  person?: (string | null) | Person;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partnerships".
- */
-export interface Partnership {
-  id: string;
-  name?: string | null;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  place?: (string | null) | Place;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  area?: (string | null) | Place;
-  contactIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  contacts?: (string | Contact)[] | null;
-  profileIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  profiles?: (string | Profile)[] | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  categories?: (string | Category)[] | null;
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  images?: (string | Media)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contacts".
- */
-export interface Contact {
-  id: string;
-  type?: ('person' | 'organisation') | null;
-  givenName?: string | null;
-  familyName?: string | null;
-  name?: string | null;
-  title?: string | null;
-  mainPhoneNumber?: string | null;
-  mainEmail?: string | null;
-  holder?: Party;
-  holderOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  holderPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  holderActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -733,45 +428,8 @@ export interface Profile {
   informationSystem?: (string | null) | InformationSystem;
   subject?: Party;
   area?: (string | null) | Place;
-  description?: Description;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Description".
- */
-export interface Description {
-  short?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  long?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -780,66 +438,13 @@ export interface Description {
 export interface Media {
   id: string;
   alt?: string | null;
-  sourceId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   source?: (string | null) | KnowledgeElement;
   author?: Party;
-  authorPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  authorProfileId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  authorOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   license?: (string | null) | Code;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -857,35 +462,8 @@ export interface KnowledgeElement {
   name?: string | null;
   type?: string | null;
   link?: string | null;
-  baseId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   base?: (string | null) | KnowledgeBase;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   area?: (string | null) | Place;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -899,18 +477,16 @@ export interface KnowledgeBase {
   name?: string | null;
   type?: string | null;
   link?: string | null;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Image".
+ */
+export interface Image {
+  url?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -925,25 +501,9 @@ export interface Person {
   area?: (string | null) | Place;
   contacts?: (string | Contact)[] | null;
   profiles?: (string | Profile)[] | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image".
- */
-export interface Image {
-  url?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -952,155 +512,20 @@ export interface Image {
 export interface Counter {
   id: string;
   type?: string | null;
+  sectors?: (string | Sector)[] | null;
   name?: string | null;
   internalName?: string | null;
-  marketplaceId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   marketplace?: (string | null) | Counter;
-  workspacesId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   workspaces?: (string | null) | Workspace;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   place?: (string | null) | Place;
-  availabilityStatement?: Description;
-  catalogId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   catalog?: (string | null) | Catalog;
-  availabilityIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   availabilities?: (string | Availability)[] | null;
   link?: string | null;
-  contactIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   contacts?: (string | Contact)[] | null;
-  profileIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   profiles?: (string | Profile)[] | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   manager?: Party;
-  managerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  mainImage?: (string | null) | Media;
   images?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -1113,72 +538,8 @@ export interface Catalog {
   id: string;
   name?: string | null;
   type?: string | null;
-  description?: Description;
   seller?: Party;
-  sellerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  sellerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  sellerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   area?: (string | null) | Place;
-  productCategoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   productCategories?: (string | Category)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -1191,25 +552,7 @@ export interface Availability {
   id: string;
   key?: string | null;
   name?: string | null;
-  seasonId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   season?: (string | null) | SeasonAvailability;
-  weekId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   week?: (string | null) | WeekAvailability;
   updatedAt: string;
   createdAt: string;
@@ -1245,348 +588,27 @@ export interface WeekAvailability {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "orders".
+ * via the `definition` "contributions".
  */
-export interface Order {
+export interface Contribution {
   id: string;
-  number?: string | null;
-  seller?: Party;
-  sellerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  sellerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  sellerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  customer?: Party;
-  customerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  customerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  customerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  customerPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  categories?: (string | Category)[] | null;
-  broker?: Party;
-  brokerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  brokerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  brokerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  counterId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  counter?: (string | null) | Counter;
-  sessionId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  session?: (string | null) | Session;
-  lines?:
-    | {
-        product?: (string | null) | Product;
-        quantity?: {
-          value?: number | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  roles?: string[] | null;
+  contributor?: Party;
+  subject?: Subject;
+  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sessions".
+ * via the `definition` "Subject".
  */
-export interface Session {
-  id: string;
-  name?: string | null;
-  parentId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  parent?: (string | null) | Session;
-  timeRange?: {
-    from?: string | null;
-    to?: string | null;
-  };
-  description?: Description;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  categories?: (string | Category)[] | null;
-  manager?: Party;
-  managerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  managerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  place?: (string | null) | Place;
-  catalogId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  catalog?: (string | null) | Catalog;
-  profileIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  profiles?: (string | Profile)[] | null;
-  subject?: {
-    counterId?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-    counter?: (string | null) | Counter;
-  };
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  images?: (string | Media)[] | null;
-  updatedAt: string;
-  createdAt: string;
+export interface Subject {
+  organisation?: (string | null) | Organisation;
+  partnership?: (string | null) | Partnership;
+  activity?: (string | null) | Activity;
+  counter?: (string | null) | Counter;
+  product?: (string | null) | Product;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1596,115 +618,13 @@ export interface Product {
   id: string;
   name?: string | null;
   productGroup?: (string | null) | ProductGroup;
-  referenceIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   references?: (string | Reference)[] | null;
   description?: Description;
   ingredientStatement?: Description;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   producer?: Party;
-  producerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  producerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  producerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   owner?: Party;
-  ownerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ownerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   claims?: (string | Code)[] | null;
-  availabilityIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   availabilities?: (string | Availability)[] | null;
   netWeight?: Quantity;
   dimensions?: {
@@ -1713,25 +633,7 @@ export interface Product {
     height?: Quantity;
     volume?: Quantity;
   };
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  mainImage?: (string | null) | Media;
   images?: (string | Media)[] | null;
   allergenList?:
     | {
@@ -1750,8 +652,6 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
-  usageInstructions?: Description;
-  storageInstructions?: Description;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
@@ -1763,93 +663,9 @@ export interface Product {
 export interface ProductGroup {
   id: string;
   name: string;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   producer?: Party;
-  producerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  producerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  producerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   owner?: Party;
-  ownerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  ownerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   allergenList?:
     | {
         containmentLevel?: (string | null) | Code;
@@ -1869,69 +685,36 @@ export interface Reference {
   id: string;
   number?: string | null;
   name?: string | null;
-  systemId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   system?: (string | null) | InformationSystem;
   tags?: string[] | null;
   target?: string | null;
   holder?: Party;
-  holderOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  holderPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  holderPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   targetType?: string | null;
   targetCollection?: string | null;
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Description".
+ */
+export interface Description {
+  short?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1955,6 +738,84 @@ export interface Unit {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "relationships".
+ */
+export interface Relationship {
+  id: string;
+  name?: string | null;
+  type?: string | null;
+  contacts?: (string | Contact)[] | null;
+  holder?: Party;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actions".
+ */
+export interface Action {
+  id: string;
+  key?: string | null;
+  name?: string | null;
+  type?: string | null;
+  link?: string | null;
+  subject?: Party;
+  area?: (string | null) | Place;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: string;
+  number?: string | null;
+  seller?: Party;
+  customer?: Party;
+  categories?: (string | Category)[] | null;
+  broker?: Party;
+  counter?: (string | null) | Counter;
+  session?: (string | null) | Session;
+  lines?:
+    | {
+        product?: (string | null) | Product;
+        quantity?: {
+          value?: number | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: string;
+  name?: string | null;
+  parent?: (string | null) | Session;
+  timeRange?: {
+    from?: string | null;
+    to?: string | null;
+  };
+  categories?: (string | Category)[] | null;
+  manager?: Party;
+  place?: (string | null) | Place;
+  catalog?: (string | null) | Catalog;
+  profiles?: (string | Profile)[] | null;
+  subject?: {
+    counter?: (string | null) | Counter;
+  };
+  mainImage?: (string | null) | Media;
+  images?: (string | Media)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscriptions".
  */
 export interface Subscription {
@@ -1969,157 +830,13 @@ export interface Subscription {
     from?: string | null;
     to?: string | null;
   };
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   provider?: Party;
-  providerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  providerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  providerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   subscriber?: Party;
-  subscriberOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subscriberPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subscriberActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   counter?: (string | null) | Counter;
   session?: (string | null) | Session;
   note?: string | null;
   broker?: Party;
-  brokerOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  brokerPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  brokerActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   lines?:
     | {
         product?: (string | null) | Product;
@@ -2139,81 +856,9 @@ export interface Subscription {
 export interface Fulfilment {
   id: string;
   number?: string | null;
-  orderIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   orders?: (string | Order)[] | null;
   operator?: Party;
-  operatorOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  operatorPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  operatorActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  workspaceId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   workspace?: (string | null) | Workspace;
-  sessionId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   session?: (string | null) | Session;
   lines?:
     | {
@@ -2236,70 +881,7 @@ export interface Batch {
   id: string;
   number?: string | null;
   operator?: Party;
-  operatorOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  operatorPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  operatorActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  workspaceId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   workspace?: (string | null) | Workspace;
-  sessionId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   session?: (string | null) | Session;
   updatedAt: string;
   createdAt: string;
@@ -2311,113 +893,13 @@ export interface Batch {
 export interface Recipe {
   id: string;
   name?: string | null;
-  areaId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   area?: (string | null) | Place;
-  categoryIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   categories?: (string | Category)[] | null;
   author?: Party;
-  authorOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  authorPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  authorPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   yieldStatement?: string | null;
-  costCategoryId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   costCategory?: (string | null) | Category;
-  difficultyId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   difficulty?: (string | null) | Category;
-  seasonalityId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   seasonality?: (string | null) | Category;
-  description?: Description;
-  profileIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   profiles?: (string | Profile)[] | null;
   cookTime?: number | null;
   prepTime?: number | null;
@@ -2430,26 +912,7 @@ export interface Recipe {
         id?: string | null;
       }[]
     | null;
-  stepStatement?: Description;
-  mainImageId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  mainImage?: string | Media | null;
-  imageIds?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  mainImage?: (string | null) | Media;
   images?: (string | Media)[] | null;
   allergenList?:
     | {
@@ -2478,139 +941,8 @@ export interface Recipe {
 export interface CatalogItem {
   id: string;
   name?: string | null;
-  catalogId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   catalog?: (string | null) | Catalog;
-  productId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
   product?: (string | null) | Product;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "relationships".
- */
-export interface Relationship {
-  id: string;
-  name?: string | null;
-  type?: string | null;
-  contacts?: (string | Contact)[] | null;
-  holder?: Party;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contributions".
- */
-export interface Contribution {
-  id: string;
-  roles?: string[] | null;
-  contributor?: Party;
-  contributorOrganisationId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  contributorPartnershipId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  contributorActivityId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  contributorPersonId?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subject?: Subject;
-  area?: (string | null) | Place;
-  description?: Description;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Subject".
- */
-export interface Subject {
-  organisation?: (string | null) | Organisation;
-  partnership?: (string | null) | Partnership;
-  activity?: (string | null) | Activity;
-  counter?: (string | null) | Counter;
-  product?: (string | null) | Product;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actions".
- */
-export interface Action {
-  id: string;
-  key?: string | null;
-  name?: string | null;
-  type?: string | null;
-  link?: string | null;
-  subject?: Party;
-  area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
 }
@@ -2644,25 +976,168 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  password: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sectors".
+ * via the `definition` "payload-locked-documents".
  */
-export interface Sector {
+export interface PayloadLockedDocument {
   id: string;
-  name?: string | null;
-  placeId?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  place?: (string | null) | Place;
+  document?:
+    | ({
+        relationTo: 'sectors';
+        value: string | Sector;
+      } | null)
+    | ({
+        relationTo: 'partnerships';
+        value: string | Partnership;
+      } | null)
+    | ({
+        relationTo: 'organisations';
+        value: string | Organisation;
+      } | null)
+    | ({
+        relationTo: 'activities';
+        value: string | Activity;
+      } | null)
+    | ({
+        relationTo: 'workspaces';
+        value: string | Workspace;
+      } | null)
+    | ({
+        relationTo: 'counters';
+        value: string | Counter;
+      } | null)
+    | ({
+        relationTo: 'places';
+        value: string | Place;
+      } | null)
+    | ({
+        relationTo: 'persons';
+        value: string | Person;
+      } | null)
+    | ({
+        relationTo: 'contributions';
+        value: string | Contribution;
+      } | null)
+    | ({
+        relationTo: 'relationships';
+        value: string | Relationship;
+      } | null)
+    | ({
+        relationTo: 'profiles';
+        value: string | Profile;
+      } | null)
+    | ({
+        relationTo: 'contacts';
+        value: string | Contact;
+      } | null)
+    | ({
+        relationTo: 'actions';
+        value: string | Action;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: string | Order;
+      } | null)
+    | ({
+        relationTo: 'subscriptions';
+        value: string | Subscription;
+      } | null)
+    | ({
+        relationTo: 'fulfilments';
+        value: string | Fulfilment;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'product_groups';
+        value: string | ProductGroup;
+      } | null)
+    | ({
+        relationTo: 'recipes';
+        value: string | Recipe;
+      } | null)
+    | ({
+        relationTo: 'batches';
+        value: string | Batch;
+      } | null)
+    | ({
+        relationTo: 'sessions';
+        value: string | Session;
+      } | null)
+    | ({
+        relationTo: 'catalogs';
+        value: string | Catalog;
+      } | null)
+    | ({
+        relationTo: 'catalog_items';
+        value: string | CatalogItem;
+      } | null)
+    | ({
+        relationTo: 'availabilities';
+        value: string | Availability;
+      } | null)
+    | ({
+        relationTo: 'week_availabilities';
+        value: string | WeekAvailability;
+      } | null)
+    | ({
+        relationTo: 'season_availabilities';
+        value: string | SeasonAvailability;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'classifications';
+        value: string | Classification;
+      } | null)
+    | ({
+        relationTo: 'codes';
+        value: string | Code;
+      } | null)
+    | ({
+        relationTo: 'code_lists';
+        value: string | CodeList;
+      } | null)
+    | ({
+        relationTo: 'units';
+        value: string | Unit;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'knowledge_bases';
+        value: string | KnowledgeBase;
+      } | null)
+    | ({
+        relationTo: 'knowledge_element';
+        value: string | KnowledgeElement;
+      } | null)
+    | ({
+        relationTo: 'information_systems';
+        value: string | InformationSystem;
+      } | null)
+    | ({
+        relationTo: 'references';
+        value: string | Reference;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -2699,4 +1174,815 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sectors_select".
+ */
+export interface SectorsSelect<T extends boolean = true> {
+  name?: T;
+  within?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnerships_select".
+ */
+export interface PartnershipsSelect<T extends boolean = true> {
+  name?: T;
+  shortName?: T;
+  place?: T;
+  area?: T;
+  contacts?: T;
+  profiles?: T;
+  sectors?: T;
+  categories?: T;
+  mainImage?: T;
+  images?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "organisations_select".
+ */
+export interface OrganisationsSelect<T extends boolean = true> {
+  number?: T;
+  name?: T;
+  legalFormShort?: T;
+  legalForm?: T;
+  registeredAt?: T;
+  mainActivity?: T;
+  owner?: T | PartySelect<T>;
+  place?: T;
+  workspaces?: T;
+  mainImage?: T | ImageSelect<T>;
+  images?: T | ImagesSelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Party_select".
+ */
+export interface PartySelect<T extends boolean = true> {
+  organisation?: T;
+  partnership?: T;
+  person?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Image_select".
+ */
+export interface ImageSelect<T extends boolean = true> {
+  url?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Images_select".
+ */
+export interface ImagesSelect<T extends boolean = true> {
+  url?: T;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities_select".
+ */
+export interface ActivitiesSelect<T extends boolean = true> {
+  isMain?: T;
+  sectors?: T;
+  name?: T;
+  internalName?: T;
+  mainWorkspace?: T;
+  place?: T;
+  manager?: T | PartySelect<T>;
+  profiles?: T;
+  contacts?: T;
+  categories?: T;
+  productionCategories?: T;
+  otherCategories?: T;
+  mainImage?: T;
+  images?: T;
+  mainVideo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workspaces_select".
+ */
+export interface WorkspacesSelect<T extends boolean = true> {
+  number?: T;
+  name?: T;
+  internalName?: T;
+  categories?: T;
+  manager?: T | PartySelect<T>;
+  owner?: T | PartySelect<T>;
+  place?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "counters_select".
+ */
+export interface CountersSelect<T extends boolean = true> {
+  type?: T;
+  sectors?: T;
+  name?: T;
+  internalName?: T;
+  marketplace?: T;
+  workspaces?: T;
+  place?: T;
+  catalog?: T;
+  availabilities?: T;
+  link?: T;
+  contacts?: T;
+  profiles?: T;
+  categories?: T;
+  manager?: T | PartySelect<T>;
+  mainImage?: T;
+  images?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "places_select".
+ */
+export interface PlacesSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  type?: T;
+  center?: T;
+  within?: T;
+  title?: T;
+  address?: T | AddressSelect<T>;
+  description?: T;
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Address_select".
+ */
+export interface AddressSelect<T extends boolean = true> {
+  street?: T;
+  postalCode?: T;
+  locality?: T;
+  municipality?: T;
+  country?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "persons_select".
+ */
+export interface PersonsSelect<T extends boolean = true> {
+  givenName?: T;
+  familyName?: T;
+  name?: T;
+  place?: T;
+  area?: T;
+  contacts?: T;
+  profiles?: T;
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributions_select".
+ */
+export interface ContributionsSelect<T extends boolean = true> {
+  roles?: T;
+  contributor?: T | PartySelect<T>;
+  subject?: T | SubjectSelect<T>;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Subject_select".
+ */
+export interface SubjectSelect<T extends boolean = true> {
+  organisation?: T;
+  partnership?: T;
+  activity?: T;
+  counter?: T;
+  product?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "relationships_select".
+ */
+export interface RelationshipsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  contacts?: T;
+  holder?: T | PartySelect<T>;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "profiles_select".
+ */
+export interface ProfilesSelect<T extends boolean = true> {
+  key?: T;
+  localKey?: T;
+  title?: T;
+  name?: T;
+  type?: T;
+  link?: T;
+  informationSystem?: T;
+  subject?: T | PartySelect<T>;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts_select".
+ */
+export interface ContactsSelect<T extends boolean = true> {
+  type?: T;
+  givenName?: T;
+  familyName?: T;
+  name?: T;
+  title?: T;
+  mainEmail?: T;
+  holder?: T | PartySelect<T>;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actions_select".
+ */
+export interface ActionsSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  type?: T;
+  link?: T;
+  subject?: T | PartySelect<T>;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  number?: T;
+  seller?: T | PartySelect<T>;
+  customer?: T | PartySelect<T>;
+  categories?: T;
+  broker?: T | PartySelect<T>;
+  counter?: T;
+  session?: T;
+  lines?:
+    | T
+    | {
+        product?: T;
+        quantity?:
+          | T
+          | {
+              value?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions_select".
+ */
+export interface SubscriptionsSelect<T extends boolean = true> {
+  number?: T;
+  status?: T;
+  frequency?:
+    | T
+    | {
+        type?: T;
+        interval?: T;
+      };
+  timeRange?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+      };
+  categories?: T;
+  provider?: T | PartySelect<T>;
+  subscriber?: T | PartySelect<T>;
+  counter?: T;
+  session?: T;
+  note?: T;
+  broker?: T | PartySelect<T>;
+  lines?:
+    | T
+    | {
+        product?: T;
+        quantity?:
+          | T
+          | {
+              value?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fulfilments_select".
+ */
+export interface FulfilmentsSelect<T extends boolean = true> {
+  number?: T;
+  orders?: T;
+  operator?: T | PartySelect<T>;
+  workspace?: T;
+  session?: T;
+  lines?:
+    | T
+    | {
+        product?: T;
+        batch?: T;
+        quantity?:
+          | T
+          | {
+              value?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  productGroup?: T;
+  references?: T;
+  description?: T | DescriptionSelect<T>;
+  ingredientStatement?: T | DescriptionSelect<T>;
+  categories?: T;
+  producer?: T | PartySelect<T>;
+  owner?: T | PartySelect<T>;
+  claims?: T;
+  availabilities?: T;
+  netWeight?: T | QuantitySelect<T>;
+  dimensions?:
+    | T
+    | {
+        length?: T | QuantitySelect<T>;
+        width?: T | QuantitySelect<T>;
+        height?: T | QuantitySelect<T>;
+        volume?: T | QuantitySelect<T>;
+      };
+  mainImage?: T;
+  images?: T;
+  allergenList?:
+    | T
+    | {
+        containmentLevel?: T;
+        allergen?: T;
+        id?: T;
+      };
+  nutrientList?:
+    | T
+    | {
+        nutrient?: T;
+        quantity?:
+          | T
+          | {
+              value?: T;
+              unit?: T;
+            };
+        id?: T;
+      };
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Description_select".
+ */
+export interface DescriptionSelect<T extends boolean = true> {
+  short?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Quantity_select".
+ */
+export interface QuantitySelect<T extends boolean = true> {
+  value?: T;
+  unit?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product_groups_select".
+ */
+export interface ProductGroupsSelect<T extends boolean = true> {
+  name?: T;
+  categories?: T;
+  producer?: T | PartySelect<T>;
+  owner?: T | PartySelect<T>;
+  allergenList?:
+    | T
+    | {
+        containmentLevel?: T;
+        allergen?: T;
+        id?: T;
+      };
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recipes_select".
+ */
+export interface RecipesSelect<T extends boolean = true> {
+  name?: T;
+  area?: T;
+  categories?: T;
+  author?: T | PartySelect<T>;
+  yieldStatement?: T;
+  costCategory?: T;
+  difficulty?: T;
+  seasonality?: T;
+  profiles?: T;
+  cookTime?: T;
+  prepTime?: T;
+  totalTime?: T;
+  ingredientList?:
+    | T
+    | {
+        name?: T;
+        quantity?: T | QuantitySelect<T>;
+        title?: T;
+        id?: T;
+      };
+  mainImage?: T;
+  images?: T;
+  allergenList?:
+    | T
+    | {
+        containmentLevel?: T;
+        allergen?: T;
+        id?: T;
+      };
+  nutrientList?:
+    | T
+    | {
+        nutrient?: T;
+        quantity?:
+          | T
+          | {
+              value?: T;
+              unit?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "batches_select".
+ */
+export interface BatchesSelect<T extends boolean = true> {
+  number?: T;
+  operator?: T | PartySelect<T>;
+  workspace?: T;
+  session?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions_select".
+ */
+export interface SessionsSelect<T extends boolean = true> {
+  name?: T;
+  parent?: T;
+  timeRange?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+      };
+  categories?: T;
+  manager?: T | PartySelect<T>;
+  place?: T;
+  catalog?: T;
+  profiles?: T;
+  subject?:
+    | T
+    | {
+        counter?: T;
+      };
+  mainImage?: T;
+  images?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalogs_select".
+ */
+export interface CatalogsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  seller?: T | PartySelect<T>;
+  area?: T;
+  productCategories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog_items_select".
+ */
+export interface CatalogItemsSelect<T extends boolean = true> {
+  name?: T;
+  catalog?: T;
+  product?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "availabilities_select".
+ */
+export interface AvailabilitiesSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  season?: T;
+  week?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "week_availabilities_select".
+ */
+export interface WeekAvailabilitiesSelect<T extends boolean = true> {
+  name?: T;
+  days?: T;
+  timeRange?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "season_availabilities_select".
+ */
+export interface SeasonAvailabilitiesSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  year?:
+    | T
+    | {
+        months?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  subject?: T;
+  classification?: T;
+  color?: T;
+  icon?:
+    | T
+    | {
+        fa?: T;
+      };
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classifications_select".
+ */
+export interface ClassificationsSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  subject?: T;
+  system?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "codes_select".
+ */
+export interface CodesSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  code?: T;
+  key?: T;
+  rank?: T;
+  skip?: T;
+  list?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "code_lists_select".
+ */
+export interface CodeListsSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units_select".
+ */
+export interface UnitsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  symbol?: T;
+  key?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  source?: T;
+  author?: T | PartySelect<T>;
+  license?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "knowledge_bases_select".
+ */
+export interface KnowledgeBasesSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  link?: T;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "knowledge_element_select".
+ */
+export interface KnowledgeElementSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  link?: T;
+  base?: T;
+  area?: T;
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "information_systems_select".
+ */
+export interface InformationSystemsSelect<T extends boolean = true> {
+  key?: T;
+  name?: T;
+  type?: T;
+  link?: T;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "references_select".
+ */
+export interface ReferencesSelect<T extends boolean = true> {
+  number?: T;
+  name?: T;
+  system?: T;
+  tags?: T;
+  target?: T;
+  holder?: T | PartySelect<T>;
+  targetType?: T;
+  targetCollection?: T;
+  area?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  tenancyRoles?:
+    | T
+    | {
+        type?: T;
+        tenancy?:
+          | T
+          | {
+              area?: T;
+              sector?: T;
+              organisation?: T;
+              partnership?: T;
+              activity?: T;
+            };
+        id?: T;
+      };
+  roles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
+}
+
+
+declare module 'payload' {
+  export interface GeneratedTypes extends Config {}
 }

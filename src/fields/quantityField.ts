@@ -1,12 +1,12 @@
-import type { Field } from 'payload/types'
+import type { Field } from 'payload'
 
 import deepMerge from '../utilities/deepMerge'
-import QuantityCell from './QuantityCell'
 import { getLabelTranslations } from '../utilities/translate'
 
 type QuantityType = (options?: { name?: string; overrides?: Record<string, unknown> }) => Field
 
 const quantityField: QuantityType = ({ name, overrides = {} } = {}) => {
+  if (!name) throw new Error('name is empty')
   const linkResult: Field = {
     name: name,
     type: 'group',
@@ -14,7 +14,7 @@ const quantityField: QuantityType = ({ name, overrides = {} } = {}) => {
     interfaceName: 'Quantity',
     admin: {
       components: {
-        Cell: QuantityCell,
+        Cell: 'src/fields/QuantityCell',
       },
     },
     fields: [

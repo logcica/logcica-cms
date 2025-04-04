@@ -1,7 +1,6 @@
 import path from 'path'
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from '../fields/logcicaRelationshipField'
 import partyField from '../fields/partyField'
 
 export const Media: CollectionConfig = {
@@ -12,7 +11,7 @@ export const Media: CollectionConfig = {
     defaultColumns: ['name', 'id', 'alt', 'updatedAt', 'createdAt'],
   },
   upload: {
-    staticDir: path.resolve(__dirname, '../../../media'),
+    staticDir: 'media', // TODO path.resolve(__dirname, '../../../media'),
   },
   access: {
     read: () => true,
@@ -23,10 +22,12 @@ export const Media: CollectionConfig = {
       type: 'text',
       label: getLabelTranslations('alt'),
     },
-    ...logcicaRelationshipField({
+    {
+      type: 'relationship',
       name: 'source',
+      label: getLabelTranslations('source'),
       relationTo: 'knowledge_element',
-    }),
+    },
     ...partyField({ name: 'author', relations: ['persons', 'profiles', 'organisations'] }),
     {
       name: 'license',

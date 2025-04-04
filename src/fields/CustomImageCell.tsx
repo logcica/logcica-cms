@@ -1,5 +1,6 @@
+'use client'
+import { DefaultCellComponentProps } from 'payload'
 import React from 'react'
-import type { Props } from 'payload/components/views/Cell'
 //import './index.scss' ?? how to make this work
 
 const baseClass = 'custom-cell'
@@ -8,7 +9,7 @@ type MyImage = {
   url: string
 }
 
-const CustomImageCell: React.FC<Props> = props => {
+export default function CustomImageCell(props: DefaultCellComponentProps) {
   const { cellData } = props
 
   return (
@@ -17,5 +18,3 @@ const CustomImageCell: React.FC<Props> = props => {
     </span>
   )
 }
-
-export default CustomImageCell

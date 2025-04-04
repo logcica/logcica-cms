@@ -1,13 +1,15 @@
-import { Field } from 'payload/types'
 import { getLabelTranslations } from '../utilities/translate'
-import logcicaRelationshipField from './logcicaRelationshipField'
+import { Field } from 'payload'
 
-const categoriesField: Field[] = logcicaRelationshipField({
-  name: 'categories',
-  relationTo: 'categories',
-  position: 'sidebar',
-  hasMany: true,
-  nameSingular: 'category',
-})
+const categoriesField: Field[] = [
+  {
+    type: 'relationship',
+    name: 'categories',
+    label: getLabelTranslations('categories'),
+    relationTo: 'categories',
+    // TODO position: 'sidebar',
+    hasMany: true,
+  },
+]
 
 export default categoriesField
