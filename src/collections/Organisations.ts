@@ -4,6 +4,7 @@ import partyField from '../fields/partyField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
 import ObjectID from 'bson-objectid'
+import uploadImagesField from '../fields/imageField'
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -86,36 +87,8 @@ const Organisations: CollectionConfig = {
       relationTo: 'workspaces',
       hasMany: true,
     },
-    {
-      name: 'mainImage',
-      label: getLabelTranslations('images'),
-      type: 'group',
-      interfaceName: 'Image',
-      admin: {
-        components: {
-          Cell: 'src/fields/CustomImageCell',
-        },
-      },
-      fields: [
-        {
-          name: 'url',
-          label: getLabelTranslations('url'),
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'images',
-      type: 'array',
-      label: getLabelTranslations('images'),
-      interfaceName: 'Images',
-      fields: [
-        {
-          name: 'url',
-          type: 'text',
-        },
-      ],
-    },
+
+    ...uploadImagesField,
   ],
 }
 
