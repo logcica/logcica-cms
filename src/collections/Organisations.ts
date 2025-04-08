@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import ObjectID from 'bson-objectid'
 
 const Organisations: CollectionConfig = {
   slug: 'organisations',
@@ -47,7 +48,7 @@ const Organisations: CollectionConfig = {
         },*/
           filterOptions: () => {
             return {
-              list: { equals: '6613b53f2c29cc450c474e3f' },
+              list: { equals: new ObjectID('6613b53f2c29cc450c474e3f').toHexString() },
               skip: { not_equals: true },
             }
           },

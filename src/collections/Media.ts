@@ -2,6 +2,7 @@ import path from 'path'
 import type { CollectionConfig } from 'payload'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import partyField from '../fields/partyField'
+import ObjectID from 'bson-objectid'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -37,7 +38,7 @@ export const Media: CollectionConfig = {
       hasMany: false,
       filterOptions: () => {
         return {
-          list: { equals: '66bf056a197a3ff36f0e1a88' },
+          list: { equals: new ObjectID('66bf056a197a3ff36f0e1a88').toHexString() },
         }
       },
     },

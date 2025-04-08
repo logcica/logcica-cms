@@ -3,6 +3,7 @@ import { canManageOrContribute } from './canRead'
 import partyField from '../fields/partyField'
 import { getCollectionLabelsTranslations, getLabelTranslations } from '../utilities/translate'
 import nameField from '../fields/nameField'
+import ObjectID from 'bson-objectid'
 
 const Workspaces: CollectionConfig = {
   slug: 'workspaces',
@@ -48,7 +49,7 @@ const Workspaces: CollectionConfig = {
       hasMany: true,
       filterOptions: () => {
         return {
-          classification: { equals: '663bad09a08a8050428fd1e8' },
+          classification: { equals: new ObjectID('663bad09a08a8050428fd1e8').toHexString()},
         }
       },
     },
