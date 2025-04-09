@@ -35,6 +35,9 @@ importers:
       '@payloadcms/ui':
         specifier: latest
         version: 3.32.0(@types/react@19.0.12)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.32.0(graphql@16.10.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
+      bson-objectid:
+        specifier: ^2.0.4
+        version: 2.0.4
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3

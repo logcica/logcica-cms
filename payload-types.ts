@@ -7,16 +7,6 @@
  */
 
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Images".
- */
-export type Images =
-  | {
-      url?: string | null;
-      id?: string | null;
-    }[]
-  | null;
-/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -342,8 +332,8 @@ export interface Organisation {
   owner?: Party;
   place?: (string | null) | Place;
   workspaces?: (string | Workspace)[] | null;
-  mainImage?: Image;
-  images?: Images;
+  mainImage?: (string | null) | Media;
+  images?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -518,13 +508,6 @@ export interface KnowledgeBase {
   area?: (string | null) | Place;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image".
- */
-export interface Image {
-  url?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1245,8 +1228,8 @@ export interface OrganisationsSelect<T extends boolean = true> {
   owner?: T | PartySelect<T>;
   place?: T;
   workspaces?: T;
-  mainImage?: T | ImageSelect<T>;
-  images?: T | ImagesSelect<T>;
+  mainImage?: T;
+  images?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1258,21 +1241,6 @@ export interface PartySelect<T extends boolean = true> {
   organisation?: T;
   partnership?: T;
   person?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Image_select".
- */
-export interface ImageSelect<T extends boolean = true> {
-  url?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Images_select".
- */
-export interface ImagesSelect<T extends boolean = true> {
-  url?: T;
-  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

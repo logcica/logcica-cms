@@ -17,6 +17,6 @@ pnpm run start
 
 ## Deploying
 
-Create a Vercel account
-Deploy from your github repo
-Setup environment variables in deploy wizard
+* Create a Vercel account
+* Deploy from your github repo
+* Setup environment variables in deploy wizard

@@ -1,6 +1,5 @@
 import { default as default_8ca9859a33eeda1943f1bb04b14f11a8 } from 'src/fields/BCELinkCell'
 import { default as default_411759cf80c17b1f8250706f97d57424 } from 'src/fields/CustomPartyCell'
-import { default as default_1ebf2857ca0f841099bb26df96e40e2a } from 'src/fields/CustomImageCell'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -18,7 +17,6 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 export const importMap = {
   "src/fields/BCELinkCell#default": default_8ca9859a33eeda1943f1bb04b14f11a8,
   "src/fields/CustomPartyCell#default": default_411759cf80c17b1f8250706f97d57424,
-  "src/fields/CustomImageCell#default": default_1ebf2857ca0f841099bb26df96e40e2a,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,

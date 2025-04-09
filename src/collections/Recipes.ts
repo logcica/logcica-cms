@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import ObjectID from 'bson-objectid'
 
 import descriptionField from '../fields/descriptionField'
 import partyField from '../fields/partyField'
@@ -57,7 +58,7 @@ const Recipes: CollectionConfig = {
       hasMany: true,
       filterOptions: () => {
         return {
-          classification: { equals: '668267f39f105cb961f55831' },
+          classification: { equals: new ObjectID('668267f39f105cb961f55831').toHexString() },
         }
       },
     },
@@ -84,7 +85,7 @@ const Recipes: CollectionConfig = {
           relationTo: 'categories',
           filterOptions: () => {
             return {
-              classification: { equals: '6682a6309f105cb961f55862' },
+              classification: { equals: new ObjectID('6682a6309f105cb961f55862').toHexString() },
             }
           },
         },
@@ -100,7 +101,7 @@ const Recipes: CollectionConfig = {
           relationTo: 'categories',
           filterOptions: () => {
             return {
-              classification: { equals: '66828eed9f105cb961f55844' },
+              classification: { equals: new ObjectID('66828eed9f105cb961f55844').toHexString() },
             }
           },
         },
@@ -111,7 +112,7 @@ const Recipes: CollectionConfig = {
           relationTo: 'categories',
           filterOptions: () => {
             return {
-              classification: { equals: '668279309f105cb961f5583c' },
+              classification: { equals: new ObjectID('668279309f105cb961f5583c').toHexString() },
             }
           },
         },
